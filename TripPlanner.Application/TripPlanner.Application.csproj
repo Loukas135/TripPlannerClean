@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Cars\" />
+    <Folder Include="Trips\" />
+    <Folder Include="Rooms\" />
     <Folder Include="Services\Validators\" />
   </ItemGroup>
 

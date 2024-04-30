@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
+using TripPlanner.Infrastructure.Repositories;
 using TripPlanner.Infrastructure.Seeders.CarCategories;
 using TripPlanner.Infrastructure.Seeders.Governorates;
 using TripPlanner.Infrastructure.Seeders.RoomCategories;
@@ -19,6 +21,8 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<IServiceTypeSeeder, ServiceTypeSeeder>();
 			services.AddScoped<IRoomCategorySeeder, RoomCategorySeeder>();
 			services.AddScoped<ICarCategorySeeder, CarCategorySeeder>();
+
+			services.AddScoped<IServiceRepository, ServiceRepository>();
 		}
 	}
 }
