@@ -4,10 +4,10 @@ namespace TripPlanner.Domain.Repositories
 {
 	public interface IServiceRepository
 	{
-		public Task<int> Add();
+		public Task<int> Add(Service entity);
 		public Task<IEnumerable<Service>> Get();
-		public Task<Service> GetById(int id);
-		public Task<bool> Delete(int id);
-		public Task<bool> SaveChanges();
+		public Task<Service?> GetById(int id);
+		public Task Delete(Service entity);
+		public Task SaveChanges();
 	}
 }

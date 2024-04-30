@@ -12,7 +12,7 @@ using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 
 namespace TripPlanner.Infrastructure.Persistence
 {
-	internal class TripPlannerDbContext(DbContextOptions<TripPlannerDbContext> options) : DbContext(options)
+	public class TripPlannerDbContext(DbContextOptions<TripPlannerDbContext> options) : DbContext(options)
 	{
 		internal DbSet<Governorate> Governorates { get; set; }
 		internal DbSet<ServiceType> ServiceTypes { get; set; }

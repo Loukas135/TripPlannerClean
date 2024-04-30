@@ -1,38 +1,46 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Repositories;
+using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class ServiceRepository : IServiceRepository
+	public class ServiceRepository(TripPlannerDbContext dbContext) : IServiceRepository
 	{
-		public Task<int> Add()
+		public async Task<int> Add(Service entity)
 		{
-			throw new NotImplementedException();
+			dbContext.Services.Add(entity);
+			await dbContext.SaveChangesAsync();
+			return entity.Id;
 		}
 
-		public Task<bool> Delete(int id)
+		public async Task Delete(Service entity)
 		{
-			throw new NotImplementedException();
+			dbContext.Services.Remove(entity);
+			await dbContext.SaveChangesAsync();
 		}
 
-		public Task<IEnumerable<Service>> Get()
+		public async Task<IEnumerable<Service>> Get()
 		{
-			throw new NotImplementedException();
+			var services = await dbContext.Services.ToListAsync();
+			return services;
 		}
 
-		public Task<Service> GetById(int id)
+		public async Task<Service?> GetById(int id)
 		{
-			throw new NotImplementedException();
+			var service = await dbContext.Services
+			.Include(s => s.Rooms == null ? null : s.Rooms)
+			.Include(s => s.Trips == null ? null : s.Trips)
+			.Include(s => s.Cars == null ? null : s.Cars)
+			.FirstOrDefaultAsync(x => x.Id == id);
+			return service;
 		}
 
-		public Task<bool> SaveChanges()
-		{
-			throw new NotImplementedException();
-		}
+		public async Task SaveChanges() => await dbContext.SaveChangesAsync();
 	}
 }
