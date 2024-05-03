@@ -2,50 +2,46 @@
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Services.Commands.CreateService;
 using TripPlanner.Application.Services.Commands.DeleteService;
+using TripPlanner.Application.Services.Dtos;
 using TripPlanner.Application.Services.Queries.GetAllServices;
 using TripPlanner.Application.Services.Queries.GetServiceById;
 
 namespace TripPlanner.API.Controllers
 {
 	[ApiController]
-	[Route("api/{controller}")]
+	[Route("api/governorates/{govId}/services")]
 	public class ServicesController(IMediator mediator) : ControllerBase
 	{
 		[HttpPost]
-		public async Task<IActionResult> AddService([FromBody] CreateServiceCommand command)
+		[Route("servicetype/{stId}")]
+		public async Task<IActionResult> AddService(int govId, int stId, [FromBody] CreateServiceCommand command)
 		{
-			int id = await mediator.Send(command);
-			return Ok(id);
+			command.GovernorateId = govId;
+			command.ServiceTypeId = stId;
+			int serId = await mediator.Send(command);
+			return CreatedAtAction(nameof(GetServiceById), new { govId, serId }, null);
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetAllServices()
+		public async Task<ActionResult<IEnumerable<ServiceDto>>> GetAllServicesFromGovernorate(int govId)
 		{
-			var services = await mediator.Send(new GetAllServicesQuery());
+			var services = await mediator.Send(new GetAllServicesQuery(govId));
 			return Ok(services);
 		}
 
 		[HttpDelete]
-		[Route("{id}")]
-		public async Task<IActionResult> DeleteService([FromRoute] int id)
+		[Route("{serId}")]
+		public async Task<IActionResult> DeleteService(int govId, int serId)
 		{
-			bool isDeleted = await mediator.Send(new DeleteServiceCommand(id));
-			if(isDeleted)
-			{
-				return NoContent();
-			}
-			return NotFound();
+			await mediator.Send(new DeleteServiceCommand(govId, serId));
+			return NoContent();
 		}
 
 		[HttpGet]
-		[Route("{id}")]
-		public async Task<IActionResult> GetServiceById([FromRoute] int id)
+		[Route("{serId}")]
+		public async Task<ActionResult<ServiceDto>> GetServiceById(int govId, int serId)
 		{
-			var service = await mediator.Send(new GetServiceByIdQuery(id));
-			if(service == null)
-			{
-				return NotFound();
-			}
+			var service = await mediator.Send(new GetServiceByIdQuery(govId, serId));
 			return Ok(service);
 		}
 	}

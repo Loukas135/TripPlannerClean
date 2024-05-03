@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Application.Cars.Dtos;
 
-namespace TripPlanner.Application.Services.Commands.DeleteService
+namespace TripPlanner.Application.Cars.Queries.GetAllCars
 {
-	public class DeleteServiceCommand(int govId, int serId) : IRequest
+	public class GetAllCarsQuery(int serId) : IRequest<IEnumerable<CarDto>>
 	{
-		public int GovernorateId { get; } = govId;
 		public int ServiceId { get; } = serId;
 	}
 }

@@ -1,3 +1,4 @@
+using TripPlanner.API.Middlewares;
 using TripPlanner.Application.Extensions;
 using TripPlanner.Infrastructure.Extensions;
 using TripPlanner.Infrastructure.Seeders.CarCategories;
@@ -14,8 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ExceptionHandlerMiddleware>();
+
 builder.Services.AddApplicaiton();
 builder.Services.AddInfrastructure(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -34,6 +38,8 @@ var roomSeeder = scope.ServiceProvider.GetRequiredService<IRoomCategorySeeder>()
 await roomSeeder.Seed();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();

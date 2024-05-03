@@ -8,8 +8,9 @@ using TripPlanner.Application.Services.Dtos;
 
 namespace TripPlanner.Application.Services.Queries.GetServiceById
 {
-	public class GetServiceByIdQuery(int id) : IRequest<ServiceDto?>
+	public class GetServiceByIdQuery(int govId, int serId) : IRequest<ServiceDto?>
 	{
-		public int Id { get; } = id;
+		public int GovernorateId { get; } = govId;
+		public int ServiceId { get; } = serId;
 	}
 }

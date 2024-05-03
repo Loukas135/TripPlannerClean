@@ -23,6 +23,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<ICarCategorySeeder, CarCategorySeeder>();
 
 			services.AddScoped<IServiceRepository, ServiceRepository>();
+			services.AddScoped<IGovernoratesRepository, GovernoratesRepository>();
 		}
 	}
 }

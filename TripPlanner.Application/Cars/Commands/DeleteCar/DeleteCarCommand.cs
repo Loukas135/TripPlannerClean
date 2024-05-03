@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TripPlanner.Application.Services.Commands.DeleteService
+namespace TripPlanner.Application.Cars.Commands.DeleteCar
 {
-	public class DeleteServiceCommand(int govId, int serId) : IRequest
+	public class DeleteCarCommand(int serId, int carId) : IRequest
 	{
-		public int GovernorateId { get; } = govId;
 		public int ServiceId { get; } = serId;
+		public int CarId { get; } = carId;
 	}
 }

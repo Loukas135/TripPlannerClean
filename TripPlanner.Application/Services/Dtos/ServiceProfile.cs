@@ -21,6 +21,5 @@ namespace TripPlanner.Application.Services.Dtos
 
 			CreateMap<CreateServiceCommand, Service>();
 		}
-
 	}
 }

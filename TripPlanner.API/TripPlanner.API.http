@@ -1,3 +1,28 @@
-@TripPlanner.API_HostAddress = http://localhost:5065
+@TripPlanner.API_HostAddress = https://localhost:7219
 
 
+
+POST {{TripPlanner.API_HostAddress}}/api/governorates/1/services
+Content-Type: application/json
+
+{
+  "name": "Sheraton",
+  "address": "Damascus-Umawyeen Square",
+  "description": "One of the oldest, classiest hotels in damascus with very respectful service",
+  "contactNumber": "+9634445555",
+  "contactEmail": "sheraton@gmail.com"
+}
+
+###
+
+GET {{TripPlanner.API_HostAddress}}/api/governorates/0/services
+
+###
+
+DELETE {{TripPlanner.API_HostAddress}}/api/governorates/0/services/0
+
+###
+
+GET {{TripPlanner.API_HostAddress}}/api/governorates/0/services/0
+
+###

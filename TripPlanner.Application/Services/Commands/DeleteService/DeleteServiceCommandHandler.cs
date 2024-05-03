@@ -6,23 +6,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Domain.Entities;
+using TripPlanner.Domain.Entities.Service_Entities;
+using TripPlanner.Domain.Exceptions;
 using TripPlanner.Domain.Repositories;
 
 namespace TripPlanner.Application.Services.Commands.DeleteService
 {
 	public class DeleteServiceCommandHandler(ILogger<DeleteServiceCommandHandler> logger, 
-		IServiceRepository serviceRepository) : IRequestHandler<DeleteServiceCommand, bool>
+		IServiceRepository serviceRepository,
+		IGovernoratesRepository governoratesRepository) : IRequestHandler<DeleteServiceCommand>
 	{
-		public async Task<bool> Handle(DeleteServiceCommand request, CancellationToken cancellationToken)
+		public async Task Handle(DeleteServiceCommand request, CancellationToken cancellationToken)
 		{
-			logger.LogInformation($"Deleting Service with id: {request.Id}");
-			var service = await serviceRepository.GetById(request.Id);
+			logger.LogInformation($"Deleting Service with id: {request.ServiceId} from governorate id: {request.GovernorateId}");
+			var governorate = await governoratesRepository.GetById(request.GovernorateId);
+			if (governorate == null)
+				throw new NotFoundException(nameof(Governorate), request.GovernorateId.ToString());
+
+			var service = governorate.Services.FirstOrDefault(g => g.Id == request.ServiceId);
 			if (service == null)
-			{
-				return false;
-			}
+				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
+			
 			await serviceRepository.Delete(service);
-			return true;
 		}
 	}
 }
