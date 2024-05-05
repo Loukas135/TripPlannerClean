@@ -20,11 +20,7 @@
   <ItemGroup>
     <Folder Include="Reservations\Commands\" />
     <Folder Include="Reservations\Queries\" />
-    <Folder Include="Rooms\Commands\CreateRoom\" />
-    <Folder Include="Rooms\Commands\DeleteRoom\" />
     <Folder Include="Rooms\Commands\UpdateRoom\" />
-    <Folder Include="Rooms\Queries\GetAllRooms\" />
-    <Folder Include="Rooms\Queries\GetRoomById\" />
     <Folder Include="Services\Validators\" />
     <Folder Include="Trips\Commands\CreateTrip\" />
     <Folder Include="Trips\Commands\DeleteTrip\" />

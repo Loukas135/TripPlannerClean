@@ -24,6 +24,8 @@ namespace TripPlanner.Infrastructure.Extensions
 
 			services.AddScoped<IServiceRepository, ServiceRepository>();
 			services.AddScoped<IGovernoratesRepository, GovernoratesRepository>();
+			services.AddScoped<IRoomRepository, RoomRepository>();
+			services.AddScoped<ICarRepository, CarRepository>();
 		}
 	}
 }

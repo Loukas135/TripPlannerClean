@@ -14,8 +14,5 @@ namespace TripPlanner.Application.Cars.Dtos
 
 			CreateMap<CreateCarCommand, Car>();
 		}
-
-        
-		
 	}
 }

@@ -28,7 +28,7 @@ namespace TripPlanner.Application.Cars.Commands.DeleteCar
 			}
 
 			var car = service.Cars?.FirstOrDefault(c => c.Id == request.CarId);
-			await carRepository.Delete(car);
+			await carRepository.Delete(car!);
 		}
 	}
 }

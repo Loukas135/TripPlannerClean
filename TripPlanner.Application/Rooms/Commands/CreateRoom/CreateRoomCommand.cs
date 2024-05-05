@@ -1,20 +1,20 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TripPlanner.Domain.Entities;
 
-namespace TripPlanner.Application.Rooms.Dtos
+namespace TripPlanner.Application.Rooms.Commands.CreateRoom
 {
-	public class RoomDto
+	public class CreateRoomCommand() : IRequest<int>
 	{
-		public int Id { get; set; }
 		public string Description { get; set; } = default!;
 		public int NumberOfPeople { get; set; }
 		public int Quantity { get; set; }
 		public float PricePerNight { get; set; }
 
-		public List<Reservation>? Reservations { get; set; }
+		public int RoomCategoryId { get; set; }
+		public int ServiceId { get; set; }
 	}
 }
