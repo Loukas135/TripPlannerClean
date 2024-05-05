@@ -18,8 +18,8 @@ namespace TripPlanner.Application.Cars.Commands.DeleteCar
 	{
 		public async Task Handle(DeleteCarCommand request, CancellationToken cancellationToken)
 		{
-			logger.LogInformation("Getting car with id: {CarId} from service with id: {ServiceId}",
-				request.CarId, request.CarId);
+			logger.LogInformation("Deleting car with id: {CarId} from service with id: {ServiceId}",
+				request.CarId, request.ServiceId);
 
 			var service = await serviceRepository.GetById(request.ServiceId);
 			if (service == null)

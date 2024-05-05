@@ -22,11 +22,7 @@
     <Folder Include="Reservations\Queries\" />
     <Folder Include="Rooms\Commands\UpdateRoom\" />
     <Folder Include="Services\Validators\" />
-    <Folder Include="Trips\Commands\CreateTrip\" />
-    <Folder Include="Trips\Commands\DeleteTrip\" />
     <Folder Include="Trips\Commands\UpdateTrip\" />
-    <Folder Include="Trips\Queries\GetAllTrips\" />
-    <Folder Include="Trips\Queries\GetTripById\" />
   </ItemGroup>
 
 </Project>

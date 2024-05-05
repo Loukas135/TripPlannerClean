@@ -20,7 +20,7 @@ namespace TripPlanner.Application.Cars.Queries.GetCarById
 		public async Task<CarDto> Handle(GetCarByIdQuery request, CancellationToken cancellationToken)
 		{
 			logger.LogInformation("Getting car with id: {CarId} from service with id: {ServiceId}",
-				request.CarId, request.CarId);
+				request.CarId, request.ServiceId);
 
 			var service = await serviceRepository.GetById(request.ServiceId);
 			if (service == null)
