@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 using TripPlanner.Infrastructure.Repositories;
@@ -17,6 +19,10 @@ namespace TripPlanner.Infrastructure.Extensions
 			var connectionString = configuration.GetConnectionString("TripPlannerCleanDb");
 			services.AddDbContext<TripPlannerDbContext>(options => options.UseSqlServer(connectionString));
 
+			services.AddIdentityCore<User>()
+			.AddRoles<IdentityRole>()
+			.AddEntityFrameworkStores<TripPlannerDbContext>();
+
 			services.AddScoped<IGovernorateSeeder, GovernorateSeeder>();
 			services.AddScoped<IServiceTypeSeeder, ServiceTypeSeeder>();
 			services.AddScoped<IRoomCategorySeeder, RoomCategorySeeder>();
@@ -27,6 +33,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<IRoomRepository, RoomRepository>();
 			services.AddScoped<ICarRepository, CarRepository>();
 			services.AddScoped<ITripRepository, TripRepository>();
+			services.AddScoped<ITokenRepository, TokenRepository>();
 		}
 	}
 }

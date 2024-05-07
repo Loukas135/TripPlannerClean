@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Entities.Service_Entities.Car_Rental;
 using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 
+
 namespace TripPlanner.Infrastructure.Persistence
 {
-	public class TripPlannerDbContext(DbContextOptions<TripPlannerDbContext> options) : DbContext(options)
+	public class TripPlannerDbContext(DbContextOptions<TripPlannerDbContext> options)
+		: IdentityDbContext<User>(options)
 	{
 		internal DbSet<Governorate> Governorates { get; set; }
 		internal DbSet<ServiceType> ServiceTypes { get; set; }
