@@ -5,6 +5,7 @@ using TripPlanner.Domain.Entities;
 using TripPlanner.Infrastructure.Extensions;
 using TripPlanner.Infrastructure.Seeders.CarCategories;
 using TripPlanner.Infrastructure.Seeders.Governorates;
+using TripPlanner.Infrastructure.Seeders.RolesSeeder;
 using TripPlanner.Infrastructure.Seeders.RoomCategories;
 using TripPlanner.Infrastructure.Seeders.ServiceTypeSeeder;
 
@@ -32,7 +33,8 @@ await carSeeder.Seed();
 
 var roomSeeder = scope.ServiceProvider.GetRequiredService<IRoomCategorySeeder>();
 await roomSeeder.Seed();
-
+var roleSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
+await roleSeeder.Seed();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
