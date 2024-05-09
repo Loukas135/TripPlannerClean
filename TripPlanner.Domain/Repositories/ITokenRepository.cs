@@ -11,9 +11,9 @@ namespace TripPlanner.Domain.Repositories
 {
 	public interface ITokenRepository
 	{
-		public Task<AuthResponse?> GenerateToken(string UserIdentifier);
+		public Task<string> GenerateToken(string UserIdentifier);
 		public Task<string> CreateRefreshToken();
-		public Task<AuthResponse?> VerifyRefreshToken(AuthResponse request);
+		public Task<AuthResponse> VerifyRefreshToken(AuthResponse request);
 
 
 	}

@@ -11,14 +11,15 @@ namespace TripPlanner.Application.Users.Commands.Register
 {
     public class RegisterCommand :IRequest<IEnumerable <IdentityError>>
     {
-        public string FirstName { get; set; } = default!;
-
-        public string LastName { get; set; } = default!;
-
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
         [EmailAddress]
-        public string Email { get; set; } = default!;
-
+        public string Email { get; set; }
+        [Required]
         [StringLength(16, ErrorMessage = "Your Password is limited from 6 to 16 characters.", MinimumLength = 6)]
-        public string Password { get; set; } = default!;
+        public string Password { get; set; }
     }
 }

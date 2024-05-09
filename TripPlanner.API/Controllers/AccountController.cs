@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Users.Commands.LoginUser;
 using TripPlanner.Application.Users.Commands.Register;
@@ -18,23 +17,17 @@ namespace TripPlanner.API.Controllers
         {
             var record = await mediator.Send(request);
             return Ok(record);
-        }
 
+        }
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginUserCommand request)
+        public async Task<IActionResult>Login(LoginUserCommand request)
         {
-            var result = await mediator.Send(request);
-            if(result == null)
-            {
-                return NotFound();
-            }
+            var result= await mediator.Send(request);
             return Ok(result);
         }
-
         [HttpPost]
         [Route("RefreshToken")]
-        [Authorize]
         public async Task<ActionResult> RefreshToken([FromBody] RefreshTokenRequestCommand request)
         {
             var response = await mediator.Send(request);
