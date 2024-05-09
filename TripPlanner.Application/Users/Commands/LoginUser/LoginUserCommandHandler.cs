@@ -15,9 +15,9 @@ namespace TripPlanner.Application.Users.Commands.LoginUser
 {
 	public class LoginUserCommandHandler(ILogger<LoginUserCommandHandler> logger,
 		ITokenRepository tokenRepository,
-		UserManager<User> userManager) : IRequestHandler<LoginUserCommand, AuthResponse>
+		UserManager<User> userManager) : IRequestHandler<LoginUserCommand, AuthResponse?>
 	{
-		public async Task<AuthResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+		public async Task<AuthResponse?> Handle(LoginUserCommand request, CancellationToken cancellationToken)
 		{
 			logger.LogInformation("looking for user with email: {Email}", request.Email);
 
@@ -26,18 +26,14 @@ namespace TripPlanner.Application.Users.Commands.LoginUser
 			{
 				throw new NotFoundException(nameof(User), request.Email);
 			}
-			bool isValidCredentials = await userManager.CheckPasswordAsync(user, request.Password);
 
+			bool isValidCredentials = await userManager.CheckPasswordAsync(user, request.Password);
 			if (isValidCredentials)
 			{
 				var token = await tokenRepository.GenerateToken(user.Id);
-				return new AuthResponse
-				{
-					Username = request.Email,
-					Token = token.ToString(),
-                    RefreshToken = await tokenRepository.CreateRefreshToken()
-				};
+				return token;
 			}
+
 			return null;
 		}
 	}
