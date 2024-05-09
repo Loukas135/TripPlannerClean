@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using TripPlanner.API.Middlewares;
 using TripPlanner.Domain.Entities;
 
@@ -10,7 +12,25 @@ namespace TripPlanner.API.Extensions
 		{
 			builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
-			builder.Services.AddAuthentication();
+			builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+			{
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ClockSkew = TimeSpan.Zero,
+					ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+					ValidAudience = builder.Configuration["JwtSettings:Audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])),
+				};
+				}
+            );
 
 			builder.Services.AddControllers();
 			builder.Services.AddSwaggerGen(c =>

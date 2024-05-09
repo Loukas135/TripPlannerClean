@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Application.Users;
 using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.AuthEntity;
 using TripPlanner.Domain.Repositories;
@@ -32,31 +33,28 @@ namespace TripPlanner.Infrastructure.Repositories
                 return null;
             }
 
-			var roles = await userManager.GetRolesAsync(_user!);
-			var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
-			var key = Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]!);
+            var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]));
+            var credintials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
+            var roles = await userManager.GetRolesAsync(_user);
+            var role_claims = roles.Select(x => new Claim(ClaimTypes.Role, x));
+            var userClaims = await userManager.GetClaimsAsync(_user);
+            var claims = new List<Claim> {
+                new Claim(JwtRegisteredClaimNames.Sub,_user.Id),
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email,_user.Email),
 
-			var tokenHandler = new JwtSecurityTokenHandler();
-
-			var tokenDescriptor = new SecurityTokenDescriptor
-			{
-				Subject = new ClaimsIdentity (new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, UserIdentifier),
-                    //new Claim(JwtRegisteredClaimNames.Sub, _user.Id),
-                    //new Claim(JwtRegisteredClaimNames.Email, _user.Email),
-					new Claim(ClaimTypes.Name, _user!.UserName!)
-				}.Union(roleClaims)),
-				Issuer = configuration["JwtSettings:Issuer"],
-				Audience = configuration["JwtSettings:Audience"],
-				Expires = DateTime.Now.AddMinutes(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
-				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-			};
-			var token = tokenHandler.CreateToken(tokenDescriptor);
-			var finalToken = tokenHandler.WriteToken(token);
+            }.Union(userClaims).Union(role_claims);
+            var token = new JwtSecurityToken(
+                issuer: configuration["JwtSettings:Issuer"],
+                audience: configuration["JwtSettings:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
+                signingCredentials: credintials
+                );
+            var finalToken= new JwtSecurityTokenHandler().WriteToken(token);
             return new AuthResponse
             {
-                Token = finalToken,
+                Token = finalToken.ToString(),
                 RefreshToken = await CreateRefreshToken(),
                 Expires = _expiresInMinutes,
                 Username = _user!.UserName,
@@ -71,15 +69,13 @@ namespace TripPlanner.Infrastructure.Repositories
             return NewToken;
         }
 
-        public async Task<AuthResponse?> VerifyRefreshToken(AuthResponse request)
+        public async Task<AuthResponse?> VerifyRefreshToken(RefreshTokenRequest request)
         {
+             /*var jwtSecurityHandler = new JwtSecurityTokenHandler();
+             var tokenContent = jwtSecurityHandler.ReadJwtToken(request.Token);
 
-            var jwtSecurityHandler = new JwtSecurityTokenHandler();
-            var tokenContent = jwtSecurityHandler.ReadJwtToken(request.Token);
-
-            var username = tokenContent.Claims.ToList().FirstOrDefault(q => q.Type == JwtRegisteredClaimNames.Sub)?.Value;
-
-            _user = await userManager.FindByIdAsync(username!);
+             var username = tokenContent.Claims.ToList().FirstOrDefault(q => q.Type == JwtRegisteredClaimNames.Sub)?.Value;*/
+            _user = await userManager.FindByIdAsync(request.user_id);
             if (_user is null)
             {
                 return null;

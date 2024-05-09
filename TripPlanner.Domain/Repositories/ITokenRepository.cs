@@ -13,7 +13,7 @@ namespace TripPlanner.Domain.Repositories
 	{
 		public Task<AuthResponse?> GenerateToken(string UserIdentifier);
 		public Task<string> CreateRefreshToken();
-		public Task<AuthResponse?> VerifyRefreshToken(AuthResponse request);
+		public Task<AuthResponse?> VerifyRefreshToken(RefreshTokenRequest request);
 
 
 	}

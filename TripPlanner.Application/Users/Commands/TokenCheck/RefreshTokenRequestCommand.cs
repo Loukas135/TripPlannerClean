@@ -10,8 +10,7 @@ namespace TripPlanner.Application.Users.Commands.TokenCheck
 {
     public class RefreshTokenRequestCommand : IRequest<AuthResponse>
     {
-        public string? Token { get; set; }
-        public string? Username { get; set; }
+        
         public string? RefreshToken { get; set; }
     }
 }

@@ -9,14 +9,14 @@ using TripPlanner.Domain.Repositories;
 
 namespace TripPlanner.Application.Users.Commands.TokenCheck
 {
-    internal class RefreshTokenRequestCommandHandler(ITokenRepository tokenRepository) : IRequestHandler<RefreshTokenRequestCommand, AuthResponse>
+    internal class RefreshTokenRequestCommandHandler(ITokenRepository tokenRepository,IUserContext userContext) : IRequestHandler<RefreshTokenRequestCommand, AuthResponse>
     {
         public async Task<AuthResponse> Handle(RefreshTokenRequestCommand request, CancellationToken cancellationToken)
         {
-            var req = new AuthResponse
+            var user = userContext.GetCurrentUser().Id.ToString();
+            var req = new RefreshTokenRequest
             {
-                Token = request.Token,
-                Username = request.Username,
+                user_id = user,
                 RefreshToken = request.RefreshToken
             };
             var response = await tokenRepository.VerifyRefreshToken(req);
