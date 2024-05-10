@@ -20,7 +20,7 @@ namespace TripPlanner.Infrastructure.Persistence
 		internal DbSet<CarCategory> CarCategories { get; set; }
 		internal DbSet<Car> Cars { get; set; }
 		internal DbSet<Trip> Trips { get; set; }
-
+		internal DbSet<Ratings>Ratings { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -66,12 +66,12 @@ namespace TripPlanner.Infrastructure.Persistence
 			modelBuilder.Entity<Car>()
 				.HasMany(c => c.Reservations)
 				.WithOne()
-				.HasForeignKey(res => res.RoomId);
+				.HasForeignKey(res => res.CarId);
 
 			modelBuilder.Entity<Trip>()
 				.HasMany(t => t.Reservations)
 				.WithOne()
-				.HasForeignKey(res => res.RoomId);
+				.HasForeignKey(res => res.TripId);
 
 			// Each RoomCategory or CarCategory has many Rooms or Cars
 			modelBuilder.Entity<RoomCategory>()
@@ -83,6 +83,18 @@ namespace TripPlanner.Infrastructure.Persistence
 				.HasMany(cc => cc.Cars)
 				.WithOne()
 				.HasForeignKey(c => c.CarCategoryId);
-		}
+			// Each User Can rate more than One Service and Each Service Has more Than one rating
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.Ratings)
+				.WithOne()
+				.HasForeignKey(r => r.UserId);
+
+            modelBuilder.Entity<Service>()
+                .HasMany(s => s.Ratings)
+                .WithOne()
+                .HasForeignKey(r => r.ServiceId);
+
+
+        }
 	}
 }

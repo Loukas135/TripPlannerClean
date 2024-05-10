@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripPlanner.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TripPlanner.Infrastructure.Persistence;
 namespace TripPlanner.Infrastructure.Migrations
 {
     [DbContext(typeof(TripPlannerDbContext))]
-    partial class TripPlannerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240509234407_Rates_REmoved")]
+    partial class Rates_REmoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +156,36 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("RatingsService", b =>
+                {
+                    b.Property<int>("RatingsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RatingsId", "ServicesId");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("RatingsService");
+                });
+
+            modelBuilder.Entity("RatingsUser", b =>
+                {
+                    b.Property<int>("RatingsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RatingsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RatingsUser");
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Governorate", b =>
@@ -341,13 +374,9 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Ratings");
                 });
@@ -381,9 +410,6 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Rating")
-                        .HasColumnType("int");
 
                     b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
@@ -573,6 +599,36 @@ namespace TripPlanner.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RatingsService", b =>
+                {
+                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Ratings", null)
+                        .WithMany()
+                        .HasForeignKey("RatingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Service", null)
+                        .WithMany()
+                        .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RatingsUser", b =>
+                {
+                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Ratings", null)
+                        .WithMany()
+                        .HasForeignKey("RatingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TripPlanner.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TripPlanner.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Car_Rental.Car", null)
@@ -620,21 +676,6 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Service", null)
                         .WithMany("Rooms")
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Ratings", b =>
-                {
-                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Service", null)
-                        .WithMany("Ratings")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TripPlanner.Domain.Entities.User", null)
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -692,8 +733,6 @@ namespace TripPlanner.Infrastructure.Migrations
                 {
                     b.Navigation("Cars");
 
-                    b.Navigation("Ratings");
-
                     b.Navigation("Reservations");
 
                     b.Navigation("Rooms");
@@ -709,11 +748,6 @@ namespace TripPlanner.Infrastructure.Migrations
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Tourism_Office.Trip", b =>
                 {
                     b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("TripPlanner.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }
