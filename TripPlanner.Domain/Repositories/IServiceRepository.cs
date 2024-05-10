@@ -7,7 +7,10 @@ namespace TripPlanner.Domain.Repositories
 		public Task<int> Add(Service entity);
 		public Task<IEnumerable<Service>> Get();
 		public Task<Service?> GetById(int id);
-		public Task Delete(Service entity);
+		public Task<Service?> GetByIdWithRating(int id);
+		public Task<float?> CalculateOverallRating(int id);
+
+        public Task Delete(Service entity);
 		public Task SaveChanges();
 	}
 }

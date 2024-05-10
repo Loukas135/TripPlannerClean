@@ -24,7 +24,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 
 		public int ServiceTypeId { get; set; }
 
-		public int? Rating { get; set; }
+		public int? OverallRating { get; set; }
 		public List<Room>? Rooms { get; set; }
 		public List<Car>? Cars { get; set; }
 		public List<Trip>? Trips { get; set; }

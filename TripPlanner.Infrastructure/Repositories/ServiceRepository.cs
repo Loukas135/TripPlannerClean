@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Domain.Entities.Service_Entities;
+using TripPlanner.Domain.Exceptions;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 
@@ -40,7 +41,32 @@ namespace TripPlanner.Infrastructure.Repositories
 			.FirstOrDefaultAsync(x => x.Id == id);
 			return service;
 		}
-
-		public async Task SaveChanges() => await dbContext.SaveChangesAsync();
+        public async Task<Service?> GetByIdWithRating(int id)
+        {
+            var service = await dbContext.Services
+            .Include(s => s.Ratings == null ? null : s.Ratings)
+            .FirstOrDefaultAsync(x => x.Id == id);
+            return service;
+        }
+		public async Task<float?>CalculateOverallRating(int id)
+		{
+			var service = await GetByIdWithRating(id);
+			if (service == null)
+			{
+				return null;
+			}
+			List<Ratings> ratings = service.Ratings.ToList();
+			var overallRating = 0;
+			foreach(var rating in ratings)
+			{
+				overallRating += (int)rating.Rating;
+			}
+			overallRating /= ratings.Count;
+			service.OverallRating = overallRating;
+			dbContext.Services.Update(service);
+			await dbContext.SaveChangesAsync();
+			return overallRating;
+		}
+        public async Task SaveChanges() => await dbContext.SaveChangesAsync();
 	}
 }
