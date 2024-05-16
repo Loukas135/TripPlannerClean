@@ -12,14 +12,14 @@ namespace TripPlanner.Infrastructure.Repositories
 {
     public class RatingRepository(TripPlannerDbContext dbContext,IServiceRepository serviceRepository) : IRatingRepository
     {
-        public async Task<int> AddRating(Ratings entity)
+        public async Task<int> AddRating(Rate entity)
         {
             await dbContext.Ratings.AddAsync(entity);
             await dbContext.SaveChangesAsync();
             return entity.Id;
         }
 
-        public async Task DeleteRating(Ratings entity)
+        public async Task DeleteRating(Rate entity)
         {
             var id = entity.ServiceId;
             dbContext.Ratings.Remove(entity);
@@ -27,14 +27,14 @@ namespace TripPlanner.Infrastructure.Repositories
             await serviceRepository.CalculateOverallRating(id);
         }
 
-        public async Task<IEnumerable<Ratings>> GetRatingsOfUser(string userId)
+        public async Task<IEnumerable<Rate>> GetRatingsOfUser(string userId)
         {
             var ratings = await dbContext.Ratings.Where(r => r.UserId == userId).ToListAsync();
             return ratings;
             
         }
 
-        public async Task UpdateRating(Ratings entity)
+        public async Task UpdateRating(Rate entity)
         {
             var id = entity.ServiceId;
             dbContext.Update(entity);

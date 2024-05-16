@@ -20,6 +20,7 @@ namespace TripPlanner.API.Controllers
 			command.ServiceTypeId = stId;
 			int serId = await mediator.Send(command);
 			return CreatedAtAction(nameof(GetServiceById), new { govId, serId }, null);
+			//I shouldn't forget to add rate to services table
 		}
 
 		[HttpGet]

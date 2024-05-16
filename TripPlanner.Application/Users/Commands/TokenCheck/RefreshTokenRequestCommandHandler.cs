@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.AuthEntity;
+using TripPlanner.Domain.Exceptions;
 using TripPlanner.Domain.Repositories;
 
 namespace TripPlanner.Application.Users.Commands.TokenCheck
@@ -14,6 +16,7 @@ namespace TripPlanner.Application.Users.Commands.TokenCheck
         public async Task<AuthResponse> Handle(RefreshTokenRequestCommand request, CancellationToken cancellationToken)
         {
             var user = userContext.GetCurrentUser().Id.ToString();
+
             var req = new RefreshTokenRequest
             {
                 user_id = user,

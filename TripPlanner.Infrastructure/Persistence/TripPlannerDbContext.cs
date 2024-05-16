@@ -20,7 +20,9 @@ namespace TripPlanner.Infrastructure.Persistence
 		internal DbSet<CarCategory> CarCategories { get; set; }
 		internal DbSet<Car> Cars { get; set; }
 		internal DbSet<Trip> Trips { get; set; }
-		internal DbSet<Ratings>Ratings { get; set; }
+		internal DbSet<Rate> Ratings { get; set; }
+		internal DbSet<Reservation> Reservations { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -83,6 +85,7 @@ namespace TripPlanner.Infrastructure.Persistence
 				.HasMany(cc => cc.Cars)
 				.WithOne()
 				.HasForeignKey(c => c.CarCategoryId);
+
 			// Each User Can rate more than One Service and Each Service Has more Than one rating
 			modelBuilder.Entity<User>()
 				.HasMany(u => u.Ratings)
@@ -94,7 +97,12 @@ namespace TripPlanner.Infrastructure.Persistence
                 .WithOne()
                 .HasForeignKey(r => r.ServiceId);
 
-
-        }
+			//Each Owner has one Service and each Service belongs to one Owner
+			modelBuilder.Entity<User>()
+				.HasOne(u => u.OwnedService)
+				.WithOne(s => s.Owner)
+				.HasForeignKey<Service>(s => s.OwnerId)
+				.OnDelete(DeleteBehavior.Restrict);
+		}
 	}
 }

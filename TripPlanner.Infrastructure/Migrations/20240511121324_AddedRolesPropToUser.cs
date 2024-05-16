@@ -5,24 +5,25 @@
 namespace TripPlanner.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangedACoulmnName : Migration
+    public partial class AddedRolesPropToUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Rating",
-                table: "Services",
-                newName: "OverallRating");
+            migrationBuilder.AddColumn<string>(
+                name: "Role",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "OverallRating",
-                table: "Services",
-                newName: "Rating");
+            migrationBuilder.DropColumn(
+                name: "Role",
+                table: "AspNetUsers");
         }
     }
 }

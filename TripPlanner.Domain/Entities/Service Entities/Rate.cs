@@ -3,14 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TripPlanner.Domain.Entities.Service_Entities
 {
-    public class Ratings
+    public class Rate
     {
         public int Id { get; set; }
-        [ForeignKey(nameof (ServiceId))]
         public int ServiceId { get; set; }
-        
-        [ForeignKey(nameof(UserId))]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = default!;
         
         [Range(0,5)]
         public int? Rating { get; set; }

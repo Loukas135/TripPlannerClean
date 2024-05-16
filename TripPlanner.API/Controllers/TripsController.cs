@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TripPlanner.Application.Reservations.Commands.Trips;
 using TripPlanner.Application.Trips.Commands.CreateTrip;
 using TripPlanner.Application.Trips.Commands.DeleteTrip;
 using TripPlanner.Application.Trips.Dtos;
@@ -41,6 +42,16 @@ namespace TripPlanner.API.Controllers
 		{
 			await mediator.Send(new DeleteTripCommand(serId, tripId));
 			return NoContent();
+		}
+
+		[HttpPost]
+		[Route("/reservations/{tripId}")]
+		public async Task<IActionResult> AddReservation(ReserveTripCommand command, [FromRoute]int tripId, int serId)
+		{
+			command.TripId = tripId;
+			command.ServiceId = serId;
+			int id = await mediator.Send(command);
+			return Ok(id);
 		}
 	}
 }

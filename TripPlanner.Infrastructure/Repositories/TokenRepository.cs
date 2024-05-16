@@ -97,11 +97,12 @@ namespace TripPlanner.Infrastructure.Repositories
             await userManager.UpdateSecurityStampAsync(_user);
             return null;
         }
+
         public async Task TokenDelete(User user)
         {
             _user = user;
             await userManager.RemoveAuthenticationTokenAsync(_user, _loginProvidor, _refreshToken);
             await userManager.UpdateSecurityStampAsync(_user);
         }
-    }
+	}
 }

@@ -33,6 +33,7 @@ await carSeeder.Seed();
 
 var roomSeeder = scope.ServiceProvider.GetRequiredService<IRoomCategorySeeder>();
 await roomSeeder.Seed();
+
 var roleSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
 await roleSeeder.Seed();
 // Configure the HTTP request pipeline.
@@ -47,9 +48,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
+
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

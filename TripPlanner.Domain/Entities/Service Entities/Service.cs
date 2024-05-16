@@ -24,11 +24,14 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 
 		public int ServiceTypeId { get; set; }
 
-		public int? OverallRating { get; set; }
+		//public int Rate { get; set; }
 		public List<Room>? Rooms { get; set; }
 		public List<Car>? Cars { get; set; }
 		public List<Trip>? Trips { get; set; }
 		public List<Reservation>? Reservations { get; set; }
-		public List<Ratings>? Ratings { get; set; } = [];
+		public List<Rate>? Ratings { get; set; } = [];
+
+		public User Owner { get; set; } = default!;
+		public string OwnerId { get; set; } = default!;
 	}
 }

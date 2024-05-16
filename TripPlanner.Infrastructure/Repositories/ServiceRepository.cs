@@ -55,16 +55,20 @@ namespace TripPlanner.Infrastructure.Repositories
 			{
 				return null;
 			}
-			List<Ratings> ratings = service.Ratings.ToList();
+
+			List<Rate> ratings = service.Ratings.ToList();
 			var overallRating = 0;
 			foreach(var rating in ratings)
 			{
-				overallRating += (int)rating.Rating;
+				overallRating += (int) rating.Rating!;
 			}
+
 			overallRating /= ratings.Count;
-			service.OverallRating = overallRating;
+			//service.Rate = overallRating;
+
 			dbContext.Services.Update(service);
 			await dbContext.SaveChangesAsync();
+
 			return overallRating;
 		}
         public async Task SaveChanges() => await dbContext.SaveChangesAsync();

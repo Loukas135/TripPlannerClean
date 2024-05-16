@@ -12,7 +12,9 @@ namespace TripPlanner.Domain.Entities
 	{
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
-		public int? Wallet { get; set; } = 0;
-		public List<Ratings> Ratings { get; set; } = [];
+		public int Wallet { get; set; } = 0;
+		public List<Rate> Ratings { get; set; } = [];
+
+		public Service? OwnedService { get; set; }
 	}
 }

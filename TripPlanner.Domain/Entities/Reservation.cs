@@ -12,8 +12,8 @@ namespace TripPlanner.Domain.Entities
 	{
 		public int Id { get; set; }
 		public int Cost { get; set; }
-		public DateTime From { get; set; }
-		public DateTime To { get; set; }
+		public DateOnly From { get; set; } = default!;
+		public DateOnly To { get; set; } = default!;
 
 		public int ServiceId { get; set; }
 
@@ -22,5 +22,8 @@ namespace TripPlanner.Domain.Entities
 		public int? TripId { get; set; }
 
 		public int? CarId { get; set; }
+
+		public string Payment { get; set; } = default!;
+		public string UserId { get; set; } = default!;
 	}
 }

@@ -9,9 +9,9 @@ namespace TripPlanner.Domain.Repositories
 {
     public interface IRatingRepository
     {
-        public Task<int> AddRating(Ratings entity);
-        public Task UpdateRating(Ratings entity);
-        public Task DeleteRating(Ratings entity);
-        public Task<IEnumerable<Ratings>>GetRatingsOfUser(string userId);
+        public Task<int> AddRating(Rate entity);
+        public Task UpdateRating(Rate entity);
+        public Task DeleteRating(Rate entity);
+        public Task<IEnumerable<Rate>>GetRatingsOfUser(string userId);
     }
 }

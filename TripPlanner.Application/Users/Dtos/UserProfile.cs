@@ -13,7 +13,7 @@ namespace TripPlanner.Application.Users.Dtos
     {
         public UserProfile()
         {
-            CreateMap<User, RegisterCommand>().ReverseMap();
+            CreateMap<User, RegisterServiceOwnerCommand>().ReverseMap();
         }
     }
 }

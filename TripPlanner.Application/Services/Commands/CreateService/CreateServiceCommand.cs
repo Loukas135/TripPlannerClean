@@ -16,5 +16,7 @@ namespace TripPlanner.Application.Services.Commands.CreateService
 		public string? ContactEmail { get; set; }
 		public int GovernorateId { get; set; }
 		public int ServiceTypeId { get; set; }
+		//public int Rate { get; set; }
+		public string OwnerId { get; set; } = default!;
 	}
 }

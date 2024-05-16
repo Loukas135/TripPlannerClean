@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace TripPlanner.Infrastructure.Repositories
 		{
 			dbContext.Trips.Remove(entity);
 			await dbContext.SaveChangesAsync();
+		}
+
+		public async Task<Trip?> GetById(int id)
+		{
+			var trip = await dbContext.Trips.FirstOrDefaultAsync(t => t.Id == id);
+			return trip;
 		}
 	}
 }

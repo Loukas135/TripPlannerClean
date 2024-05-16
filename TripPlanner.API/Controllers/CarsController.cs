@@ -5,6 +5,7 @@ using TripPlanner.Application.Cars.Commands.DeleteCar;
 using TripPlanner.Application.Cars.Dtos;
 using TripPlanner.Application.Cars.Queries.GetAllCars;
 using TripPlanner.Application.Cars.Queries.GetCarById;
+using TripPlanner.Application.Reservations.Commands.Car;
 
 namespace TripPlanner.API.Controllers
 {
@@ -43,6 +44,16 @@ namespace TripPlanner.API.Controllers
 		{
 			await mediator.Send(new DeleteCarCommand(serId, carId));
 			return NoContent();
+		}
+
+		[HttpPost]
+		[Route("/reservations/{carId}")]
+		public async Task<IActionResult> AddReservation(int serId, int carId, ReserveCarCommand command)
+		{
+			command.ServiceId = serId;
+			command.CarId = carId;
+			int id = await mediator.Send(command);
+			return Ok(id);
 		}
 	}
 }

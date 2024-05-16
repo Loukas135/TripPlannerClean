@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Reservations\Queries\**" />
+    <Compile Remove="Services\Validators\**" />
+    <Compile Remove="Trips\Commands\UpdateTrip\**" />
+    <EmbeddedResource Remove="Reservations\Queries\**" />
+    <EmbeddedResource Remove="Services\Validators\**" />
+    <EmbeddedResource Remove="Trips\Commands\UpdateTrip\**" />
+    <None Remove="Reservations\Queries\**" />
+    <None Remove="Services\Validators\**" />
+    <None Remove="Trips\Commands\UpdateTrip\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
@@ -18,11 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Reservations\Commands\" />
-    <Folder Include="Reservations\Queries\" />
     <Folder Include="Rooms\Commands\UpdateRoom\" />
-    <Folder Include="Services\Validators\" />
-    <Folder Include="Trips\Commands\UpdateTrip\" />
   </ItemGroup>
 
 </Project>

@@ -12,16 +12,17 @@ using TripPlanner.Domain.Repositories;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-    public class AccountRepository(UserManager<User>userManager):IAccountRepository
+    public class AccountRepository(UserManager<User>userManager) : IAccountRepository
     {
-        public async Task<IEnumerable<IdentityError>> Register(User user,string password)
+        public async Task<string> Register(User owner, string password, string role)
         {
-            var res = await userManager.CreateAsync(user, password);
+            var res = await userManager.CreateAsync(owner, password);
             if (res.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "User");
+                await userManager.AddToRoleAsync(owner, role);
+                return owner.Id;
             }
-            return res.Errors;
+            return "Error when adding owner";
         }
     }
 }

@@ -10,14 +10,15 @@ namespace TripPlanner.API.Controllers
 {
     [ApiController]
     [Route ("/api/[controller]")]
-    public class AccountController(IMediator mediator) :ControllerBase
+    public class AccountController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register(RegisterCommand request)
+        [Route("RegisterServiceOwner")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> RegisterServiceOwner(RegisterServiceOwnerCommand request)
         {
-            var record = await mediator.Send(request);
-            return Ok(record);
+            var ownerId = await mediator.Send(request);
+            return Ok(ownerId);
         }
 
         [HttpPost]
@@ -46,3 +47,18 @@ namespace TripPlanner.API.Controllers
         }
     }
 }
+
+//b4723cb3-d420-41f1-b9df-1d9b0e9a5489
+
+/*
+ * {
+  "name": "sheraton",
+  "address": "damascus umawyeen",
+  "description": "very nice hotel",
+  "contactNumber": "+96395555888",
+  "contactEmail": "sheraton@hotmail.com",
+  "governorateId": 0,
+  "serviceTypeId": 0,
+  "ownerId": "b4723cb3-d420-41f1-b9df-1d9b0e9a5489"
+}
+*/

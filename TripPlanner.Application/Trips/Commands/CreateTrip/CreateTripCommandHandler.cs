@@ -29,6 +29,8 @@ namespace TripPlanner.Application.Trips.Commands.CreateTrip
 			}
 
 			var trip = mapper.Map<Trip>(request);
+			trip.From = DateOnly.Parse(request.From);
+			trip.To = DateOnly.Parse(request.To);
 			return await tripRepository.Add(trip);
 		}
 	}

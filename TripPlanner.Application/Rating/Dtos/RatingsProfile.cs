@@ -14,8 +14,8 @@ namespace TripPlanner.Application.Rating.Dtos
     {
         public RatingsProfile()
         {
-            CreateMap<AddRatingCommand, Ratings>().ReverseMap();
-            CreateMap<DeleteRatingCommand, Ratings>().ReverseMap();
+            CreateMap<AddRatingCommand, Rate>().ReverseMap();
+            CreateMap<DeleteRatingCommand, Rate>().ReverseMap();
         }
     }
 }

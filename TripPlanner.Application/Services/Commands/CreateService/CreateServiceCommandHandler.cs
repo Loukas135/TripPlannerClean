@@ -26,6 +26,8 @@ namespace TripPlanner.Application.Services.Commands.CreateService
 				throw new NotFoundException(nameof(Governorate), request.GovernorateId.ToString());
 
 			var service = mapper.Map<Service>(request);
+			service.OwnerId = request.OwnerId;
+			//service.Rate = request.Rate;
 			return await serviceRepository.Add(service);
 		}
 	}

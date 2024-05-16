@@ -12,8 +12,8 @@ using TripPlanner.Infrastructure.Persistence;
 namespace TripPlanner.Infrastructure.Migrations
 {
     [DbContext(typeof(TripPlannerDbContext))]
-    [Migration("20240508100448_Roles")]
-    partial class Roles
+    [Migration("20240511130008_Final")]
+    partial class Final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,9 +210,13 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CarId");
+
                     b.HasIndex("RoomId");
 
                     b.HasIndex("ServiceId");
+
+                    b.HasIndex("TripId");
 
                     b.ToTable("Reservation");
                 });
@@ -324,6 +328,33 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.ToTable("RoomCategories");
                 });
 
+            modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Rate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
+                });
+
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -353,6 +384,9 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OverallRating")
+                        .HasColumnType("int");
 
                     b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
@@ -436,6 +470,12 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -459,6 +499,10 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -468,6 +512,9 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<int?>("Wallet")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -537,13 +584,9 @@ namespace TripPlanner.Infrastructure.Migrations
                 {
                     b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Car_Rental.Car", null)
                         .WithMany("Reservations")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("CarId");
 
                     b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Hotel.Room", null)
-                        .WithMany("Reservations")
-                        .HasForeignKey("RoomId");
-
-                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Tourism_Office.Trip", null)
                         .WithMany("Reservations")
                         .HasForeignKey("RoomId");
 
@@ -552,6 +595,10 @@ namespace TripPlanner.Infrastructure.Migrations
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Tourism_Office.Trip", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("TripId");
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Car_Rental.Car", b =>
@@ -580,6 +627,21 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Service", null)
                         .WithMany("Rooms")
                         .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Rate", b =>
+                {
+                    b.HasOne("TripPlanner.Domain.Entities.Service_Entities.Service", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TripPlanner.Domain.Entities.User", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -637,6 +699,8 @@ namespace TripPlanner.Infrastructure.Migrations
                 {
                     b.Navigation("Cars");
 
+                    b.Navigation("Ratings");
+
                     b.Navigation("Reservations");
 
                     b.Navigation("Rooms");
@@ -652,6 +716,11 @@ namespace TripPlanner.Infrastructure.Migrations
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Tourism_Office.Trip", b =>
                 {
                     b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("TripPlanner.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }
