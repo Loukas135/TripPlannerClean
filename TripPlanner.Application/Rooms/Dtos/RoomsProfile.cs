@@ -13,9 +13,7 @@ namespace TripPlanner.Application.Rooms.Dtos
 	{
 		public RoomsProfile()
 		{
-			CreateMap<Room, RoomDto>()
-				.ForMember(d => d.Reservations,opt => opt
-					.MapFrom(src => src.Reservations));
+			CreateMap<Room, RoomDto>().ForMember(d => d.Reservations, opt => opt.MapFrom(src => src.Reservations));
 
 			CreateMap<CreateRoomCommand, Room>();
 		}

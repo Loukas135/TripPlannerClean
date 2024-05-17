@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Application.Cars.Dtos;
+using TripPlanner.Application.Rooms.Dtos;
+using TripPlanner.Application.Trips.Dtos;
 using TripPlanner.Domain.Entities.Service_Entities.Car_Rental;
 using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
@@ -18,8 +21,8 @@ namespace TripPlanner.Application.Services.Dtos
 		public string ContactNumber { get; set; } = default!;
 		public string? ContactEmail { get; set; }
 
-		public List<Room>? Rooms { get; set; }
-		public List<Car>? Cars { get; set; }
-		public List<Trip>? Trips { get; set; }
+		public List<RoomDto>? Rooms { get; set; }
+		public List<CarDto>? Cars { get; set; }
+		public List<TripDto>? Trips { get; set; }
 	}
 }

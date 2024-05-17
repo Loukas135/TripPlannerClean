@@ -16,7 +16,8 @@ namespace TripPlanner.Application.Rooms.Queries.GetRoomById
 {
 	public class GetRoomByIdQueryHandler(ILogger<GetRoomByIdQueryHandler> logger,
 		IServiceRepository serviceRepository,
-		IMapper mapper) : IRequestHandler<GetRoomByIdQuery, RoomDto>
+		IMapper mapper,
+		IRoomRepository roomRepository) : IRequestHandler<GetRoomByIdQuery, RoomDto>
 	{
 		public async Task<RoomDto> Handle(GetRoomByIdQuery request, CancellationToken cancellationToken)
 		{
@@ -28,7 +29,8 @@ namespace TripPlanner.Application.Rooms.Queries.GetRoomById
 			{
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			}
-			var room = service.Rooms?.FirstOrDefault(r => r.Id == request.RoomId);
+
+			var room = await roomRepository.GetById(request.RoomId);
 			if (room == null)
 			{
 				throw new NotFoundException(nameof(Room), request.RoomId.ToString());
