@@ -18,5 +18,8 @@ namespace TripPlanner.Application.Services.Commands.CreateService
 		public int ServiceTypeId { get; set; }
 		//public int Rate { get; set; }
 		public string OwnerId { get; set; } = default!;
-	}
+        public bool HasWiFi { get; set; } = false;
+        public bool HasCafe { get; set; } = false;
+        public bool HasRestaurant { get; set; } = false;
+    }
 }

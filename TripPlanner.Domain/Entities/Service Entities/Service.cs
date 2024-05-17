@@ -33,5 +33,8 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 
 		public User Owner { get; set; } = default!;
 		public string OwnerId { get; set; } = default!;
+		public bool HasWiFi { get; set; } = false;
+		public bool HasCafe {  get; set; } = false;
+		public bool HasRestaurant {  get; set; } = false;
 	}
 }
