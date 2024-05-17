@@ -20,7 +20,7 @@ namespace TripPlanner.API.Controllers
 			command.ServiceId = serId;
 			command.CarCategoryId = ccId;
 			int id = await mediator.Send(command);
-			return CreatedAtAction(nameof(GetCarByIdForService), new { serId, id }, null);
+			return CreatedAtAction(nameof(GetCarByIdForService), new { serId, carId=id }, null);
 		}
 
 		[HttpGet]
@@ -47,8 +47,8 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpPost]
-		[Route("/reservations/{carId}")]
-		public async Task<IActionResult> AddReservation(int serId, int carId, ReserveCarCommand command)
+		[Route("/carreservations/{carId}")]
+		public async Task<IActionResult> AddCarReservation(int serId, int carId, ReserveCarCommand command)
 		{
 			command.ServiceId = serId;
 			command.CarId = carId;

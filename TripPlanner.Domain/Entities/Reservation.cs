@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,10 @@ namespace TripPlanner.Domain.Entities
 	{
 		public int Id { get; set; }
 		public int Cost { get; set; }
-		public DateOnly From { get; set; } = default!;
-		public DateOnly To { get; set; } = default!;
+        [DataType(DataType.Date)]
+        public DateTime From { get; set; } = default!;
+        [DataType(DataType.Date)]
+        public DateTime To { get; set; } = default!;
 
 		public int ServiceId { get; set; }
 

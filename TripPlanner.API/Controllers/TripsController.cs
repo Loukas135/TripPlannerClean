@@ -18,7 +18,7 @@ namespace TripPlanner.API.Controllers
 		{
 			command.ServiceId = serId;
 			int id = await mediator.Send(command);
-			return CreatedAtAction(nameof(GetTripByIdFromService), new { serId, id }, null);
+			return CreatedAtAction(nameof(GetTripByIdFromService), new { serId, tripId=id }, null);
 		}
 
 		[HttpGet]
@@ -45,8 +45,8 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpPost]
-		[Route("/reservations/{tripId}")]
-		public async Task<IActionResult> AddReservation(ReserveTripCommand command, [FromRoute]int tripId, int serId)
+		[Route("/tripreservations/{tripId}")]
+		public async Task<IActionResult> AddTripReservation(ReserveTripCommand command, [FromRoute]int tripId, int serId)
 		{
 			command.TripId = tripId;
 			command.ServiceId = serId;

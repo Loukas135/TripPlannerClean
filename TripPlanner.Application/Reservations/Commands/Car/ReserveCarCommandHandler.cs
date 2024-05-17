@@ -34,13 +34,13 @@ namespace TripPlanner.Application.Reservations.Commands.Car
 			}
 
 			var reservation = mapper.Map<Reservation>(request);
-			reservation.CarId = request.CarId;
+			/*reservation.CarId = request.CarId;
 			reservation.UserId = userId;
 			reservation.ServiceId = request.ServiceId;
 			reservation.From = DateOnly.Parse(request.From);
 			reservation.To = DateOnly.Parse(request.To);
 			reservation.Cost = request.Months * (int) car.PricePerMonth;
-			reservation.Payment = request.Payment;
+			reservation.Payment = request.Payment;*/
 
 			if (request.Payment == "Electronic")
 			{

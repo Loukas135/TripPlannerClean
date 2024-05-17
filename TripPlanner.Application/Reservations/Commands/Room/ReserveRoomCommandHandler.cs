@@ -38,8 +38,8 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 			reservation.RoomId = room.Id;
 			reservation.ServiceId = request.ServiceId;
 			reservation.Cost = request.Nights * (int)room.PricePerNight;
-			reservation.From = DateOnly.Parse(request.From);
-			reservation.To = DateOnly.Parse(request.To);
+			reservation.From = request.From;
+			reservation.To = request.To;
 			reservation.Payment = request.Payment;
 
 			if (request.Payment == "Electronic")
