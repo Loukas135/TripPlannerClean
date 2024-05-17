@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Application.Reservations.Dtos;
 using TripPlanner.Domain.Entities;
 
 namespace TripPlanner.Application.Rooms.Dtos
@@ -15,6 +16,6 @@ namespace TripPlanner.Application.Rooms.Dtos
 		public int Quantity { get; set; }
 		public float PricePerNight { get; set; }
 
-		public List<Reservation>? Reservations { get; set; }
+		public List<ReservationDto>? Reservations { get; set; }
 	}
 }

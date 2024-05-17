@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,12 @@ namespace TripPlanner.Application.Reservations.Commands.Car
 	{
 		public int ServiceId { get; set; }
 		public int CarId { get; set; }
-		public string From { get; set; } = default!;
-		public string To { get; set; } = default!;
+
+		[DataType(DataType.Date)]
+		public DateTime From { get; set; } = default!;
+		[DataType(DataType.Date)]
+		public DateTime To { get; set; } = default!;
+
 		public int Months { get; set; }
 		public string Payment { get; set; } = default!;
 	}
