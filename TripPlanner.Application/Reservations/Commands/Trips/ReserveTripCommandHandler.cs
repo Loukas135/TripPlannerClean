@@ -46,6 +46,9 @@ namespace TripPlanner.Application.Reservations.Commands.Trips
 				{
 					userWallet!.Wallet -= (int)trip.Price;
 					await userManager.UpdateAsync(userWallet);
+				}else
+				{
+					throw new NoBalanceException("No Enough Balance for this operation");
 				}
 			}
 

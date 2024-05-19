@@ -19,6 +19,13 @@ namespace TripPlanner.API.Middlewares
 				context.Response.StatusCode = 404;
 				await context.Response.WriteAsync(notFound.Message);
 			}
+			catch (NoBalanceException noBalance)
+			{
+				logger.LogWarning($"No balance: {noBalance.Message}");
+
+				context.Response.StatusCode = 400;
+				await context.Response.WriteAsync(noBalance.Message);
+			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);
