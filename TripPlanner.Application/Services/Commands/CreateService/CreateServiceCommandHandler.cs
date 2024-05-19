@@ -28,6 +28,12 @@ namespace TripPlanner.Application.Services.Commands.CreateService
 			var service = mapper.Map<Service>(request);
 			service.OwnerId = request.OwnerId;
 			//service.Rate = request.Rate;
+			if (request.ServiceTypeId != 1)
+			{
+				service.HasCafe = false;
+				service.HasWiFi = false;
+				service.HasRestaurant = false;
+			}
 			return await serviceRepository.Add(service);
 		}
 	}
