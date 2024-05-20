@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Services.Commands.CreateService;
 using TripPlanner.Application.Services.Commands.DeleteService;
@@ -12,8 +13,12 @@ namespace TripPlanner.API.Controllers
 	[Route("api/governorates/{govId}/services")]
 	public class ServicesController(IMediator mediator) : ControllerBase
 	{
+		//private static List<string> AllowedRoles = ["User","HotelOwner", "CarRental", "TourismOffice", "Restaurant"];
 		[HttpPost]
 		[Route("servicetype/{stId}")]
+        [Authorize(Roles ="HotelOwner")]
+		[Authorize(Roles="CarRental")]
+		
 		public async Task<IActionResult> AddService(int govId, int stId, [FromBody] CreateServiceCommand command)
 		{
 			command.GovernorateId = govId;
