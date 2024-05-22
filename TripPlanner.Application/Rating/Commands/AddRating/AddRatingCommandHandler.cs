@@ -18,6 +18,9 @@ namespace TripPlanner.Application.Rating.Commands.AddRating
     {
         public async Task<int> Handle(AddRatingCommand request, CancellationToken cancellationToken)
         {
+            var userId = userContext.GetCurrentUser().Id;
+            request.UserId = userId; //you forgot it
+
             var rating = mapper.Map<Rate>(request);
             var rating_id = await ratingRepository.AddRating(rating);
             await serviceRepository.CalculateOverallRating((int) request.ServiceId!);

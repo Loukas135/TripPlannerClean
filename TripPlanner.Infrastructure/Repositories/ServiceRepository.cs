@@ -41,11 +41,6 @@ namespace TripPlanner.Infrastructure.Repositories
 			.FirstOrDefaultAsync(x => x.Id == id);
 			return service;
 		}
-		public async Task<IEnumerable<Service>> GetServicesOfUser(string UserId)
-		{
-			var services = await dbContext.Services.Where(s => s.OwnerId == UserId).ToListAsync();
-			return services;
-		}
         public async Task<Service?> GetByIdWithRating(int id)
         {
             var service = await dbContext.Services
