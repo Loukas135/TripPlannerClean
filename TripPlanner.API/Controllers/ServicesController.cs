@@ -9,24 +9,16 @@ using TripPlanner.Application.Services.Queries.GetServiceById;
 
 namespace TripPlanner.API.Controllers
 {
-<<<<<<< Updated upstream
-	[ApiController]
-=======
     [ApiController]
->>>>>>> Stashed changes
 	[Route("api/governorates/{govId}/services")]
 	public class ServicesController(IMediator mediator) : ControllerBase
 	{
 		//private static List<string> AllowedRoles = ["User","HotelOwner", "CarRental", "TourismOffice", "Restaurant"];
 		[HttpPost]
 		[Route("servicetype/{stId}")]
-<<<<<<< Updated upstream
         [Authorize(Roles ="HotelOwner")]
 		[Authorize(Roles="CarRental")]
-		
-=======
 		[Authorize(Roles = "Administrator")]
->>>>>>> Stashed changes
 		public async Task<IActionResult> AddService(int govId, int stId, [FromBody] CreateServiceCommand command)
 		{
 			command.GovernorateId = govId;
