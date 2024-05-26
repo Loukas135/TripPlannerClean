@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TripPlanner.Domain.Entities;
+using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 using TripPlanner.Infrastructure.Repositories;
@@ -39,7 +40,9 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<ITripRepository, TripRepository>();
 			services.AddScoped<ITokenRepository, TokenRepository>();
 			services.AddScoped<IAccountRepository, AccountRepository>();
-
+			services.AddScoped(typeof(ISeededValuesRepository<>),typeof(SeededValuesRepository<>));
+			services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IServicetypeRepository, ServicetypeRepository>();
 			services.AddScoped<IRatingRepository, RatingRepository>();
 			services.AddScoped<IReservationRespository, ReservationRespository>();
 		}
