@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TripPlanner.Application.Governorates.Queries;
 using TripPlanner.Application.Roles.Queries;
 using TripPlanner.Application.ServiceTypes.Queries;
 using TripPlanner.Application.ServiceTypes.Queries.GetAllServiceTypes;
@@ -26,6 +27,14 @@ namespace TripPlanner.API.Controllers
             var query = new GetRolesQuery();
             var roles = await mediator.Send(query);
             return Ok(roles);
+        }
+        [HttpGet]
+        [Route("Governorates")]
+        public async Task<IActionResult> GetAllGovernorates()
+        {
+            var query = new GetGovernoreatesQuery();
+            var governorates = await mediator.Send(query);
+            return Ok(governorates);
         }
     }
 }

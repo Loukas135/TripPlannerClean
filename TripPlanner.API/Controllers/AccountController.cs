@@ -6,6 +6,7 @@ using TripPlanner.Application.Users.Commands.LoginUser;
 using TripPlanner.Application.Users.Commands.Register;
 using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Application.Users.Commands.TokenCheck;
+using TripPlanner.Application.Users.Queries;
 using TripPlanner.Domain.Entities.AuthEntity;
 
 namespace TripPlanner.API.Controllers
@@ -59,6 +60,15 @@ namespace TripPlanner.API.Controllers
             }
             return Ok(result);
         }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var query = new GetCurrentUserQuery();
+            var user = await mediator.Send(query);
+            return Ok(user);
+        }
+
     }
 }
 

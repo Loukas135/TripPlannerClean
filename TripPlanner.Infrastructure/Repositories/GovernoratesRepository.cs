@@ -10,9 +10,16 @@ using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class GovernoratesRepository(TripPlannerDbContext dbContext) : IGovernoratesRepository
+	public class GovernoratesRepository : SeededValuesRepository<Governorate>, IGovernoratesRepository
 	{
-		public async Task<Governorate?> GetById(int id)
+        private readonly TripPlannerDbContext dbContext;
+
+        public GovernoratesRepository(TripPlannerDbContext dbContext):base(dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+        public async Task<Governorate?> GetById(int id)
 		{
 			var governorate = await dbContext.Governorates
 				.Include(g => g.Services)

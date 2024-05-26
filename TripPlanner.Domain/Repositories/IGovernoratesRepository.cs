@@ -7,7 +7,7 @@ using TripPlanner.Domain.Entities;
 
 namespace TripPlanner.Domain.Repositories
 {
-	public interface IGovernoratesRepository
+	public interface IGovernoratesRepository:ISeededValuesRepository<Governorate>
 	{
 		public Task<Governorate?> GetById(int id);
 	}
