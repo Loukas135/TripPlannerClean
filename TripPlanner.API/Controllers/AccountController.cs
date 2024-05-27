@@ -56,7 +56,7 @@ namespace TripPlanner.API.Controllers
             var result = await mediator.Send(command);
             if (result.Any())
             {
-                return BadRequest();
+                return BadRequest(result);
             }
             return Ok(result);
         }

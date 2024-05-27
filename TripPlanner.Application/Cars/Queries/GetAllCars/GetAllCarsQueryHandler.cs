@@ -28,6 +28,10 @@ namespace TripPlanner.Application.Cars.Queries.GetAllCars
 			}
 
 			var cars = mapper.Map<IEnumerable<CarDto>>(service.Cars);
+			if (cars == null)
+			{
+				return null;
+			}
 			return cars;
 		}
 	}

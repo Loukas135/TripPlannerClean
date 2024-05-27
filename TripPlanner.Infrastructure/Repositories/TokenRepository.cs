@@ -58,6 +58,7 @@ namespace TripPlanner.Infrastructure.Repositories
                 RefreshToken = await CreateRefreshToken(),
                 Expires = _expiresInMinutes,
                 Username = _user!.UserName,
+                Role = roles.FirstOrDefault()
             };
 		}
 

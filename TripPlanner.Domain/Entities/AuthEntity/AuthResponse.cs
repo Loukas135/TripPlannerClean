@@ -12,6 +12,7 @@ namespace TripPlanner.Domain.Entities.AuthEntity
         public string? Username { get; set; }
         public int? Expires { get; set; }
         public string? RefreshToken { get; set; }
+        public string? Role { get; set; }
     
     }
 }

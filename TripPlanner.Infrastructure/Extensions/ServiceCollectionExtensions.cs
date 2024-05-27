@@ -43,6 +43,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped(typeof(ISeededValuesRepository<>),typeof(SeededValuesRepository<>));
 			services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IServicetypeRepository, ServicetypeRepository>();
+			services.AddScoped<ICarCategoriesRepository, CarCategoriesRepository>();
 			services.AddScoped<IRatingRepository, RatingRepository>();
 			services.AddScoped<IReservationRespository, ReservationRespository>();
 		}

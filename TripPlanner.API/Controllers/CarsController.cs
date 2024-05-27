@@ -27,6 +27,10 @@ namespace TripPlanner.API.Controllers
 		public async Task<ActionResult<IEnumerable<CarDto>>> GetAllCarsForService(int serId)
 		{
 			var cars = await mediator.Send(new GetAllCarsQuery(serId));
+			if (cars == null)
+			{
+				return NotFound();
+			}
 			return Ok(cars);
 		}
 
@@ -35,6 +39,10 @@ namespace TripPlanner.API.Controllers
 		public async Task<ActionResult<CarDto>> GetCarByIdForService(int serId, int carId)
 		{
 			var car = await mediator.Send(new GetCarByIdQuery(serId, carId));
+			if (car == null)
+			{
+				return NotFound();
+			}
 			return Ok(car);
 		}
 
