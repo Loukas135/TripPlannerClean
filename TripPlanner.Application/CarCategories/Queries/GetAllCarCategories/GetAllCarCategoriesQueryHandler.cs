@@ -10,7 +10,8 @@ using TripPlanner.Domain.Repositories;
 
 namespace TripPlanner.Application.CarTypes.Queries.GetAllCarTypes
 {
-    public class GetAllCarCategoriesQueryHandler(ICarCategoriesRepository carTypes,IMapper mapper):IRequestHandler<GetAllCarCategoriesQuery,IEnumerable<CarCategoryDto>>
+    public class GetAllCarCategoriesQueryHandler(ICarCategoriesRepository carTypes,
+        IMapper mapper) : IRequestHandler<GetAllCarCategoriesQuery, IEnumerable<CarCategoryDto>>
     {
         public async Task<IEnumerable<CarCategoryDto>> Handle(GetAllCarCategoriesQuery request, CancellationToken cancellationToken)
         {

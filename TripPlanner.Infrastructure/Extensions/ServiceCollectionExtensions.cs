@@ -44,6 +44,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IServicetypeRepository, ServicetypeRepository>();
 			services.AddScoped<ICarCategoriesRepository, CarCategoriesRepository>();
+			services.AddScoped<IRoomCategoriesRespository, RoomCategoriesRespository>();
 			services.AddScoped<IRatingRepository, RatingRepository>();
 			services.AddScoped<IReservationRespository, ReservationRespository>();
 		}

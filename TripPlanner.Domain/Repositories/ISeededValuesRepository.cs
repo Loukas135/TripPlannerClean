@@ -7,7 +7,7 @@ using TripPlanner.Domain.Entities.Service_Entities;
 
 namespace TripPlanner.Domain.Repositories
 {
-    public interface ISeededValuesRepository<T>where T:class
+    public interface ISeededValuesRepository<T> where T : class
     {
         public Task<IEnumerable<T>> GetAllAsync();
         public Task<T> GetAsync(int id);
