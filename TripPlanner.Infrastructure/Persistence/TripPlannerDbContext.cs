@@ -63,6 +63,11 @@ namespace TripPlanner.Infrastructure.Persistence
 				.WithOne()
 				.HasForeignKey(r => r.ServiceId);
 
+			modelBuilder.Entity<Service>()
+				.HasMany(s => s.ServiceImages)
+				.WithOne()
+				.HasForeignKey(si => si.ServiceId);
+
 			//Each Room, Car or Trip has many reservations
 			modelBuilder.Entity<Room>()
 				.HasMany(r => r.Reservations)
