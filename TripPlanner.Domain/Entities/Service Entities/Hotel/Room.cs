@@ -21,6 +21,6 @@ namespace TripPlanner.Domain.Entities.Service_Entities.Hotel
 
 		public List<Reservation>? Reservations { get; set; }
 
-		public List<IFormFile> RoomImages { get; set; } = new List<IFormFile>();
+		//public List<IFormFile> RoomImages { get; set; } = new List<IFormFile>();
 	}
 }

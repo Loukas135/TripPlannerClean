@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,6 @@ namespace TripPlanner.Application.Services.Commands.CreateService
         public bool HasWiFi { get; set; } = false;
         public bool HasCafe { get; set; } = false;
         public bool HasRestaurant { get; set; } = false;
+		
     }
 }

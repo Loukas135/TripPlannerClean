@@ -50,5 +50,6 @@ namespace TripPlanner.API.Controllers
 			var service = await mediator.Send(new GetServiceByIdQuery(govId, serId));
 			return Ok(service);
 		}
+		
 	}
 }

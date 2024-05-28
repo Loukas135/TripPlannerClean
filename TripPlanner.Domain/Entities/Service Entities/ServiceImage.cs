@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 		public int Id { get; set; }
 		public int ServiceId { get; set; }
 		public string ServiceImagePath { get; set; }
+		
 	}
 }
