@@ -22,6 +22,10 @@ namespace TripPlanner.Infrastructure.Persistence
 		internal DbSet<Trip> Trips { get; set; }
 		internal DbSet<Rate> Ratings { get; set; }
 		internal DbSet<Reservation> Reservations { get; set; }
+		internal DbSet<ServiceImage> ServiceImages { get; set; }
+		internal DbSet<CarImage> CarImages { get; set; }
+		internal DbSet<RoomImage> RoomImages { get; set; }
+		internal DbSet<TripImage> TripImages { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -103,6 +107,8 @@ namespace TripPlanner.Infrastructure.Persistence
 				.WithOne(s => s.Owner)
 				.HasForeignKey<Service>(s => s.OwnerId)
 				.OnDelete(DeleteBehavior.Restrict);
+
+
 		}
 	}
 }

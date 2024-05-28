@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -34,7 +35,9 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 		public User Owner { get; set; } = default!;
 		public string OwnerId { get; set; } = default!;
 		public bool HasWiFi { get; set; } = false;
-		public bool HasCafe {  get; set; } = false;
+		public bool HasPool {  get; set; } = false;
 		public bool HasRestaurant {  get; set; } = false;
+
+		public List<IFormFile> ServiceImages { get; set; } = new List<IFormFile>();
 	}
 }

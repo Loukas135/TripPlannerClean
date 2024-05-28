@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities.Car_Rental
 		public int ServiceId { get; set; }
 
 		public List<Reservation>? Reservations { get; set; }
+
+		public List<IFormFile> CarImages { get; set; } = new List<IFormFile>();
 	}
 }

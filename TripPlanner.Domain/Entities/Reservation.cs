@@ -28,5 +28,7 @@ namespace TripPlanner.Domain.Entities
 
 		public string Payment { get; set; } = default!;
 		public string UserId { get; set; } = default!;
+
+		public string Status { get; set; } = "Pending";
 	}
 }

@@ -30,7 +30,7 @@ namespace TripPlanner.Application.Services.Commands.CreateService
 			//service.Rate = request.Rate;
 			if (request.ServiceTypeId != 1)
 			{
-				service.HasCafe = false;
+				service.HasPool = false;
 				service.HasWiFi = false;
 				service.HasRestaurant = false;
 			}

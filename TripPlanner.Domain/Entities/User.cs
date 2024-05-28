@@ -16,5 +16,7 @@ namespace TripPlanner.Domain.Entities
 		public List<Rate> Ratings { get; set; } = [];
 
 		public Service? OwnedService { get; set; }
+
+
 	}
 }
