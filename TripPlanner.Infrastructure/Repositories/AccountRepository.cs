@@ -25,7 +25,17 @@ namespace TripPlanner.Infrastructure.Repositories
             return "Error when adding owner";
         }
 
-		public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
+        public async Task<IEnumerable<IdentityError>> RegisterAdmin(User user, string password)
+        {
+            var check = await userManager.CreateAsync(user, password);
+            if (check.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "Administrator");
+            }
+            return check.Errors;
+        }
+
+        public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
 		{
 			var check = await userManager.CreateAsync(user, password);
 			if (check.Succeeded)

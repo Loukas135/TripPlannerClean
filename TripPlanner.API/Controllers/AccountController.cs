@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Users.Commands.LoginUser;
 using TripPlanner.Application.Users.Commands.Register;
+using TripPlanner.Application.Users.Commands.RegisterAdmin;
 using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Application.Users.Commands.TokenCheck;
 using TripPlanner.Application.Users.Queries;
@@ -52,6 +53,17 @@ namespace TripPlanner.API.Controllers
         [HttpPost]
         [Route("Register")]
         public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterUser([FromBody] RegisterUserCommand command)
+        {
+            var result = await mediator.Send(command);
+            if (result.Any())
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+        [HttpPost]
+        [Route("RegisterAdmin")]
+        public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterAdmin([FromBody]RegisterAdminCommand command)
         {
             var result = await mediator.Send(command);
             if (result.Any())

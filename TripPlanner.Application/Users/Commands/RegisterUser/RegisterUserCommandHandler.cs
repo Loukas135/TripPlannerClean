@@ -17,7 +17,7 @@ namespace TripPlanner.Application.Users.Commands.RegisterUser
 		public async Task<IEnumerable<IdentityError>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
 		{
 			var user = mapper.Map<User>(request);
-			user.UserName = request.Email;
+			user.UserName = request.UserName;
 			return await accountRepository.RegisterUser(user, request.Password);
 		}
 	}

@@ -72,5 +72,18 @@ namespace TripPlanner.Infrastructure.Repositories
 			return overallRating;
 		}
         public async Task SaveChanges() => await dbContext.SaveChangesAsync();
-	}
+
+        public async Task<IEnumerable<Service>> GetServicesOfType(int governorateId, int serviceTypeId)
+        {
+			var servicesInGov = await dbContext.Services
+				.Where(s => s.GovernorateId == governorateId).ToListAsync();
+			if (servicesInGov == null)
+			{
+				return null;
+			}
+				var services= servicesInGov.Where(s => s.ServiceTypeId == serviceTypeId)
+                .ToList();
+            return services;
+        }
+    }
 }

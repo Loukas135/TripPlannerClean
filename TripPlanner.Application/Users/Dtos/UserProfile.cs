@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Application.Users.Commands.Register;
+using TripPlanner.Application.Users.Commands.RegisterAdmin;
 using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Domain.Entities;
 
@@ -16,6 +17,7 @@ namespace TripPlanner.Application.Users.Dtos
         {
             CreateMap<User, RegisterServiceOwnerCommand>().ReverseMap();
             CreateMap<RegisterUserCommand, User>();
+            CreateMap<RegisterAdminCommand, User>().ReverseMap();
         }
     }
 }
