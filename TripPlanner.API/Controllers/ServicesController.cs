@@ -16,9 +16,7 @@ namespace TripPlanner.API.Controllers
 		//private static List<string> AllowedRoles = ["User","HotelOwner", "CarRental", "TourismOffice", "Restaurant"];
 		[HttpPost]
 		[Route("servicetype/{stId}")]
-        [Authorize(Roles ="HotelOwner")]
-		[Authorize(Roles="CarRental")]
-		[Authorize(Roles = "Administrator")]
+		[Authorize(Roles = "Administrator,HotelOwner")]
 		public async Task<IActionResult> AddService(int govId, int stId, [FromBody] CreateServiceCommand command)
 		{
 			command.GovernorateId = govId;
