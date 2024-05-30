@@ -13,5 +13,7 @@ namespace TripPlanner.Domain.Repositories
         public Task<string> Register(User user, string password, string role);
         public Task<IEnumerable<IdentityError>> RegisterUser(User user, string password);
         public Task<IEnumerable<IdentityError>> RegisterAdmin(User user, string password);
+        public Task<bool> Verify(string email, string verficationToken);
+        //public Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken);
     }
 }

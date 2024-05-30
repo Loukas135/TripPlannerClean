@@ -12,12 +12,15 @@ using TripPlanner.Domain.Entities.Service_Entities;
 
 namespace TripPlanner.Application.Services.Commands.Images
 {
-    public class AddImageCommandHandler(IWebHostEnvironment environment,IMapper mapper,IServiceImageRepository serviceImageRepository) : IRequestHandler<AddImageCommand, string>
+    public class AddImageCommandHandler(IWebHostEnvironment environment,
+        IMapper mapper, 
+        IServiceImageRepository serviceImageRepository) :
+        IRequestHandler<AddImageCommand, string>
     {
         public async Task<string> Handle(AddImageCommand request, CancellationToken cancellationToken)
         {
-            if(request.ServiceImage==null)
-            return null;
+            if(request.ServiceImage == null)
+                return null;
             var contentPath = environment.ContentRootPath;
             var path = Path.Combine(contentPath, "Images");
             if (!Directory.Exists(path))

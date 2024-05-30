@@ -17,6 +17,7 @@ namespace TripPlanner.Domain.Entities
 
 		public Service? OwnedService { get; set; }
 
-
+		public string? VerificationToken { get; set; }
+		public DateTime? VerifiedAt { get; set; }
 	}
 }

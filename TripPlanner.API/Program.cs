@@ -39,19 +39,21 @@ await roleSeeder.Seed();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
 	app.UseSwagger();
 	app.UseSwaggerUI();
-}
+//}
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
 app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
 
-app.UseAuthorization();
 app.UseCors("AllowAll");
+
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

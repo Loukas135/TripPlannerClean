@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TripPlanner.Application.Users;
 using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Repositories;

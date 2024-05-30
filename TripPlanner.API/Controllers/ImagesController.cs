@@ -10,7 +10,7 @@ namespace TripPlanner.API.Controllers
     {
         [HttpPost]
         [Route("{serId}/Image/Add")]
-        public async Task<IActionResult> AddServiceImage([FromRoute]int serId,AddImageCommand request)
+        public async Task<IActionResult> AddServiceImage([FromRoute]int serId, AddImageCommand request)
         {
             request.ServiceId = serId;
             var result =await mediator.Send(request);

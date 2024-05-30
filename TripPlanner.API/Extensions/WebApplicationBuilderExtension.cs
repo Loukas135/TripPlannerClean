@@ -63,6 +63,7 @@ namespace TripPlanner.API.Extensions
                         .AllowAnyOrigin()
                         .AllowAnyMethod());
             });
+
             builder.Services.AddIdentityApiEndpoints<User>();
 		}
 	}

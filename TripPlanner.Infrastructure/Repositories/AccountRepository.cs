@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Repositories;
+using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class AccountRepository(UserManager<User> userManager) : IAccountRepository
+	public class AccountRepository(UserManager<User> userManager, TripPlannerDbContext dbcontext) : IAccountRepository
     {
         public async Task<string> Register(User owner, string password, string role)
         {
@@ -37,13 +38,43 @@ namespace TripPlanner.Infrastructure.Repositories
 
         public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
 		{
+			await userManager.GenerateEmailConfirmationTokenAsync(user);
 			var check = await userManager.CreateAsync(user, password);
 			if (check.Succeeded)
 			{
 				await userManager.AddToRoleAsync(user, "User");
+				user.Wallet = 0;
+				await dbcontext.SaveChangesAsync();
 			}
-			user.Wallet = 0;
 			return check.Errors;
 		}
+		
+		public async Task<bool> Verify(string email, string verficationToken)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+			if (user.VerificationToken == verficationToken)
+			{
+				user.VerifiedAt = DateTime.Now;
+				user.EmailConfirmed = true;
+				await dbcontext.SaveChangesAsync();
+				return true;
+			}
+			return false;
+		}
+		
+		/*
+		public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+            var check = await userManager.ConfirmEmailAsync(user, verficationToken);
+			if (check.Succeeded)
+            {
+				user.VerifiedAt = DateTime.Now;
+				user.EmailConfirmed = true;
+				await dbcontext.SaveChangesAsync();
+			}
+            return check.Errors;
+		}
+        */
 	}
 }

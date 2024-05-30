@@ -7,6 +7,7 @@ using TripPlanner.Application.Users.Commands.Register;
 using TripPlanner.Application.Users.Commands.RegisterAdmin;
 using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Application.Users.Commands.TokenCheck;
+using TripPlanner.Application.Users.Commands.Verify;
 using TripPlanner.Application.Users.Queries;
 using TripPlanner.Domain.Entities.AuthEntity;
 
@@ -81,6 +82,17 @@ namespace TripPlanner.API.Controllers
             return Ok(user);
         }
 
+        [HttpPost]
+        [Route("Verify")]
+        public async Task<ActionResult<IEnumerable<IdentityError>>> Verify([FromBody]VerifyCommand command)
+        {
+			var result = await mediator.Send(command);
+			if (result)
+			{
+				return Ok("Verified");
+			}
+            return BadRequest("Invalid Token");
+		}
     }
 }
 
