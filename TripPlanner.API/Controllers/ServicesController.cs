@@ -7,6 +7,7 @@ using TripPlanner.Application.Services.Dtos;
 using TripPlanner.Application.Services.Queries.GetAllServices;
 using TripPlanner.Application.Services.Queries.GetServiceById;
 using TripPlanner.Application.Services.Queries.GetServiceByType;
+using TripPlanner.Domain.Entities;
 
 namespace TripPlanner.API.Controllers
 {
@@ -28,9 +29,9 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<ServiceDto>>> GetAllServicesFromGovernorate(int govId)
-		{
-			var services = await mediator.Send(new GetAllServicesQuery(govId));
+		public async Task<ActionResult<IEnumerable<ServiceDto>>> GetAllServicesFromGovernorate(int governorateId)
+        {
+			var services = await mediator.Send(new GetAllServicesQuery(governorateId));
 			return Ok(services);
 		}
 

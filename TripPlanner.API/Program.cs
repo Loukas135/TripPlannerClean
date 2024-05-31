@@ -51,12 +51,11 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 	app.UseSwaggerUI();
 //}
 app.UseHttpsRedirection();
-
-app.UseAuthentication();
-
 app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
 
 app.UseCors("AllowAll");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
