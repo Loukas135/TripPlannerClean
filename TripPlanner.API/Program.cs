@@ -17,7 +17,13 @@ builder.AddPresentation();
 builder.Services.AddApplicaiton();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        b => b.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod());
+});
 var app = builder.Build();
 
 var scope = app.Services.CreateScope();
