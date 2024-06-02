@@ -33,7 +33,7 @@ namespace TripPlanner.API.Controllers
             var result = await mediator.Send(request);
             if(result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             return Ok(result);
         }

@@ -10,7 +10,7 @@ using TripPlanner.Application.Reservations.Commands.Car;
 namespace TripPlanner.API.Controllers
 {
 	[ApiController]
-	[Route("api/service/{serId}/cars")]
+	[Route("api/services/{serId}/cars")]
 	public class CarsController(IMediator mediator) : ControllerBase
 	{
 		[HttpPost]
