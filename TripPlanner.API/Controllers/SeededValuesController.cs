@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Text.Json.Nodes;
 using TripPlanner.Application.CarTypes.Queries.GetAllCarTypes;
 using TripPlanner.Application.Governorates.Queries;
 using TripPlanner.Application.Roles.Queries;
 using TripPlanner.Application.Rooms.RoomCatergories.Queries.GetAllRoomCategories;
 using TripPlanner.Application.ServiceTypes.Queries;
 using TripPlanner.Application.ServiceTypes.Queries.GetAllServiceTypes;
+using TripPlanner.Domain.Entities;
 
 namespace TripPlanner.API.Controllers
 {
@@ -34,11 +37,12 @@ namespace TripPlanner.API.Controllers
 
         [HttpGet]
         [Route("Governorates")]
-        public async Task<IActionResult> GetAllGovernorates()
+        public async Task<ActionResult> GetAllGovernorates()
         {
             var query = new GetGovernoreatesQuery();
             var governorates = await mediator.Send(query);
-            return Ok(governorates);
+            var gov = new { governorates = governorates };
+            return Ok(gov);
         }
 
         [HttpGet]
