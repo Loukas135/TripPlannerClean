@@ -48,7 +48,7 @@ namespace TripPlanner.Infrastructure.Repositories
                 issuer: configuration["JwtSettings:Issuer"],
                 audience: configuration["JwtSettings:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
+                expires: DateTime.Now.AddMinutes(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
                 signingCredentials: credintials
                 );
             var finalToken= new JwtSecurityTokenHandler().WriteToken(token);

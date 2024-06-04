@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TripPlanner.Application.Reservations.Dtos;
+using TripPlanner.Application.Reservations.Queries.GetServiceReservations;
 using TripPlanner.Application.Services.Commands.CreateService;
 using TripPlanner.Application.Services.Commands.DeleteService;
 using TripPlanner.Application.Services.Dtos;
@@ -17,14 +19,14 @@ namespace TripPlanner.API.Controllers
 	{
 		//private static List<string> AllowedRoles = ["User","HotelOwner", "CarRental", "TourismOffice", "Restaurant"];
 		[HttpPost]
-		[Route("servicetype/{serviceTypeId}")]
+		[Route("servicetypes/{serviceTypeId}")]
 		[Authorize(Roles = "Administrator,HotelOwner")]
-		public async Task<IActionResult> AddService(int governorateId, int serviceTypeId, [FromBody] CreateServiceCommand command)
+		public async Task<IActionResult> AddService([FromRoute]int governorateId, [FromRoute]int serviceTypeId, [FromBody] CreateServiceCommand command)
 		{
 			command.GovernorateId = governorateId;
 			command.ServiceTypeId = serviceTypeId;
-			int serId = await mediator.Send(command);
-			return CreatedAtAction(nameof(GetServiceById), new { governorateId, serId }, null);
+			int serviceId = await mediator.Send(command);
+			return CreatedAtAction(nameof(GetServiceById), new { governorateId, serviceId }, null);
 			//I shouldn't forget to add rate to services table
 		}
 
@@ -51,8 +53,8 @@ namespace TripPlanner.API.Controllers
 			return Ok(service);
 		}
 		[HttpGet]
-		[Route("serviceType/{serviceTypeId}")]
-		public async Task<ActionResult<IEnumerable<ServiceDto>>>GetServiceByType(int governorateId, int serviceTypeId)
+		[Route("serviceTypes/{serviceTypeId}")]
+		public async Task<ActionResult<IEnumerable<ServiceDto>>> GetServiceByType(int governorateId, int serviceTypeId)
 		{
 			var request = new GetServiceByTypeQuery(governorateId, serviceTypeId);
 			var result=await mediator.Send(request);
@@ -63,6 +65,30 @@ namespace TripPlanner.API.Controllers
 
             return Ok(result);
 		}
+
+		[HttpGet]
+		[Route("{serviceId}/reservations")]
+		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetServiceReservations(int governorateId, int serviceId)
+		{
+			var reservations = await mediator.Send(new GetServiceReservationsQuery(governorateId, serviceId));
+			return Ok(reservations);
+		}
 		
 	}
 }
+
+/*
+{
+  "name": "majd motors",
+  "address": "al nejme square",
+  "description": "we have the fastest cars",
+  "contactNumber": "+96395557777",
+  "contactEmail": "motors@contact.com",
+  "governorateId": 0,
+  "serviceTypeId": 0,
+  "ownerId": "1c554b54-bd7c-46af-b7fd-9f1592ea3e0d",
+  "hasWiFi": true,
+  "hasPool": true,
+  "hasRestaurant": true
+} 
+*/

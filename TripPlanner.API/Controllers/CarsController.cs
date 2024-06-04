@@ -6,6 +6,8 @@ using TripPlanner.Application.Cars.Dtos;
 using TripPlanner.Application.Cars.Queries.GetAllCars;
 using TripPlanner.Application.Cars.Queries.GetCarById;
 using TripPlanner.Application.Reservations.Commands.Car;
+using TripPlanner.Application.Reservations.Dtos;
+using TripPlanner.Application.Reservations.Queries.GetCarReservations;
 
 namespace TripPlanner.API.Controllers
 {
@@ -62,6 +64,14 @@ namespace TripPlanner.API.Controllers
 			command.CarId = carId;
 			int id = await mediator.Send(command);
 			return Ok(id);
+		}
+
+		[HttpGet]
+		[Route("/carreservations/{carId}")]
+		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetCarReservations(int serId, int carId)
+		{
+			var reservations = await mediator.Send(new GetCarReservationsQuery(serId, carId));
+			return Ok(reservations);
 		}
 	}
 }

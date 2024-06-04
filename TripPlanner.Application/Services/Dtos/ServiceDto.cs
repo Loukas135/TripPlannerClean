@@ -24,5 +24,9 @@ namespace TripPlanner.Application.Services.Dtos
 		public List<RoomDto>? Rooms { get; set; }
 		public List<CarDto>? Cars { get; set; }
 		public List<TripDto>? Trips { get; set; }
+
+		public bool HasWiFi { get; set; } = false;
+		public bool HasPool { get; set; } = false;
+		public bool HasRestaurant { get; set; } = false;
 	}
 }

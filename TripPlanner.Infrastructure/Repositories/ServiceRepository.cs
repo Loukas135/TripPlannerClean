@@ -85,5 +85,12 @@ namespace TripPlanner.Infrastructure.Repositories
                 .ToList();
             return services;
         }
+
+		public async Task<Service> GetServiceWithReservations(int id)
+		{
+			var service = await dbContext.Services.Include(s => s.Reservations)
+												  .FirstOrDefaultAsync(s => s.Id == id);
+			return service;
+		}
     }
 }

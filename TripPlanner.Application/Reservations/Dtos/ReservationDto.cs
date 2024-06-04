@@ -18,5 +18,6 @@ namespace TripPlanner.Application.Reservations.Dtos
 		public int ServiceId { get; set; }
 		public string Payment { get; set; } = default!;
 		public string UserId { get; set; } = default!;
+		public string Status { get; set; } = default!;
 	}
 }

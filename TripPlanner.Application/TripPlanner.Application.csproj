@@ -7,13 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Reservations\Queries\**" />
     <Compile Remove="Services\Validators\**" />
     <Compile Remove="Trips\Commands\UpdateTrip\**" />
-    <EmbeddedResource Remove="Reservations\Queries\**" />
     <EmbeddedResource Remove="Services\Validators\**" />
     <EmbeddedResource Remove="Trips\Commands\UpdateTrip\**" />
-    <None Remove="Reservations\Queries\**" />
     <None Remove="Services\Validators\**" />
     <None Remove="Trips\Commands\UpdateTrip\**" />
   </ItemGroup>
@@ -30,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Reservations\Queries\GetRoomReservations\" />
+    <Folder Include="Reservations\Queries\GetTripReservations\" />
+    <Folder Include="Reservations\Queries\GetUserReservations\" />
     <Folder Include="Rooms\Commands\UpdateRoom\" />
   </ItemGroup>
 

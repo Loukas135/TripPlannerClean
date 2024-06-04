@@ -13,5 +13,7 @@ namespace TripPlanner.Domain.Repositories
 
         public Task Delete(Service entity);
 		public Task SaveChanges();
+
+		public Task<Service> GetServiceWithReservations(int id);
 	}
 }

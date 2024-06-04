@@ -27,7 +27,8 @@ namespace TripPlanner.Infrastructure.Repositories
 
 		public async Task<Car?> GetById(int id)
 		{
-			var car = await dbContext.Cars.FirstOrDefaultAsync(c => c.Id == id);
+			var car = await dbContext.Cars.Include(c => c.Reservations)
+										  .FirstOrDefaultAsync(c => c.Id == id);
 			return car;
 		}
 	}

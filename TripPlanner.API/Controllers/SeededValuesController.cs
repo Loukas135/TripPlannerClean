@@ -37,7 +37,7 @@ namespace TripPlanner.API.Controllers
         public async Task<IActionResult> GetAllGovernorates()
         {
             var query = new GetGovernoreatesQuery();
-            var governorates = await mediator.Send(query);
+            var governorates = new { governorates = await mediator.Send(query) };
             return Ok(governorates);
         }
 
