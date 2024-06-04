@@ -41,7 +41,8 @@ namespace TripPlanner.API.Controllers
         {
             var query = new GetGovernoreatesQuery();
             var governorates = await mediator.Send(query);
-            return Ok(governorates);
+            var gov = new { governorates = governorates };
+            return Ok(gov);
         }
 
         [HttpGet]
@@ -61,5 +62,6 @@ namespace TripPlanner.API.Controllers
 			var rooms = await mediator.Send(query);
 			return Ok(rooms);
 		}
+        //now to commit
 	}
 }
