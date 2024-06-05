@@ -39,7 +39,8 @@ namespace TripPlanner.Infrastructure.Repositories
         public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
 		{
 			await userManager.GenerateEmailConfirmationTokenAsync(user);
-			var check = await userManager.CreateAsync(user, password);
+            var check = await userManager.CreateAsync(user, password);
+			
 			if (check.Succeeded)
 			{
 				await userManager.AddToRoleAsync(user, "User");

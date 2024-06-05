@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TripPlanner.Infrastructure.Seeders.Users
 {
-    internal interface IUserSeeder
+    public interface IUserSeeder
     {
+        Task Seed();
     }
 }
