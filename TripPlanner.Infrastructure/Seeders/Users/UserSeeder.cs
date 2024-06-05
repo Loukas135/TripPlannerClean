@@ -60,7 +60,31 @@ namespace TripPlanner.Infrastructure.Seeders.Users
             };
             var admin = mapper.Map<User>(adminCredentials);
             await accountRepository.RegisterAdmin(admin, adminCredentials.Password);
-             
+            List<UserSeedingRequest> owners = [
+              new(){
+                 UserName="Owner1",
+                 Email="Owner1@gmail.com",
+                 Password="P@ssword1",
+                 Role="HotelOwner"
+                },
+                 new(){
+                 UserName="Owner2",
+                 Email="Owner2@gmail.com",
+                 Password="P@ssword1",
+                 Role="TourismOffice"
+                },
+                new(){
+                 UserName="Owner3",
+                 Email="Owner3@gmail.com",
+                 Password="P@ssword1",
+                 Role="CarRental"
+                }
+          ];
+            foreach(var owner in owners)
+            {
+                var ownerValue = mapper.Map<User>(owner);
+                await accountRepository.Register(ownerValue, owner.Password,owner.Role);
+            }
         }
     }
 }

@@ -15,5 +15,6 @@ namespace TripPlanner.Domain.Entities.AuthEntity
         public string Email { get; set; } = default!;
         [PasswordPropertyText]
         public string Password { get; set; } = default!;
+        public string? Role { get; set; }
     }
 }
