@@ -27,8 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Reservations\Queries\GetRoomReservations\" />
-    <Folder Include="Reservations\Queries\GetTripReservations\" />
     <Folder Include="Reservations\Queries\GetUserReservations\" />
     <Folder Include="Rooms\Commands\UpdateRoom\" />
   </ItemGroup>

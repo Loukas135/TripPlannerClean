@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Reservations.Commands.Room;
+using TripPlanner.Application.Reservations.Dtos;
+using TripPlanner.Application.Reservations.Queries.GetCarReservations;
+using TripPlanner.Application.Reservations.Queries.GetRoomReservations;
 using TripPlanner.Application.Rooms.Commands.CreateRoom;
 using TripPlanner.Application.Rooms.Commands.DeleteRoom;
 using TripPlanner.Application.Rooms.Dtos;
@@ -54,6 +57,14 @@ namespace TripPlanner.API.Controllers
 			command.ServiceId = serId;
 			int id = await mediator.Send(command);
 			return Ok(id);
+		}
+
+		[HttpGet]
+		[Route("reservations")]
+		public async Task<ActionResult<IEnumerable<RoomReservationDto>>> GetRoomReservations([FromRoute] int serId)
+		{
+			var reservations = await mediator.Send(new GetRoomReservationQuery(serId));
+			return Ok(reservations);
 		}
 	}
 }

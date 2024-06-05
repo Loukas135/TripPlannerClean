@@ -16,6 +16,9 @@ namespace TripPlanner.Application.Reservations.Dtos
         public ReservationsProfile()
         {
             CreateMap<Reservation, ReservationDto>();
+            CreateMap<Reservation, CarReservationDto>();
+            CreateMap<Reservation, RoomReservationDto>();
+            CreateMap<Reservation, TripReservationDto>();
 
             CreateMap<ReserveTripCommand, Reservation>();
             CreateMap<ReserveCarCommand, Reservation>();

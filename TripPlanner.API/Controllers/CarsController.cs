@@ -67,10 +67,10 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("/carreservations/{carId}")]
-		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetCarReservations(int serId, int carId)
+		[Route("reservations")]
+		public async Task<ActionResult<IEnumerable<CarReservationDto>>> GetCarReservations([FromRoute]int serId)
 		{
-			var reservations = await mediator.Send(new GetCarReservationsQuery(serId, carId));
+			var reservations = await mediator.Send(new GetCarReservationsQuery(serId));
 			return Ok(reservations);
 		}
 	}

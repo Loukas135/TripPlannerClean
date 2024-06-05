@@ -62,6 +62,5 @@ namespace TripPlanner.API.Controllers
 			var rooms = await mediator.Send(query);
 			return Ok(rooms);
 		}
-        //now to commit
 	}
 }
