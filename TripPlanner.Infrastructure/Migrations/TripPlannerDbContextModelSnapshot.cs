@@ -173,7 +173,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Governorates");
+                    b.ToTable("Governorates", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Reservation", b =>
@@ -227,7 +227,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Car_Rental.Car", b =>
@@ -264,7 +264,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Car_Rental.CarCategory", b =>
@@ -281,7 +281,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarCategories");
+                    b.ToTable("CarCategories", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Hotel.Room", b =>
@@ -317,7 +317,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Hotel.RoomCategory", b =>
@@ -334,7 +334,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoomCategories");
+                    b.ToTable("RoomCategories", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Rate", b =>
@@ -361,7 +361,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ratings");
+                    b.ToTable("Ratings", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Service", b =>
@@ -419,7 +419,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("ServiceTypeId");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.ServiceImage", b =>
@@ -441,7 +441,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("ServiceImages");
+                    b.ToTable("ServiceImages", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.ServiceType", b =>
@@ -458,7 +458,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceTypes");
+                    b.ToTable("ServiceTypes", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.Service_Entities.Tourism_Office.Trip", b =>
@@ -492,7 +492,7 @@ namespace TripPlanner.Infrastructure.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Trips");
+                    b.ToTable("Trips", (string)null);
                 });
 
             modelBuilder.Entity("TripPlanner.Domain.Entities.User", b =>

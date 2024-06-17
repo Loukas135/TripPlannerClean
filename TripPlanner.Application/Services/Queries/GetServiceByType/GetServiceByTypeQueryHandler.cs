@@ -15,7 +15,7 @@ namespace TripPlanner.Application.Services.Queries.GetServiceByType
         public async Task<IEnumerable<ServiceDto>> Handle(GetServiceByTypeQuery request, CancellationToken cancellationToken)
         {
             var services = await serviceRepository.GetServicesOfType(request.governorateId, request.serviceTypeId);
-            var serviceDto=mapper.Map<IEnumerable<ServiceDto>>(services);
+            var serviceDto = mapper.Map<IEnumerable<ServiceDto>>(services);
             return serviceDto;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,60 @@ namespace TripPlanner.Infrastructure.Repositories
 			dbContext.Reservations.Add(entity);
 			await dbContext.SaveChangesAsync();
 			return entity.Id;
+		}
+
+		public async Task<IEnumerable<Reservation>> GetAll()
+		{
+			var reservations = await dbContext.Reservations.ToListAsync();
+			return reservations;
+		}
+		
+		public async Task<IEnumerable<Reservation>> GetAllByGov(int id)
+		{
+			var reservations = from r in dbContext.Reservations
+							   join s in dbContext.Services
+									on r.ServiceId equals s.Id
+							   where s.GovernorateId == id
+							   select r;
+
+			return await reservations.ToListAsync();
+		}
+
+		public async Task<IEnumerable<Reservation>> GetAllInCurrentMonth(int id)
+		{
+			var reservations = from r in dbContext.Reservations
+							   join s in dbContext.Services
+									on r.ServiceId equals s.Id
+							   where s.GovernorateId == id
+							   where r.From.Month == DateTime.Now.Month
+							   select r;
+
+			return await reservations.ToListAsync();
+		}
+
+		
+		public async Task<IEnumerable<Reservation>> GetServiceTypeReservations(int govId, int stId)
+		{
+			var reservations = from r in dbContext.Reservations
+							   join s in dbContext.Services
+									on r.ServiceId equals s.Id
+							   where s.GovernorateId == govId
+							   where s.ServiceTypeId == stId
+							   select r;
+
+			return await reservations.ToListAsync();
+		}
+		public async Task<IEnumerable<Reservation>> GetReservationsByDate(int year, int month, int govId)
+		{
+			var reservations = from r in dbContext.Reservations
+							   join s in dbContext.Services
+									on r.ServiceId equals s.Id
+							   where s.GovernorateId == govId
+							   where (int)r.From.Year == year
+							   where (int)r.From.Month == month
+							   select r;
+
+			return await reservations.ToListAsync();
 		}
 	}
 }

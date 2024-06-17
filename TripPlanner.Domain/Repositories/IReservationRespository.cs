@@ -10,5 +10,10 @@ namespace TripPlanner.Domain.Repositories
 	public interface IReservationRespository
 	{
 		public Task<int> Add(Reservation entity);
+		public Task<IEnumerable<Reservation>> GetAll();
+		public Task<IEnumerable<Reservation>> GetAllByGov(int id);
+		public Task<IEnumerable<Reservation>> GetAllInCurrentMonth(int id);
+		public Task<IEnumerable<Reservation>> GetServiceTypeReservations(int govId, int stId);
+		public Task<IEnumerable<Reservation>> GetReservationsByDate(int year, int month, int govId/*, string year, string month*/);
 	}
 }

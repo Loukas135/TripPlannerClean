@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Exceptions;
 using TripPlanner.Domain.Repositories;
@@ -92,5 +93,13 @@ namespace TripPlanner.Infrastructure.Repositories
 												  .FirstOrDefaultAsync(s => s.Id == id);
 			return service;
 		}
-    }
+
+		public async Task<IEnumerable<Service>> GetServicesWithReservationsByGov(int id)
+		{
+			var servicesInGov = await dbContext.Services.Include(s => s.Reservations)
+				.Where(s => s.GovernorateId == id).ToListAsync();
+
+			return servicesInGov;
+		}
+	}
 }

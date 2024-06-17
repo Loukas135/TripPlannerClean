@@ -15,5 +15,6 @@ namespace TripPlanner.Domain.Repositories
 		public Task SaveChanges();
 
 		public Task<Service> GetServiceWithReservations(int id);
+		public Task<IEnumerable<Service>> GetServicesWithReservationsByGov(int id);
 	}
 }

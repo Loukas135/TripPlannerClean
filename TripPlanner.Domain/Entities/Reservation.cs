@@ -13,8 +13,10 @@ namespace TripPlanner.Domain.Entities
 	{
 		public int Id { get; set; }
 		public int Cost { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime From { get; set; } = default!;
+
         [DataType(DataType.Date)]
         public DateTime To { get; set; } = default!;
 
