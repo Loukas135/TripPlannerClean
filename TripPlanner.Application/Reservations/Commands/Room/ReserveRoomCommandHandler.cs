@@ -33,6 +33,11 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 					request.RoomId.ToString());
 			}
 
+			if(room.Quantity == 0)
+			{
+				throw new NoResourceAvailable(nameof(Domain.Entities.Service_Entities.Hotel.Room));
+			}
+
 			var reservation = mapper.Map<Reservation>(request);
 			reservation.UserId = userId;
 			reservation.RoomId = room.Id;
@@ -44,7 +49,7 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 
 			if (request.Payment == "Electronic")
 			{
-				if (user!.Wallet > (int)reservation.Cost)
+				if (user!.Wallet >= (int)reservation.Cost)
 				{
 					user!.Wallet -= (int)reservation.Cost;
 					await userManager.UpdateAsync(user);
@@ -54,6 +59,8 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 				}
 			}
 
+			room.Quantity--;
+			await roomRepository.SaveChanges();
 			return await reservationRespository.Add(reservation);
 		}
 	}

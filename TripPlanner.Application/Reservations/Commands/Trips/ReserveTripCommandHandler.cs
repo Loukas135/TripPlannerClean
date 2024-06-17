@@ -24,10 +24,11 @@ namespace TripPlanner.Application.Reservations.Commands.Trips
 		public async Task<int> Handle(ReserveTripCommand request, CancellationToken cancellationToken)
 		{
 			var trip = await tripRepository.GetById(request.TripId);
-			if(trip == null )
+			if(trip == null)
 			{
 				throw new NotFoundException(nameof(Trip), request.TripId.ToString());
 			}
+
 
 			var user = userContext.GetCurrentUser();
 
@@ -42,7 +43,7 @@ namespace TripPlanner.Application.Reservations.Commands.Trips
 			if(request.Payment == "Electronic")
 			{
 				var userWallet = await userManager.FindByIdAsync(user.Id);
-				if(userWallet!.Wallet > trip.Price)
+				if(userWallet!.Wallet >= trip.Price)
 				{
 					userWallet!.Wallet -= (int)trip.Price;
 					await userManager.UpdateAsync(userWallet);
@@ -52,6 +53,7 @@ namespace TripPlanner.Application.Reservations.Commands.Trips
 				}
 			}
 
+			//tripRepository.SaveChanges(); we should uncomment it when we add the number of tickets to the trips
 			return await reservationRespository.Add(reservation);
 		}
 	}

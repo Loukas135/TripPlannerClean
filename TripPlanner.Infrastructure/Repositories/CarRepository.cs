@@ -31,5 +31,7 @@ namespace TripPlanner.Infrastructure.Repositories
 										  .FirstOrDefaultAsync(c => c.Id == id);
 			return car;
 		}
+
+		public async Task SaveChanges() => await dbContext.SaveChangesAsync();
 	}
 }

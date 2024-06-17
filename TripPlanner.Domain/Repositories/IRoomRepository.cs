@@ -12,5 +12,7 @@ namespace TripPlanner.Domain.Repositories
 		public Task<int> Add(Room entity);
 		public Task Delete(Room entity);
 		public Task<Room?> GetById(int id);
+		public Task SaveChanges();
+
 	}
 }

@@ -26,6 +26,13 @@ namespace TripPlanner.API.Middlewares
 				context.Response.StatusCode = 400;
 				await context.Response.WriteAsync(noBalance.Message);
 			}
+			catch (NoResourceAvailable noResource)
+			{
+				logger.LogWarning(noResource.Message);
+
+				context.Response.StatusCode = 400;
+				await context.Response.WriteAsync($"Quantity is 0: {noResource.Message}");
+			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);
