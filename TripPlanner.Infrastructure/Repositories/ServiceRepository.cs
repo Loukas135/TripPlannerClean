@@ -41,6 +41,15 @@ namespace TripPlanner.Infrastructure.Repositories
 			.FirstOrDefaultAsync(x => x.Id == id);
 			return service;
 		}
+        public async Task<Service?> GetByUserId(string userId)
+		{
+			var service=await dbContext.Services
+			.Include(s => s.Rooms == null ? null : s.Rooms)
+            .Include(s => s.Trips == null ? null : s.Trips)
+            .Include(s => s.Cars == null ? null : s.Cars)
+            .FirstOrDefaultAsync(x => x.OwnerId == userId);
+			return service;
+        }
         public async Task<Service?> GetByIdWithRating(int id)
         {
             var service = await dbContext.Services

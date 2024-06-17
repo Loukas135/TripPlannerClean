@@ -15,6 +15,19 @@ namespace TripPlanner.Infrastructure.Repositories
 {
 	public class AccountRepository(UserManager<User> userManager, TripPlannerDbContext dbcontext) : IAccountRepository
     {
+        public async Task<bool> FillWallet(string email, int amount)
+        {
+			var user = await userManager.FindByEmailAsync(email);
+			if (user == null)
+			{
+				return false;
+			}
+			user.Wallet += amount;
+			await userManager.UpdateAsync(user);
+			await dbcontext.SaveChangesAsync();
+			return true;
+        }
+
         public async Task<string> Register(User owner, string password, string role)
         {
             var res = await userManager.CreateAsync(owner, password);
@@ -62,6 +75,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 			return false;
 		}
+		
 		
 		/*
 		public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)

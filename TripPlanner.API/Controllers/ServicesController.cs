@@ -9,6 +9,7 @@ using TripPlanner.Application.Services.Dtos;
 using TripPlanner.Application.Services.Queries.GetAllServices;
 using TripPlanner.Application.Services.Queries.GetServiceById;
 using TripPlanner.Application.Services.Queries.GetServiceByType;
+using TripPlanner.Application.Services.Queries.GetUserServices;
 using TripPlanner.Domain.Entities;
 
 namespace TripPlanner.API.Controllers
@@ -73,7 +74,16 @@ namespace TripPlanner.API.Controllers
 			var reservations = await mediator.Send(new GetServiceReservationsQuery(governorateId, serviceId));
 			return Ok(reservations);
 		}
-		
+		[HttpGet]
+		[Route("userServices")]
+		[Authorize(Roles = "HotelOwner,CarRental,TourismOffice")]
+		public async Task<ActionResult<ServiceDto>> GetServiceByUserId()
+		{
+			var request = new GetUserServicesQuery();
+			var result = await mediator.Send(request);
+			return Ok(result);
+
+        }
 	}
 }
 

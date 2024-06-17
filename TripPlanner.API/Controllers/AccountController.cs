@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TripPlanner.Application.Users.Commands.FillWallet;
 using TripPlanner.Application.Users.Commands.LoginUser;
 using TripPlanner.Application.Users.Commands.Register;
 using TripPlanner.Application.Users.Commands.RegisterAdmin;
@@ -93,6 +94,18 @@ namespace TripPlanner.API.Controllers
 			}
             return BadRequest("Invalid Token");
 		}
+        [HttpPost]
+        [Route("FillWallet")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> FillWallet([FromBody]FillWalletCommand request)
+        {
+            var result = await mediator.Send(request);
+            if (result)
+            {
+                return Ok();
+            }
+            return BadRequest("something went wrong");
+        }
     }
 }
 
