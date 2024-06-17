@@ -8,6 +8,7 @@ using TripPlanner.Application.Users.Commands.Register;
 using TripPlanner.Application.Users.Commands.RegisterAdmin;
 using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Domain.Entities;
+using TripPlanner.Domain.Entities.AuthEntity;
 
 namespace TripPlanner.Application.Users.Dtos
 {
@@ -18,6 +19,7 @@ namespace TripPlanner.Application.Users.Dtos
             CreateMap<User, RegisterServiceOwnerCommand>().ReverseMap();
             CreateMap<RegisterUserCommand, User>();
             CreateMap<RegisterAdminCommand, User>().ReverseMap();
+            CreateMap<UserSeedingRequest, User>().ReverseMap();
         }
     }
 }

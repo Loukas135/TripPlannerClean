@@ -13,6 +13,7 @@ using TripPlanner.Infrastructure.Seeders.Governorates;
 using TripPlanner.Infrastructure.Seeders.RolesSeeder;
 using TripPlanner.Infrastructure.Seeders.RoomCategories;
 using TripPlanner.Infrastructure.Seeders.ServiceTypeSeeder;
+using TripPlanner.Infrastructure.Seeders.Users;
 namespace TripPlanner.Infrastructure.Extensions
 {
 	public static class ServiceCollectionExtensions
@@ -49,6 +50,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<IRatingRepository, RatingRepository>();
 			services.AddScoped<IReservationRespository, ReservationRespository>();
 			services.AddScoped<IServiceImageRepository, ServiceImageRepository>();
+			services.AddScoped<IUserSeeder, UserSeeder>();
 		}
 	}
 }

@@ -8,6 +8,7 @@ using TripPlanner.Infrastructure.Seeders.Governorates;
 using TripPlanner.Infrastructure.Seeders.RolesSeeder;
 using TripPlanner.Infrastructure.Seeders.RoomCategories;
 using TripPlanner.Infrastructure.Seeders.ServiceTypeSeeder;
+using TripPlanner.Infrastructure.Seeders.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,8 @@ await roomSeeder.Seed();
 
 var roleSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
 await roleSeeder.Seed();
+var userSeeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
+await userSeeder.Seed();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
