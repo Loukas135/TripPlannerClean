@@ -24,6 +24,7 @@ namespace TripPlanner.API.Controllers
 
 		
 		[HttpGet]
+		[Route("ThisMonth")]
 		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllCurrentMonth(int governorateId)
 		{
 			var reservations = await mediator.Send(new GetReservationsInCurrentMonthQuery(governorateId));
@@ -39,8 +40,9 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpGet]
+		[Route("{year}/{month}")]
 		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllCurrentMonth(int governorateId,
-			[FromQuery]int year, [FromQuery] int month)
+			[FromRoute]int year, [FromRoute] int month)
 		{
 			var reservations = await mediator.Send(new GetReservationsByDateQuery(year, month, governorateId));
 			return Ok(reservations);

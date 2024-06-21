@@ -14,11 +14,12 @@ namespace TripPlanner.Application.Reservations.Queries.GetGovReservations.GetAll
 	
 	public class GetAllReservationsQueryHandler(IGovernoratesRepository governoratesRepository,
 		IServiceRepository serviceRepository,
+		IReservationRespository reservationRespository,
 		IMapper mapper) : IRequestHandler<GetAllReservationsQuery, IEnumerable<ReservationDto>>
 	{
 		public async Task<IEnumerable<ReservationDto>> Handle(GetAllReservationsQuery request, CancellationToken cancellationToken)
 		{
-			var reservations = await serviceRepository.GetServicesWithReservationsByGov(request.GovernorateId);
+			var reservations = await reservationRespository.GetAllByGov(request.GovernorateId);
 
 			var results = mapper.Map<IEnumerable<ReservationDto>>(reservations);
 			return results;
