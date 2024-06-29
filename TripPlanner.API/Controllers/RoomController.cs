@@ -18,7 +18,7 @@ namespace TripPlanner.API.Controllers
 	{
 		[HttpPost]
 		[Route("{rcId}")]
-		public async Task<IActionResult> AddRoomForService(int serId, int rcId, CreateRoomCommand command)
+		public async Task<IActionResult> AddRoomForService(int serId, int rcId,[FromForm] CreateRoomCommand command)
 		{
 			command.ServiceId = serId;
 			command.RoomCategoryId = rcId;

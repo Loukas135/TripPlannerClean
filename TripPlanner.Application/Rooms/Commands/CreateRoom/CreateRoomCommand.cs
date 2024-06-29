@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace TripPlanner.Application.Rooms.Commands.CreateRoom
 
 		public int RoomCategoryId { get; set; }
 		public int ServiceId { get; set; }
+		public IFormFile? RoomImage { get; set; }
 	}
 }

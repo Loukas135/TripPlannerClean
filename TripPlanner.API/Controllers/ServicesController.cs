@@ -20,10 +20,11 @@ namespace TripPlanner.API.Controllers
 	{
 		//private static List<string> AllowedRoles = ["User","HotelOwner", "CarRental", "TourismOffice", "Restaurant"];
 		[HttpPost]
-		[Route("servicetypes/{serviceTypeId}")]
+		[Route("servicetypes/{serviceTypeId}/services/add")]
 		[Authorize(Roles = "Administrator,HotelOwner")]
-		public async Task<IActionResult> AddService([FromRoute]int governorateId, [FromRoute]int serviceTypeId, [FromBody] CreateServiceCommand command)
+		public async Task<IActionResult> AddService([FromRoute]int governorateId, [FromRoute]int serviceTypeId, [FromForm] CreateServiceCommand command)
 		{
+			
 			command.GovernorateId = governorateId;
 			command.ServiceTypeId = serviceTypeId;
 			int serviceId = await mediator.Send(command);

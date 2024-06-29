@@ -22,6 +22,7 @@ namespace TripPlanner.Application.Services.Commands.CreateService
         public bool HasWiFi { get; set; } = false;
         public bool HasPool { get; set; } = false;
         public bool HasRestaurant { get; set; } = false;
+		public IFormFile? ServiceMainImage { get; set; }
 		
     }
 }
