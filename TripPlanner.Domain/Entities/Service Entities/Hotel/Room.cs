@@ -20,6 +20,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities.Hotel
 		public int ServiceId { get; set; }
 
 		public List<Reservation>? Reservations { get; set; }
+		public string ImagePath { get; set; }
 
 		//public List<IFormFile> RoomImages { get; set; } = new List<IFormFile>();
 	}

@@ -28,8 +28,9 @@ namespace TripPlanner.Application.Rooms.Commands.CreateRoom
 			{
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			}
-
+			var imagePath = await roomRepository.SaveRoomImageAsync(request.RoomImage);
 			var room = mapper.Map<Room>(request);
+			room.ImagePath = imagePath;
 			return await roomRepository.Add(room);
 		}
 	}

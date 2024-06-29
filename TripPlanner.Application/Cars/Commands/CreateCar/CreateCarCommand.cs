@@ -16,5 +16,6 @@ namespace TripPlanner.Application.Cars.Commands.CreateCar
 
 		public int CarCategoryId { get; set; }
 		public int ServiceId { get; set; }
+		public string imagePath { get; set; }
 	}
 }

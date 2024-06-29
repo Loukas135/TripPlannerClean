@@ -28,6 +28,7 @@ namespace TripPlanner.Application.Rooms.Queries.GetAllRooms
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			}
 			var rooms = mapper.Map<IEnumerable<RoomDto>>(service.Rooms);
+			
 			return rooms;
 		}
 	}

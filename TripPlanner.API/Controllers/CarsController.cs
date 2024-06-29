@@ -17,8 +17,9 @@ namespace TripPlanner.API.Controllers
 	{
 		[HttpPost]
 		[Route("{ccId}")]
-		public async Task<IActionResult> AddCarForService(int serId, int ccId, CreateCarCommand command)
+		public async Task<IActionResult> AddCarForService([FromRoute]int serId, [FromRoute]int ccId, [FromForm]CreateCarCommand command)
 		{
+		
 			command.ServiceId = serId;
 			command.CarCategoryId = ccId;
 			int id = await mediator.Send(command);

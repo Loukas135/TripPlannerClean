@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace TripPlanner.Application.Rooms.Queries.GetRoomById
 			}
 
 			var result = mapper.Map<RoomDto>(room);
+			result.ImagePath = room.ImagePath;
 			return result;
 		}
 	}
