@@ -54,7 +54,7 @@ namespace TripPlanner.API.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterUser([FromBody] RegisterUserCommand command)
+        public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterUser([FromForm] RegisterUserCommand command)
         {
             var result = await mediator.Send(command);
             if (result.Any())

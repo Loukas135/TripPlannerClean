@@ -17,11 +17,11 @@ namespace TripPlanner.API.Controllers
 	public class TripsController(IMediator mediator) : ControllerBase
 	{
 		[HttpPost]
-		public async Task<IActionResult> AddTripForService(int serId, CreateTripCommand command)
+		public async Task<IActionResult> AddTripForService(int serId, [FromForm] CreateTripCommand command)
 		{
 			command.ServiceId = serId;
 			int id = await mediator.Send(command);
-			return CreatedAtAction(nameof(GetTripByIdFromService), new { serId, tripId=id }, null);
+			return CreatedAtAction(nameof(GetTripByIdFromService), new { serId, tripId = id }, null);
 		}
 
 		[HttpGet]

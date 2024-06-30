@@ -19,5 +19,7 @@ namespace TripPlanner.Domain.Entities
 
 		public string? VerificationToken { get; set; }
 		public DateTime? VerifiedAt { get; set; }
+
+		public string ProfileImagePath { get; set; }
 	}
 }

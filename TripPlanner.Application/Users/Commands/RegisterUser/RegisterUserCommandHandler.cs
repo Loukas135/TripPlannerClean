@@ -18,6 +18,7 @@ namespace TripPlanner.Application.Users.Commands.RegisterUser
 		{
 			var user = mapper.Map<User>(request);
 			user.UserName = request.UserName;
+			user.ProfileImagePath = await accountRepository.SaveUserProfileAsync(request.UserProfile);
 			return await accountRepository.RegisterUser(user, request.Password);
 		}
 	}

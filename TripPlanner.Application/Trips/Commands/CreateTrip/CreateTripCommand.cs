@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,5 +20,6 @@ namespace TripPlanner.Application.Trips.Commands.CreateTrip
 		public float Price { get; set; }
 
 		public int ServiceId { get; set; }
+		public IFormFile? TripImage { get; set; }
 	}
 }

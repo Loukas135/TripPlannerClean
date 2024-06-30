@@ -1,6 +1,8 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Domain.Entities;
+using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class AccountRepository(UserManager<User> userManager, TripPlannerDbContext dbcontext) : IAccountRepository
+	public class AccountRepository(UserManager<User> userManager, TripPlannerDbContext dbcontext, IHostEnvironment hostEnvironment) : IAccountRepository
     {
         public async Task<bool> FillWallet(string email, int amount)
         {
@@ -62,7 +65,26 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 			return check.Errors;
 		}
-		
+
+		public async Task<string> SaveUserProfileAsync(IFormFile userImage)
+		{
+			if (userImage == null)
+				return null;
+
+			var contentPath = hostEnvironment.ContentRootPath;
+			var path = Path.Combine(contentPath, "Images/Trips");
+			if (Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+			var extension = Path.GetExtension(userImage.FileName);
+			var imageName = $"{Guid.NewGuid().ToString()}{extension}";
+			var fullName = Path.Combine(path, imageName);
+			using var stream = new FileStream(fullName, FileMode.Create);
+			await stream.CopyToAsync(stream);
+			return fullName;
+		}
+
 		public async Task<bool> Verify(string email, string verficationToken)
 		{
 			var user = await userManager.FindByEmailAsync(email);

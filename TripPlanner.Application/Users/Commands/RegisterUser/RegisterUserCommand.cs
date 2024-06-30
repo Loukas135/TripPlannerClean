@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -12,5 +13,6 @@ namespace TripPlanner.Application.Users.Commands.RegisterUser
 		public string Email { get; set; } = default!;
 		[PasswordPropertyText]
 		public string Password { get; set; } = default!;
+		public IFormFile? UserProfile { get; set; }
 	}
 }

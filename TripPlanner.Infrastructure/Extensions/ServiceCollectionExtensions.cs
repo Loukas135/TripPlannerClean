@@ -34,23 +34,26 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<IRoomCategorySeeder, RoomCategorySeeder>();
 			services.AddScoped<ICarCategorySeeder, CarCategorySeeder>();
 			services.AddScoped<IRolesSeeder, RolesSeeder>();
+			services.AddScoped(typeof(ISeededValuesRepository<>), typeof(SeededValuesRepository<>));
+			services.AddScoped<IUserSeeder, UserSeeder>();
 			//-----------------------------------------------------------
 			services.AddScoped<IServiceRepository, ServiceRepository>();
 			services.AddScoped<IGovernoratesRepository, GovernoratesRepository>();
 			services.AddScoped<IRoomRepository, RoomRepository>();
 			services.AddScoped<ICarRepository, CarRepository>();
 			services.AddScoped<ITripRepository, TripRepository>();
+			//-----------------------------------------------------------
 			services.AddScoped<ITokenRepository, TokenRepository>();
 			services.AddScoped<IAccountRepository, AccountRepository>();
-			services.AddScoped(typeof(ISeededValuesRepository<>),typeof(SeededValuesRepository<>));
 			services.AddScoped<IRolesRepository, RolesRepository>();
+			//-----------------------------------------------------------
             services.AddScoped<IServicetypeRepository, ServicetypeRepository>();
 			services.AddScoped<ICarCategoriesRepository, CarCategoriesRepository>();
 			services.AddScoped<IRoomCategoriesRespository, RoomCategoriesRespository>();
+			//-----------------------------------------------------------
 			services.AddScoped<IRatingRepository, RatingRepository>();
 			services.AddScoped<IReservationRespository, ReservationRespository>();
 			services.AddScoped<IServiceImageRepository, ServiceImageRepository>();
-			services.AddScoped<IUserSeeder, UserSeeder>();
 		}
 	}
 }

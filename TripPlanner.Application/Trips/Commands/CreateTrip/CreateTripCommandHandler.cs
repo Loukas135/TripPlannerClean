@@ -27,8 +27,9 @@ namespace TripPlanner.Application.Trips.Commands.CreateTrip
 			{
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			}
-
+			var imagePath = await tripRepository.SaveTripImageAsync(request.TripImage);
 			var trip = mapper.Map<Trip>(request);
+			trip.ImagePath = imagePath;
 			trip.From = request.From;
 			trip.To = request.To;
 			return await tripRepository.Add(trip);

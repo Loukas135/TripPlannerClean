@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class TripRepository(TripPlannerDbContext dbContext) : ITripRepository
+	public class TripRepository(TripPlannerDbContext dbContext, IHostEnvironment hostEnvironment) : ITripRepository
 	{
 		public async Task<int> Add(Trip entity)
 		{
@@ -32,5 +34,24 @@ namespace TripPlanner.Infrastructure.Repositories
 		}
 
 		public async Task SaveChanges() => await dbContext.SaveChangesAsync();
+
+		public async Task<string> SaveTripImageAsync(IFormFile tripImage)
+		{
+			if (tripImage == null)
+				return null;
+
+			var contentPath = hostEnvironment.ContentRootPath;
+			var path = Path.Combine(contentPath, "Images/Trips");
+			if(Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+			var extension = Path.GetExtension(tripImage.FileName);
+			var imageName = $"{Guid.NewGuid().ToString()}{extension}";
+			var fullName = Path.Combine(path, imageName);
+			using var stream = new FileStream(fullName, FileMode.Create);
+			await stream.CopyToAsync(stream);
+			return fullName;
+		}
 	}
 }

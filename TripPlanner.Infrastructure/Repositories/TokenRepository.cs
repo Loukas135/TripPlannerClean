@@ -22,8 +22,6 @@ namespace TripPlanner.Infrastructure.Repositories
 		private User? _user;
         private readonly int _expiresInMinutes = Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"]);
 
-
-
 		public async Task<AuthResponse?> GenerateToken(string UserIdentifier)
 		{
             _user = await userManager.FindByIdAsync(UserIdentifier);

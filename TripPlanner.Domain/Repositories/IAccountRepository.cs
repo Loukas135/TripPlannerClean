@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace TripPlanner.Domain.Repositories
         public Task<IEnumerable<IdentityError>> RegisterAdmin(User user, string password);
         public Task<bool> Verify(string email, string verficationToken);
         public Task<bool> FillWallet(string email, int amount);
+        public Task<string> SaveUserProfileAsync(IFormFile userImage);
         //public Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken);
     }
 }

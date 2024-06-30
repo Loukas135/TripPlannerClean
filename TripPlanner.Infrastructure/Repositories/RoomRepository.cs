@@ -43,10 +43,11 @@ namespace TripPlanner.Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<string>SaveRoomImageAsync(IFormFile roomImage)
+        public async Task<string> SaveRoomImageAsync(IFormFile roomImage)
         {
             if (roomImage == null)
                 return null;
+
             var contentPath = environment.ContentRootPath;
             var path = Path.Combine(contentPath, "Images/Rooms");
             if (!Directory.Exists(path))
