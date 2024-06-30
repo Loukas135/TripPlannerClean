@@ -72,7 +72,7 @@ namespace TripPlanner.Infrastructure.Repositories
 				return null;
 
 			var contentPath = hostEnvironment.ContentRootPath;
-			var path = Path.Combine(contentPath, "Images/Trips");
+			var path = Path.Combine(contentPath, "Images/Users");
 			if (Directory.Exists(path))
 			{
 				Directory.CreateDirectory(path);
