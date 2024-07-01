@@ -66,5 +66,13 @@ namespace TripPlanner.API.Controllers
 			var reservations = await mediator.Send(new GetRoomReservationQuery(serId));
 			return Ok(reservations);
 		}
+
+		[HttpGet]
+		[Route("image")]
+		public IActionResult GetImage()
+		{
+			var image = System.IO.File.OpenRead("C:\\Users\\Loukas\\source\\repos\\TripPlannerClean\\TripPlanner.API\\Images/Rooms\\4c165a25-8689-427b-b63a-3dd1762e3b87.zip");
+			return File(image, "application/zip");
+		}
 	}
 }

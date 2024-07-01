@@ -43,6 +43,7 @@ await roomSeeder.Seed();
 
 var roleSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
 await roleSeeder.Seed();
+
 var userSeeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
 await userSeeder.Seed();
 // Configure the HTTP request pipeline.
