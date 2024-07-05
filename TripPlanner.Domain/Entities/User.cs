@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace TripPlanner.Domain.Entities
 
 		public string? VerificationToken { get; set; }
 		public DateTime? VerifiedAt { get; set; }
-
-		public string ProfileImagePath { get; set; }
+		[AllowNull]
+		public string? ProfileImagePath { get; set; }
 	}
 }

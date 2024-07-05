@@ -110,5 +110,14 @@ namespace TripPlanner.Infrastructure.Repositories
 
 			return servicesInGov;
 		}
+		public async Task<IEnumerable<Service>>GetServiceFromUserReservation(string userid)
+		{
+			var services = from s in dbContext.Services
+						   join r in dbContext.Reservations
+							  on s.Id equals r.ServiceId
+						   where r.UserId == userid
+						   select s;
+			return services;
+		}
 	}
 }

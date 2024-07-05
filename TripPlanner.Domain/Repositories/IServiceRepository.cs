@@ -17,5 +17,7 @@ namespace TripPlanner.Domain.Repositories
 
 		public Task<Service> GetServiceWithReservations(int id);
 		public Task<IEnumerable<Service>> GetServicesWithReservationsByGov(int id);
-	}
+		public Task<IEnumerable<Service>> GetServiceFromUserReservation(string userid);
+
+    }
 }
