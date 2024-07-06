@@ -85,6 +85,7 @@ namespace TripPlanner.API.Controllers
 			return Ok(result);
 
         }
+
 	}
 }
 

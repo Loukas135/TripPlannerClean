@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TripPlanner.Application.Services.Queries.GetServiceFromUserReservation;
 using TripPlanner.Application.Users.Commands.FillWallet;
 using TripPlanner.Application.Users.Commands.LoginUser;
 using TripPlanner.Application.Users.Commands.Register;
@@ -105,6 +106,15 @@ namespace TripPlanner.API.Controllers
                 return Ok();
             }
             return BadRequest("something went wrong");
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("ReservedServices")]
+        public async Task<ActionResult> GetReservedService()
+        {
+            var request = new GetServiceFromUserReservationQuery();
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
     }
 }
