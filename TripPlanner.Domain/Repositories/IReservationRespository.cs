@@ -14,6 +14,10 @@ namespace TripPlanner.Domain.Repositories
 		public Task<IEnumerable<Reservation>> GetAllByGov(int id);
 		public Task<IEnumerable<Reservation>> GetAllInCurrentMonth(int id);
 		public Task<IEnumerable<Reservation>> GetServiceTypeReservations(int govId, int stId);
+		
 		public Task<IEnumerable<Reservation>> GetReservationsByDate(int year, int month, int govId/*, string year, string month*/);
-	}
+		public Task UpdateReservation(Reservation reservation);
+		public Task<Reservation> GetById(int id);
+
+    }
 }

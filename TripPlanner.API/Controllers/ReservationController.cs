@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using TripPlanner.Application.Reservations.Commands.ChangeStatus;
 using TripPlanner.Application.Reservations.Dtos;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetAll;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetByDate;
@@ -46,6 +47,14 @@ namespace TripPlanner.API.Controllers
 		{
 			var reservations = await mediator.Send(new GetReservationsByDateQuery(year, month, governorateId));
 			return Ok(reservations);
+		}
+		[HttpPut]
+		[Route("/api/[controller]/{reservationId}")]
+		public async Task<ActionResult> ChangeReservationStatus([FromRoute]int reservationId, [FromQuery]bool isAccepted)
+		{
+			var request=new ChangeReservationStatusCommand(reservationId, isAccepted);
+			await mediator.Send(request);
+			return Ok();
 		}
 	}
 }

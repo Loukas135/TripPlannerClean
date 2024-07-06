@@ -72,5 +72,15 @@ namespace TripPlanner.Infrastructure.Repositories
 
 			return await reservations.ToListAsync();
 		}
+		public async Task UpdateReservation(Reservation reservation)
+		{
+			dbContext.Reservations.Update(reservation);
+			await dbContext.SaveChangesAsync();
+		}
+		public async Task<Reservation>GetById(int id)
+		{
+			var reservation = await dbContext.Reservations.FirstOrDefaultAsync(r=>r.Id==id);
+			return reservation;
+		}
 	}
 }

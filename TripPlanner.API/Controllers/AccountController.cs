@@ -107,15 +107,7 @@ namespace TripPlanner.API.Controllers
             }
             return BadRequest("something went wrong");
         }
-        [HttpGet]
-        [Authorize]
-        [Route("ReservedServices")]
-        public async Task<ActionResult> GetReservedService()
-        {
-            var request = new GetServiceFromUserReservationQuery();
-            var result = await mediator.Send(request);
-            return Ok(result);
-        }
+       
     }
 }
 
