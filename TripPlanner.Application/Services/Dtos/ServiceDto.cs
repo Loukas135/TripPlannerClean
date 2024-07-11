@@ -20,8 +20,9 @@ namespace TripPlanner.Application.Services.Dtos
 		public string Description { get; set; } = default!;
 		public string ContactNumber { get; set; } = default!;
 		public string? ContactEmail { get; set; }
+		public int OverallRate { get; set; } = default!;
 
-		public List<RoomDto>? Rooms { get; set; }
+        public List<RoomDto>? Rooms { get; set; }
 		public List<CarDto>? Cars { get; set; }
 		public List<TripDto>? Trips { get; set; }
 

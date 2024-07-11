@@ -16,6 +16,7 @@ namespace TripPlanner.Application.Cars.Dtos
 		public float PricePerMonth { get; set; }
 		public int Quantity { get; set; }
 		public string ImagePath { get; set; }
-		public List<ReservationDto>? Reservations { get;}
+		public int CarCategoryId { get; set; }
+        public List<ReservationDto>? Reservations { get;}
 	}
 }

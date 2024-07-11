@@ -42,10 +42,12 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 			reservation.UserId = userId;
 			reservation.RoomId = room.Id;
 			reservation.ServiceId = request.ServiceId;
-			reservation.Cost = request.Nights * (int)room.PricePerNight;
+			int monthnights = (request.To.Month - request.From.Month)*30;
+			int nights = request.To.Day - request.From.Day+monthnights;
+			reservation.Cost = nights * (int)room.PricePerNight;
 			reservation.From = request.From;
 			reservation.To = request.To;
-			reservation.Payment = request.Payment;
+            reservation.ElectronicPayment = (request.Payment == "Electronic");
 
 			if (request.Payment == "Electronic")
 			{

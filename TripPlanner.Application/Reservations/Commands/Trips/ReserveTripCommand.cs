@@ -11,6 +11,6 @@ namespace TripPlanner.Application.Reservations.Commands.Trips
 	{
 		public int TripId { get; set; }
 		public int ServiceId { get; set; }
-		public string Payment { get; set; } = default!;
+		public bool ElectronicPayment { get; set; } = default!;
 	}
 }

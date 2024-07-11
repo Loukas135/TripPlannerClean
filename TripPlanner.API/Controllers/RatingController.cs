@@ -10,7 +10,7 @@ namespace TripPlanner.API.Controllers
 {
     [ApiController]
     [Route("/api/{serviceId}/[controller]")]
-    [Authorize(Roles = "USER")]
+    [Authorize(Roles = "User")]
     public class RatingController(IMediator mediator):ControllerBase
     {
         [HttpPost]

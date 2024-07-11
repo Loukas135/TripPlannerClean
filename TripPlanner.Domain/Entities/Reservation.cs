@@ -13,6 +13,8 @@ namespace TripPlanner.Domain.Entities
 	{
 		public int Id { get; set; }
 		public int Cost { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime CreatedAt { get; set; } = DateTime.Today;
 
         [DataType(DataType.Date)]
         public DateTime From { get; set; } = default!;
@@ -28,7 +30,7 @@ namespace TripPlanner.Domain.Entities
 
 		public int? CarId { get; set; }
 
-		public string Payment { get; set; } = default!;
+		public bool  ElectronicPayment { get; set; } = default!;
 		public string UserId { get; set; } = default!;
 
 		public string Status { get; set; } = "Pending";

@@ -13,7 +13,7 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 	{
 		public int ServiceId { get; set; }
 		public int RoomId { get; set; }
-		public int Nights { get; set; }
+		
 		[DataType(DataType.Date)]
 		public DateTime From { get; set; } = default!;
         [DataType(DataType.Date)]

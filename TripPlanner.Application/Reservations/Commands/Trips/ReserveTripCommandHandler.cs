@@ -34,13 +34,13 @@ namespace TripPlanner.Application.Reservations.Commands.Trips
 
 			var reservation = mapper.Map<Reservation>(request);
 			reservation.ServiceId = request.ServiceId;
-			reservation.Payment = request.Payment;
+			reservation.ElectronicPayment = request.ElectronicPayment;
 			reservation.Cost = (int) trip.Price;
 			reservation.UserId = user.Id;
 			reservation.From = trip.From;
 			reservation.To = trip.To;
 
-			if(request.Payment == "Electronic")
+			if(request.ElectronicPayment)
 			{
 				var userWallet = await userManager.FindByIdAsync(user.Id);
 				if(userWallet!.Wallet >= trip.Price)

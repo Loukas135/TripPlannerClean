@@ -15,7 +15,8 @@ namespace TripPlanner.Application.Rooms.Queries.GetAllRooms
 {
 	public class GetAllRoomsQueryHandler(ILogger<GetAllRoomsQueryHandler> logger,
 		IMapper mapper,
-		IServiceRepository serviceRepository) : IRequestHandler<GetAllRoomsQuery, IEnumerable<RoomDto>>
+		IServiceRepository serviceRepository,
+		IRoomCategoriesRespository roomCategoriesRespository) : IRequestHandler<GetAllRoomsQuery, IEnumerable<RoomDto>>
 	{
 		public async Task<IEnumerable<RoomDto>> Handle(GetAllRoomsQuery request, CancellationToken cancellationToken)
 		{
@@ -28,7 +29,6 @@ namespace TripPlanner.Application.Rooms.Queries.GetAllRooms
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			}
 			var rooms = mapper.Map<IEnumerable<RoomDto>>(service.Rooms);
-			
 			return rooms;
 		}
 	}

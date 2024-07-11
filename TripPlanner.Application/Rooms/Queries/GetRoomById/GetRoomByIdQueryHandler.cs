@@ -22,7 +22,7 @@ namespace TripPlanner.Application.Rooms.Queries.GetRoomById
 	{
 		public async Task<RoomDto> Handle(GetRoomByIdQuery request, CancellationToken cancellationToken)
 		{
-			logger.LogInformation("Deleting a Room with id:{RoomId} from service with id: {ServiceId}",
+			logger.LogInformation("Getting a Room with id:{RoomId} from service with id: {ServiceId}",
 				request.RoomId, request.ServiceId);
 
 			var service = await serviceRepository.GetById(request.ServiceId);
@@ -38,6 +38,7 @@ namespace TripPlanner.Application.Rooms.Queries.GetRoomById
 			}
 
 			var result = mapper.Map<RoomDto>(room);
+			
 			result.ImagePath = room.ImagePath;
 			return result;
 		}

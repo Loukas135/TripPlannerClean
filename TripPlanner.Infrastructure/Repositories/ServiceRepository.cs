@@ -74,7 +74,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 
 			overallRating /= ratings.Count;
-			//service.Rate = overallRating;
+			service.OverallRate = overallRating;
 
 			dbContext.Services.Update(service);
 			await dbContext.SaveChangesAsync();

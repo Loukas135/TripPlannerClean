@@ -18,8 +18,6 @@ namespace TripPlanner.Application.Reservations.Commands.Car
 		public DateTime From { get; set; } = default!;
 		[DataType(DataType.Date)]
 		public DateTime To { get; set; } = default!;
-
-		public int Months { get; set; }
-		public string Payment { get; set; } = default!;
+		public bool ElectronicPayment { get; set; } = default!;
 	}
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripPlanner.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TripPlanner.Infrastructure.Persistence;
 namespace TripPlanner.Infrastructure.Migrations
 {
     [DbContext(typeof(TripPlannerDbContext))]
-    partial class TripPlannerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240711150442_Overall-Rating_for_Service_added")]
+    partial class OverallRating_for_Service_added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,14 +193,12 @@ namespace TripPlanner.Infrastructure.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("ElectronicPayment")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("From")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Payment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RoomId")
                         .HasColumnType("int");

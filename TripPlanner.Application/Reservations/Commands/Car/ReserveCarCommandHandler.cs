@@ -45,10 +45,11 @@ namespace TripPlanner.Application.Reservations.Commands.Car
 			reservation.ServiceId = request.ServiceId;
 			reservation.From = request.From;
 			reservation.To = request.To;
-			reservation.Cost = request.Months * (int) car.PricePerMonth;
-			reservation.Payment = request.Payment;
+			var months = request.To.Month - request.From.Month;
+			reservation.Cost =  months* (int) car.PricePerMonth;
+			reservation.ElectronicPayment = request.ElectronicPayment;
 
-			if (request.Payment == "Electronic")
+			if (request.ElectronicPayment)
 			{
 				if (user.Wallet >= (int) reservation.Cost)
 				{

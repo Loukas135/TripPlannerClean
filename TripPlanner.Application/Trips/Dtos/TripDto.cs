@@ -17,7 +17,6 @@ namespace TripPlanner.Application.Trips.Dtos
 		public int Days { get; set; }
 		public float Price { get; set; }
 		public string ImagePath { get; set; }
-
 		public List<ReservationDto>? Reservations { get; set; }
 	}
 }

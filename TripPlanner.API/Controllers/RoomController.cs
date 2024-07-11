@@ -50,7 +50,7 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpPost]
-		[Route("/roomreservations/{roomId}")]
+		[Route("roomreservations/{roomId}")]
 		public async Task<IActionResult> AddRoomReservation(ReserveRoomCommand command, int serId, int roomId)
 		{
 			command.RoomId = roomId;

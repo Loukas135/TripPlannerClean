@@ -48,7 +48,7 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpPost]
-		[Route("/tripreservations/{tripId}")]
+		[Route("tripreservations/{tripId}")]
 		public async Task<IActionResult> AddTripReservation(ReserveTripCommand command, [FromRoute]int tripId, int serId)
 		{
 			command.TripId = tripId;
