@@ -6,6 +6,7 @@ using TripPlanner.Application.Reservations.Queries.GetCarReservations;
 using TripPlanner.Application.Reservations.Queries.GetTripReservations;
 using TripPlanner.Application.Trips.Commands.CreateTrip;
 using TripPlanner.Application.Trips.Commands.DeleteTrip;
+using TripPlanner.Application.Trips.Commands.UpdateTrip;
 using TripPlanner.Application.Trips.Dtos;
 using TripPlanner.Application.Trips.Queries.GetAllTrips;
 using TripPlanner.Application.Trips.Queries.GetTripById;
@@ -44,6 +45,15 @@ namespace TripPlanner.API.Controllers
 		public async Task<ActionResult<TripDto>> DeleteTripFromService(int serId, int tripId)
 		{
 			await mediator.Send(new DeleteTripCommand(serId, tripId));
+			return NoContent();
+		}
+
+		[HttpPatch]
+		[Route("{tripId}")]
+		public async Task<IActionResult> UpdateTrip([FromRoute]int tripId, UpdateTripCommand command)
+		{
+			command.TripId = tripId;
+			await mediator.Send(command);
 			return NoContent();
 		}
 

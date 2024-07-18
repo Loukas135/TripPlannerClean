@@ -11,6 +11,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities.Hotel
 	public class Room
 	{
 		public int Id { get; set; }
+		public string? Title { get; set; }
 		public string Description { get; set; } = default!;
 		public int NumberOfPeople { get; set; }
 		public int Quantity { get; set; }

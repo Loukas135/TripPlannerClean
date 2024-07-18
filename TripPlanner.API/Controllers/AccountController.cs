@@ -98,7 +98,7 @@ namespace TripPlanner.API.Controllers
         [HttpPost]
         [Route("FillWallet")]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> FillWallet([FromBody]FillWalletCommand request)
+        public async Task<ActionResult> FillWallet([FromBody] FillWalletCommand request)
         {
             var result = await mediator.Send(request);
             if (result)
@@ -107,7 +107,7 @@ namespace TripPlanner.API.Controllers
             }
             return BadRequest("something went wrong");
         }
-       
+
     }
 }
 

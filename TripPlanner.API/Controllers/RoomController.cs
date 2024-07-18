@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TripPlanner.Application.Cars.Commands.UpdateCar;
 using TripPlanner.Application.Reservations.Commands.Room;
 using TripPlanner.Application.Reservations.Dtos;
 using TripPlanner.Application.Reservations.Queries.GetCarReservations;
 using TripPlanner.Application.Reservations.Queries.GetRoomReservations;
 using TripPlanner.Application.Rooms.Commands.CreateRoom;
 using TripPlanner.Application.Rooms.Commands.DeleteRoom;
+using TripPlanner.Application.Rooms.Commands.UpdateRoom;
 using TripPlanner.Application.Rooms.Dtos;
 using TripPlanner.Application.Rooms.Queries.GetAllRooms;
 using TripPlanner.Application.Rooms.Queries.GetRoomById;
@@ -47,6 +49,15 @@ namespace TripPlanner.API.Controllers
 		{
 			var rooms = await mediator.Send(new GetAllRoomsQuery(serId));
 			return Ok(rooms);
+		}
+
+		[HttpPatch]
+		[Route("{roomId}")]
+		public async Task<IActionResult> UpdateTrip([FromRoute] int roomId, UpdateRoomCommand command)
+		{
+			command.RoomId = roomId;
+			await mediator.Send(command);
+			return NoContent();
 		}
 
 		[HttpPost]

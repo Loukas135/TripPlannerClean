@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Application.Rooms.Commands.CreateRoom;
+using TripPlanner.Application.Rooms.Commands.UpdateRoom;
 using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 
 namespace TripPlanner.Application.Rooms.Dtos
@@ -13,6 +14,8 @@ namespace TripPlanner.Application.Rooms.Dtos
 	{
 		public RoomsProfile()
 		{
+			CreateMap<UpdateRoomCommand, Room>();
+
 			CreateMap<Room, RoomDto>().ForMember(d => d.Reservations, opt => opt.MapFrom(src => src.Reservations));
 
 			CreateMap<CreateRoomCommand, Room>();

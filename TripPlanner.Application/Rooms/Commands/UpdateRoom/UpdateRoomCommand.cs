@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TripPlanner.Application.Rooms.Commands.CreateRoom
+namespace TripPlanner.Application.Rooms.Commands.UpdateRoom
 {
-	public class CreateRoomCommand() : IRequest<int>
+	public class UpdateRoomCommand : IRequest
 	{
+		public int RoomId { get; set; }
 		public string? Title { get; set; }
 		public string Description { get; set; } = default!;
 		public int NumberOfPeople { get; set; } = default!;
@@ -17,7 +18,6 @@ namespace TripPlanner.Application.Rooms.Commands.CreateRoom
 		public float PricePerNight { get; set; } = default!;
 
 		public int RoomCategoryId { get; set; } = default!;
-		public int ServiceId { get; set; } = default!;
-		public IFormFile? RoomImage { get; set; }
+		public IFormFile RoomImage { get; set; } = default!;
 	}
 }

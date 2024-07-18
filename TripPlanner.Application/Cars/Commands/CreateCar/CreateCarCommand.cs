@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace TripPlanner.Application.Cars.Commands.CreateCar
 	{
 		public string Name { get; set; } = default!;
 		public string Description { get; set; } = default!;
-		public float PricePerMonth { get; set; }
-		public int Quantity { get; set; }
+		public float PricePerMonth { get; set; } = default!;	
+		public int Quantity { get; set; } = default!;
 
-		public int CarCategoryId { get; set; }
-		public int ServiceId { get; set; }
-		public string imagePath { get; set; }
+		public int CarCategoryId { get; set; } = default!;
+		public int ServiceId { get; set; } = default!;
+		public IFormFile? ImagePath { get; set; }
 	}
 }

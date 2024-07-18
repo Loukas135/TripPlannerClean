@@ -8,11 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="Services\Validators\**" />
-    <Compile Remove="Trips\Commands\UpdateTrip\**" />
     <EmbeddedResource Remove="Services\Validators\**" />
-    <EmbeddedResource Remove="Trips\Commands\UpdateTrip\**" />
     <None Remove="Services\Validators\**" />
-    <None Remove="Trips\Commands\UpdateTrip\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Reservations\Queries\GetUserReservations\" />
-    <Folder Include="Rooms\Commands\UpdateRoom\" />
   </ItemGroup>
 
 </Project>

@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Cars.Commands.CreateCar;
 using TripPlanner.Application.Cars.Commands.DeleteCar;
+using TripPlanner.Application.Cars.Commands.UpdateCar;
 using TripPlanner.Application.Cars.Dtos;
 using TripPlanner.Application.Cars.Queries.GetAllCars;
 using TripPlanner.Application.Cars.Queries.GetCarById;
 using TripPlanner.Application.Reservations.Commands.Car;
 using TripPlanner.Application.Reservations.Dtos;
 using TripPlanner.Application.Reservations.Queries.GetCarReservations;
+using TripPlanner.Application.Trips.Commands.UpdateTrip;
 
 namespace TripPlanner.API.Controllers
 {
@@ -54,6 +56,15 @@ namespace TripPlanner.API.Controllers
 		public async Task<IActionResult> DeleteCarForService(int serId, int carId)
 		{
 			await mediator.Send(new DeleteCarCommand(serId, carId));
+			return NoContent();
+		}
+
+		[HttpPatch]
+		[Route("{carId}")]
+		public async Task<IActionResult> UpdateTrip([FromRoute] int carId, UpdateCarCommand command)
+		{
+			command.CarId = carId;
+			await mediator.Send(command);
 			return NoContent();
 		}
 

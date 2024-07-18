@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,5 @@ namespace TripPlanner.Domain.Repositories
 		public Task SaveChanges();
 		public Task<string> SaveRoomImageAsync(IFormFile roomImage);
 
-
-    }
+	}
 }
