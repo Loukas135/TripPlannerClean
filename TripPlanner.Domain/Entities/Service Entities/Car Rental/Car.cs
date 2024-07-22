@@ -20,7 +20,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities.Car_Rental
 		public int ServiceId { get; set; }
 
 		public List<Reservation>? Reservations { get; set; }
-		public string ImagePath { get; set; }
+		public string? ImagePath { get; set; }
 
 		//public List<IFormFile> CarImages { get; set; } = new List<IFormFile>();
 	}

@@ -25,7 +25,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities.Tourism_Office
 		public int ServiceId { get; set; }
 
 		public List<Reservation>? Reservations { get; set; }
-		public string ImagePath { get; set; }
+		public string? ImagePath { get; set; }
 
 		//public List<IFormFile> TripImages { get; set; } = new List<IFormFile>();
 	}

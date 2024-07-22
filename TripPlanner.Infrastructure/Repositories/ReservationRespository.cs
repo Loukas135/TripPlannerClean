@@ -79,7 +79,7 @@ namespace TripPlanner.Infrastructure.Repositories
 		}
 		public async Task<Reservation>GetById(int id)
 		{
-			var reservation = await dbContext.Reservations.FirstOrDefaultAsync(r=>r.Id==id);
+			var reservation = await dbContext.Reservations.FirstOrDefaultAsync(r => r.Id == id);
 			return reservation;
 		}
 	}

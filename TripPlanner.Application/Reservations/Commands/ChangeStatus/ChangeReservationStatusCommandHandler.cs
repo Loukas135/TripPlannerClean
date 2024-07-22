@@ -28,7 +28,6 @@ namespace TripPlanner.Application.Reservations.Commands.ChangeStatus
                 reservation.Status = "rejected";
             }
             await reservationRespository.UpdateReservation(reservation);
-            return;
             
         }
     }

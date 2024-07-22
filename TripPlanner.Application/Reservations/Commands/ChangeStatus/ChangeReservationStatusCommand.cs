@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TripPlanner.Application.Reservations.Commands.ChangeStatus
 {
-    public class ChangeReservationStatusCommand :IRequest
+    public class ChangeReservationStatusCommand : IRequest
     {
         public int reservationId { get; set; }
         public bool isAccepted { get; set; }
