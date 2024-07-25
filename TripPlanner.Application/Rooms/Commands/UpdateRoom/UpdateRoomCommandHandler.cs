@@ -17,6 +17,7 @@ namespace TripPlanner.Application.Rooms.Commands.UpdateRoom
 	{
 		public async Task Handle(UpdateRoomCommand request, CancellationToken cancellationToken)
 		{
+
 			var room = await roomRepository.GetById(request.RoomId);
 			if(room == null)
 			{

@@ -33,6 +33,13 @@ namespace TripPlanner.API.Middlewares
 				context.Response.StatusCode = 400;
 				await context.Response.WriteAsync($"Quantity is 0: {noResource.Message}");
 			}
+			catch (OwnershipException violation)
+			{
+				logger.LogWarning(violation.Message);
+
+				context.Response.StatusCode = 401;
+				await context.Response.WriteAsync($"Editing in a service that isn't yours");
+			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);

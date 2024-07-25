@@ -63,6 +63,8 @@ namespace TripPlanner.Application.Reservations.Commands.Car
 
 			car.Quantity--;
 			await carRepository.SaveChanges();
+			logger.LogInformation("Car with id: {car.Id} has been reserved", car.Id);
+
 			return await reservationRespository.Add(reservation);
 		}
 	}

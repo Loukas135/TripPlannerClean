@@ -18,6 +18,7 @@ namespace TripPlanner.Application.Extensions
 
 
 			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
+			services.AddSignalR();
 
 			services.AddAutoMapper(applicationAssembly);
 
