@@ -10,7 +10,7 @@ namespace TripPlanner.Application.Rooms.Commands.CreateRoom
 {
 	public class CreateRoomCommand() : IRequest<int>
 	{
-		public string? Title { get; set; }
+		public string Title { get; set; } = default!;
 		public string Description { get; set; } = default!;
 		public int NumberOfPeople { get; set; } = default!;
 		public int Quantity { get; set; } = default!;

@@ -1,11 +1,15 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Application.Cars.Commands.CommandBehavior;
+using TripPlanner.Application.Cars.Commands.CreateCar;
+using TripPlanner.Application.Cars.Commands.DeleteCar;
 using TripPlanner.Application.Users;
 
 namespace TripPlanner.Application.Extensions

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Application.Rooms.Commands.CreateRoom;
 using TripPlanner.Application.Rooms.Commands.DeleteRoom;
+using TripPlanner.Application.Rooms.Commands.UpdateRoom;
 using TripPlanner.Application.Users;
 using TripPlanner.Domain.Exceptions;
 using TripPlanner.Domain.Repositories;

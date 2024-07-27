@@ -11,15 +11,15 @@ namespace TripPlanner.Application.Trips.Commands.UpdateTrip
 {
 	public class UpdateTripCommand : IRequest
 	{
-		public int TripId { get; set; }
+		public int TripId { get; set; } = default!;
 		[DataType(DataType.Date)]
-		public DateTime From { get; set; } = default!;
+		public DateTime? From { get; set; }
 		[DataType(DataType.Date)]
-		public DateTime To { get; set; } = default!;
-		public string Title { get; set; } = default!;
-		public string Description { get; set; } = default!;
-		public int Days { get; set; }
-		public float Price { get; set; }
+		public DateTime? To { get; set; }
+		public string? Title { get; set; }
+		public string? Description { get; set; }
+		public int? Days { get; set; }
+		public float? Price { get; set; }
 		public IFormFile? TripImage { get; set; }
 	}
 }

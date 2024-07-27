@@ -10,14 +10,14 @@ namespace TripPlanner.Application.Rooms.Commands.UpdateRoom
 {
 	public class UpdateRoomCommand : IRequest
 	{
-		public int RoomId { get; set; }
+		public int RoomId { get; set; } = default!;
 		public string? Title { get; set; }
-		public string Description { get; set; } = default!;
-		public int NumberOfPeople { get; set; } = default!;
-		public int Quantity { get; set; } = default!;
-		public float PricePerNight { get; set; } = default!;
+		public string? Description { get; set; }
+		public int? NumberOfPeople { get; set; }
+		public int? Quantity { get; set; }
+		public float? PricePerNight { get; set; }
 
 		public int RoomCategoryId { get; set; } = default!;
-		public IFormFile RoomImage { get; set; } = default!;
+		public IFormFile? RoomImage { get; set; }
 	}
 }

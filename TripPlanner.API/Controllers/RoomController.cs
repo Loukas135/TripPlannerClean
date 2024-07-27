@@ -53,7 +53,7 @@ namespace TripPlanner.API.Controllers
 
 		[HttpPatch]
 		[Route("{roomId}")]
-		public async Task<IActionResult> UpdateRoom([FromRoute] int roomId, UpdateRoomCommand command)
+		public async Task<IActionResult> UpdateRoom([FromRoute] int roomId, [FromForm] UpdateRoomCommand command)
 		{
 			command.RoomId = roomId;
 			await mediator.Send(command);
