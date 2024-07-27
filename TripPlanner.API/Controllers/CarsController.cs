@@ -61,7 +61,7 @@ namespace TripPlanner.API.Controllers
 
 		[HttpPatch]
 		[Route("{carId}")]
-		public async Task<IActionResult> UpdateTrip([FromRoute] int carId, UpdateCarCommand command)
+		public async Task<IActionResult> UpdateCar([FromRoute] int carId, [FromForm]UpdateCarCommand command)
 		{
 			command.CarId = carId;
 			await mediator.Send(command);
