@@ -14,9 +14,9 @@ namespace TripPlanner.Application.Rooms.Commands.DeleteRoom
 {
 	public class DeleteRoomCommandHandler(ILogger<DeleteRoomCommandHandler> logger,
 		IRoomRepository roomRepository,
-		IServiceRepository serviceRepository) : IRequestHandler<DeleteRoomCommand>
+		IServiceRepository serviceRepository) : IRequestHandler<DeleteRoomCommand, Unit>
 	{
-		public async Task Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
 		{
 			logger.LogInformation("Deleting a Room with id:{RoomId} from service with id: {ServiceId}",
 				request.RoomId, request.ServiceId);
@@ -34,6 +34,8 @@ namespace TripPlanner.Application.Rooms.Commands.DeleteRoom
 			}
 
 			await roomRepository.Delete(room);
+
+			return Unit.Value;
 		}
 	}
 }

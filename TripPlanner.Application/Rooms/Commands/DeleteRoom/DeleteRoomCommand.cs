@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TripPlanner.Application.Rooms.Commands.DeleteRoom
 {
-	public class DeleteRoomCommand(int serId, int roomId) : IRequest
+	public class DeleteRoomCommand(int serId, int roomId) : IRequest<Unit>
 	{
 		public int ServiceId { get; } = serId;
 		public int RoomId { get; } = roomId;

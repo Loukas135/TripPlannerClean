@@ -10,6 +10,12 @@ using System.Threading.Tasks;
 using TripPlanner.Application.Cars.Commands.CommandBehavior;
 using TripPlanner.Application.Cars.Commands.CreateCar;
 using TripPlanner.Application.Cars.Commands.DeleteCar;
+using TripPlanner.Application.Rooms.Commands.CommandBehavior;
+using TripPlanner.Application.Rooms.Commands.CreateRoom;
+using TripPlanner.Application.Rooms.Commands.DeleteRoom;
+using TripPlanner.Application.Trips.Commands.CommandBehavior;
+using TripPlanner.Application.Trips.Commands.CreateTrip;
+using TripPlanner.Application.Trips.Commands.DeleteTrip;
 using TripPlanner.Application.Users;
 
 namespace TripPlanner.Application.Extensions
@@ -30,6 +36,15 @@ namespace TripPlanner.Application.Extensions
 				.AddFluentValidationAutoValidation();
 
 			services.AddScoped<IUserContext, UserContext>();
+
+			services.AddTransient(typeof(IPipelineBehavior<CreateCarCommand,int>), typeof(CarCommandBehavior<CreateCarCommand,int>));
+			services.AddTransient(typeof(IPipelineBehavior<DeleteCarCommand, Unit>), typeof(CarCommandBehavior<DeleteCarCommand, Unit>));
+
+			services.AddTransient(typeof(IPipelineBehavior<CreateRoomCommand, int>), typeof(RoomCommandBehavior<CreateRoomCommand, int>));
+			services.AddTransient(typeof(IPipelineBehavior<DeleteRoomCommand, Unit>), typeof(RoomCommandBehavior<DeleteRoomCommand, Unit>));
+
+			services.AddTransient(typeof(IPipelineBehavior<CreateTripCommand, int>), typeof(TripCommandBehavior<CreateTripCommand, int>));
+			services.AddTransient(typeof(IPipelineBehavior<DeleteTripCommand, Unit>), typeof(TripCommandBehavior<DeleteTripCommand, Unit>));
 		}
 	}
 }

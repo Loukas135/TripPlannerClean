@@ -14,9 +14,9 @@ namespace TripPlanner.Application.Cars.Commands.DeleteCar
 {
 	public class DeleteCarCommandHandler(ILogger<DeleteCarCommandHandler> logger,
 		ICarRepository carRepository,
-		IServiceRepository serviceRepository) : IRequestHandler<DeleteCarCommand>
+		IServiceRepository serviceRepository) : IRequestHandler<DeleteCarCommand, Unit>
 	{
-		public async Task Handle(DeleteCarCommand request, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(DeleteCarCommand request, CancellationToken cancellationToken)
 		{
 			logger.LogInformation("Deleting car with id: {CarId} from service with id: {ServiceId}",
 				request.CarId, request.ServiceId);
@@ -29,6 +29,8 @@ namespace TripPlanner.Application.Cars.Commands.DeleteCar
 
 			var car = service.Cars?.FirstOrDefault(c => c.Id == request.CarId);
 			await carRepository.Delete(car!);
+
+			return Unit.Value;
 		}
 	}
 }

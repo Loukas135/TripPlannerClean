@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TripPlanner.Application.Cars.Commands.DeleteCar
 {
-	public class DeleteCarCommand(int serId, int carId) : IRequest
+	public class DeleteCarCommand(int serId, int carId) : IRequest<Unit>
 	{
 		public int ServiceId { get; } = serId;
 		public int CarId { get; } = carId;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TripPlanner.Application.Trips.Commands.DeleteTrip
 {
-	public class DeleteTripCommand(int serId, int tripId) : IRequest
+	public class DeleteTripCommand(int serId, int tripId) : IRequest<Unit>
 	{
 		public int ServiceId { get; } = serId;
 		public int TripId { get; } = tripId;
