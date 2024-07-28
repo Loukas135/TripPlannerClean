@@ -11,8 +11,6 @@ namespace TripPlanner.Application.Users.Commands.Register
 {
     public class RegisterServiceOwnerCommand :IRequest<string>
     {
-        public string FirstName { get; set; } = default!;
-        public string LastName { get; set; } = default!;
         public string UserName { get; set; } = default!;
 
         [EmailAddress]

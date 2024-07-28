@@ -18,7 +18,7 @@ namespace TripPlanner.Application.Cars.Commands.UpdateCar
 	{
 		public async Task Handle(UpdateCarCommand request, CancellationToken cancellationToken)
 		{
-			var car = await carRepository.GetById(request.CarId);
+            var car = await carRepository.GetById((int)(request.CarId));
 			if (car == null)
 			{
 				throw new NotFoundException(nameof(Car), request.CarId.ToString());

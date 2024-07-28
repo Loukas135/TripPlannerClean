@@ -49,11 +49,6 @@ namespace TripPlanner.Infrastructure.Seeders.RolesSeeder
                 {
                     Name = "TourismOffice",
                     NormalizedName = "TOURISMOFFICE"
-                },
-                new ()
-                {
-                    Name = "Restaurant",
-                    NormalizedName = "RESTAURANT"
                 }
                 ];
             return roles;

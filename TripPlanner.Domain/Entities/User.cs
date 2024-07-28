@@ -11,11 +11,10 @@ namespace TripPlanner.Domain.Entities
 {
 	public class User : IdentityUser
 	{
-		public string? FirstName { get; set; }
-		public string? LastName { get; set; }
 		public int Wallet { get; set; } = 0;
 		public List<Rate> Ratings { get; set; } = [];
-
+		public DateTime CreatedAt { get; set; } = DateTime.Today;
+		public DateTime UpdatedAt { get; set; } = DateTime.Today;
 		public Service? OwnedService { get; set; }
 
 		public string? VerificationToken { get; set; }

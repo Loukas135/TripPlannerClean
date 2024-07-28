@@ -11,6 +11,8 @@ using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Application.Users.Commands.TokenCheck;
 using TripPlanner.Application.Users.Commands.Verify;
 using TripPlanner.Application.Users.Queries;
+using TripPlanner.Application.Users.Queries.GetAllUsersPerType;
+using TripPlanner.Application.Users.Queries.GetNewUsers;
 using TripPlanner.Domain.Entities.AuthEntity;
 
 namespace TripPlanner.API.Controllers
@@ -107,7 +109,22 @@ namespace TripPlanner.API.Controllers
             }
             return BadRequest("something went wrong");
         }
-
+        [HttpGet]
+        [Route("report/NumOfUsers")]
+        public async Task<ActionResult> GetNumberOfUsersPerRole()
+        {
+            var request = new GetAllUsersPerTypeQuery();
+            var result = await mediator.Send(request);
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("report/NumOfUsers/{month}")]
+        public async Task<ActionResult> GetNumberOfUsersPerRole(int month)
+        {
+            var request = new GetNewUsersQuery(month);
+            var result = await mediator.Send(request);
+            return Ok(result);
+        }
     }
 }
 
