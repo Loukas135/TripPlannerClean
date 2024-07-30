@@ -42,12 +42,13 @@ namespace TripPlanner.API.Controllers
 
 		[HttpGet]
 		[Route("{year}/{month}")]
-		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllCurrentMonth(int governorateId,
+		public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllInSpecificDate(int governorateId,
 			[FromRoute]int year, [FromRoute] int month)
 		{
 			var reservations = await mediator.Send(new GetReservationsByDateQuery(year, month, governorateId));
 			return Ok(reservations);
 		}
+
 		[HttpPut]
 		[Route("/api/[controller]/{reservationId}")]
 		public async Task<ActionResult> ChangeReservationStatus([FromRoute]int reservationId, [FromQuery]bool isAccepted)
@@ -56,5 +57,7 @@ namespace TripPlanner.API.Controllers
 			await mediator.Send(request);
 			return Ok();
 		}
+
+
 	}
 }

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace TripPlanner.Domain.Repositories
 {
-    public interface IRolesRepository:ISeededValuesRepository<IdentityRole>
+    public interface IRolesRepository : ISeededValuesRepository<IdentityRole>
     {
+
     }
 }

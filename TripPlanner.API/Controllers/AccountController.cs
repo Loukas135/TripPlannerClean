@@ -97,6 +97,7 @@ namespace TripPlanner.API.Controllers
 			}
             return BadRequest("Invalid Token");
 		}
+
         [HttpPost]
         [Route("FillWallet")]
         [Authorize(Roles = "Administrator")]
@@ -109,6 +110,7 @@ namespace TripPlanner.API.Controllers
             }
             return BadRequest("something went wrong");
         }
+
         [HttpGet]
         [Route("report/NumOfUsers")]
         public async Task<ActionResult> GetNumberOfUsersPerRole()
@@ -117,6 +119,7 @@ namespace TripPlanner.API.Controllers
             var result = await mediator.Send(request);
             return Ok(result);
         }
+
         [HttpGet]
         [Route("report/NumOfUsers/{month}")]
         public async Task<ActionResult> GetNumberOfUsersPerRole(int month)
@@ -127,5 +130,3 @@ namespace TripPlanner.API.Controllers
         }
     }
 }
-
-//now to push

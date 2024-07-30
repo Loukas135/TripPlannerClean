@@ -10,10 +10,10 @@ namespace TripPlanner.Application.Users.Queries.GetNewUsers
 {
     public class GetNewUsersQuery : IRequest<IEnumerable<NumberOfUsersDto>>
     {
-        public int month { get; set; }
+        public int Month { get; set; }
         public GetNewUsersQuery(int month)
         {
-            this.month = month;
+            this.Month = month;
         }
     }
 }

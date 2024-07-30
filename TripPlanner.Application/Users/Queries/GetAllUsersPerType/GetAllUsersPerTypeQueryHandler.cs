@@ -22,7 +22,6 @@ namespace TripPlanner.Application.Users.Queries.GetAllUsersPerType
                 {
                     TypeName = role.Name,
                     NumberOfType = await accountRepository.NumberOfUsersInRole(role.Id)
-
                 });
 
             }

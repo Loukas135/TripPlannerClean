@@ -9,9 +9,9 @@ using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-    public class RolesRepository:SeededValuesRepository<IdentityRole>,IRolesRepository
+    public class RolesRepository : SeededValuesRepository<IdentityRole>, IRolesRepository
     {
-        public RolesRepository(TripPlannerDbContext dbContext):base(dbContext)
+        public RolesRepository(TripPlannerDbContext dbContext) : base(dbContext)
         {
             
         }

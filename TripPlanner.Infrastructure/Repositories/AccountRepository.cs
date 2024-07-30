@@ -101,11 +101,13 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 			return false;
 		}
+
 		public async Task<int> NumberOfUsersInRole(string roleId)
 		{
-			var num = dbcontext.UserRoles.Where(ur => ur.RoleId == roleId).Count();
+			var num = await dbcontext.UserRoles.Where(ur => ur.RoleId == roleId).CountAsync();
 			return num;
 		}
+
 		public async Task<int> NewUsersAfterMonth(int month, string roleId)
 		{
 			var records = from ur in dbcontext.UserRoles
@@ -115,10 +117,9 @@ namespace TripPlanner.Infrastructure.Repositories
 						  where u.CreatedAt.Year >= DateTime.Today.Year
 					where ur.RoleId == roleId
 					  select ur;
+
 			var num = await records.CountAsync();
 			return num;
-					  
-					  
 		}
         /*
         public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)
