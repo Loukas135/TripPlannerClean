@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
@@ -37,21 +38,21 @@ namespace TripPlanner.Infrastructure.Repositories
 
 		public async Task<string> SaveTripImageAsync(IFormFile tripImage)
 		{
-			if (tripImage == null)
-				return null;
+            if (tripImage == null)
+                return null;
 
-			var contentPath = hostEnvironment.ContentRootPath;
-			var path = Path.Combine(contentPath, "Images/Trips");
-			if(Directory.Exists(path))
-			{
-				Directory.CreateDirectory(path);
-			}
-			var extension = Path.GetExtension(tripImage.FileName);
-			var imageName = $"{Guid.NewGuid().ToString()}{extension}";
-			var fullName = Path.Combine(path, imageName);
-			using var stream = new FileStream(fullName, FileMode.Create);
-			await stream.CopyToAsync(stream);
-			return fullName;
-		}
+            var contentPath = hostEnvironment.ContentRootPath;
+            var path = Path.Combine(contentPath, "Images/Trips");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var extension = Path.GetExtension(tripImage.FileName);
+            var fileName = $"{Guid.NewGuid().ToString()}{extension}";
+            var fullName = Path.Combine(path, fileName);
+            using var stream = new FileStream(fullName, FileMode.Create);
+            await tripImage.CopyToAsync(stream);
+            return fullName;
+    }
 	}
 }
