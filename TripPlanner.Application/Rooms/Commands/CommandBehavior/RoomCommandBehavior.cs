@@ -29,8 +29,12 @@ namespace TripPlanner.Application.Rooms.Commands.CommandBehavior
 			{
 				var user = userContext.GetCurrentUser();
 				var service = await serviceRepository.GetById(serviceId);
+                if (service.ServiceTypeId != 1)
+                {
+					throw new ServiceTypeException("Hotel");
+                }
 
-				if (service.OwnerId == user.Id)
+                if (service.OwnerId == user.Id)
 				{
 					return await next();
 				}

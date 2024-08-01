@@ -12,7 +12,9 @@ using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class ServiceRepository(TripPlannerDbContext dbContext) : IServiceRepository
+	public class ServiceRepository(TripPlannerDbContext dbContext,IRoomRepository roomRepository,
+		ICarRepository carRepository,
+		ITripRepository tripRepository) : IServiceRepository
 	{
 		public async Task<int> Add(Service entity)
 		{
@@ -119,5 +121,41 @@ namespace TripPlanner.Infrastructure.Repositories
 						   select s;
 			return services;
 		}
+		public async Task FullyDeleteService(int id)
+		{
+			var service = await dbContext.Services
+			.Include(s => s.Rooms == null ? null : s.Rooms)
+			.Include(s => s.Trips == null ? null : s.Trips)
+			.Include(s => s.Cars == null ? null : s.Cars)
+			.FirstOrDefaultAsync(s => s.Id == id);
+			switch (service.ServiceTypeId) {
+				case 1:
+					{
+                        foreach (var room in service.Rooms)
+                        {
+                            await roomRepository.FullyDeleteRoom(room.Id);
+                        }
+						break;
+                    }
+				case 2:
+					{
+                        foreach (var car in service.Cars)
+                        {
+                            await carRepository.FullyDeleteCar(car.Id);
+                        }
+						break;
+                    }
+				case 3:
+					{
+                        foreach (var trip in service.Trips)
+                        {
+                            await tripRepository.FullyDeleteTrip(trip.Id);
+                        }
+						break;
+                    }
+			}
+			dbContext.Remove(service);
+			await dbContext.SaveChangesAsync();	
+        }
 	}
 }

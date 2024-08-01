@@ -40,6 +40,11 @@ namespace TripPlanner.API.Middlewares
 				context.Response.StatusCode = 401;
 				await context.Response.WriteAsync($"Editing in a service that isn't yours");
 			}
+			catch (ServiceTypeException ste)
+			{
+				logger.LogWarning(ste.Message);
+				context.Response.StatusCode = 400;
+			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);
@@ -47,6 +52,7 @@ namespace TripPlanner.API.Middlewares
 				context.Response.StatusCode = 500;
 				await context.Response.WriteAsync("Something went wrong");
 			}
+
 		}
 	}
 }

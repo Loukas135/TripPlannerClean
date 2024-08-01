@@ -13,7 +13,9 @@ namespace TripPlanner.Domain.Repositories
 		public Task<IEnumerable<Service>> GetServicesOfType(int governorateId,int serviceTypeId);
 
         public Task Delete(Service entity);
-		public Task SaveChanges();
+		public Task FullyDeleteService(int id);
+
+        public Task SaveChanges();
 
 		public Task<Service> GetServiceWithReservations(int id);
 		public Task<IEnumerable<Service>> GetServicesWithReservationsByGov(int id);

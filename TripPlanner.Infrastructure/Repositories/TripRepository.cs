@@ -54,5 +54,28 @@ namespace TripPlanner.Infrastructure.Repositories
             await tripImage.CopyToAsync(stream);
             return fullName;
     }
-	}
+        public async Task DeleteTripReservations(int id)
+        {
+            var trip = await dbContext.Trips.Include(r => r.Reservations)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (trip == null || trip.Reservations == null)
+            {
+                return;
+            }
+            dbContext.Reservations.RemoveRange(trip.Reservations);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async  Task FullyDeleteTrip(int id)
+        {
+            var trip = await dbContext.Trips.FirstOrDefaultAsync(t => t.Id == id);
+            if (trip == null)
+            {
+                return;
+            }
+            await DeleteTripReservations(id);
+           await  Delete(trip);
+
+        }
+    }
 }

@@ -35,7 +35,17 @@ namespace TripPlanner.Infrastructure.Repositories
 		}
 
 		public async Task SaveChanges() => await dbContext.SaveChangesAsync();
-
+        public async Task DeleteCarReservations(int id)
+        {
+            var car = await dbContext.Cars.Include(r => r.Reservations)
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (car== null || car.Reservations == null)
+            {
+                return;
+            }
+            dbContext.Reservations.RemoveRange(car.Reservations);
+            await dbContext.SaveChangesAsync();
+        }
         public async Task<string> SaveCarImageAsync(IFormFile carImage)
         {
             if (carImage == null)
@@ -52,6 +62,17 @@ namespace TripPlanner.Infrastructure.Repositories
             using var stream = new FileStream(fullName, FileMode.Create);
             await carImage.CopyToAsync(stream);
             return fullName;
+        }
+
+        public async Task FullyDeleteCar(int id)
+        {
+            var car = await dbContext.Cars.FirstOrDefaultAsync(c => c.Id == id);
+            if (car == null)
+            {
+                return;
+            }
+            await DeleteCarReservations(id);
+            await Delete(car);
         }
     }
 }

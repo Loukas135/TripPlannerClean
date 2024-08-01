@@ -28,7 +28,7 @@ namespace TripPlanner.Application.Services.Commands.DeleteService
 			if (service == null)
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			
-			await serviceRepository.Delete(service);
+			await serviceRepository.FullyDeleteService(service.Id);
 		}
 	}
 }

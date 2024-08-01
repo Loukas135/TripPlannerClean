@@ -15,7 +15,9 @@ namespace TripPlanner.Domain.Repositories
 		public Task Delete(Room entity);
 		public Task<Room?> GetById(int id);
 		public Task SaveChanges();
-		public Task<string> SaveRoomImageAsync(IFormFile roomImage);
+		public Task DeleteRoomReservations(int id);
+		public Task FullyDeleteRoom(int id);
+        public Task<string> SaveRoomImageAsync(IFormFile roomImage);
 
 	}
 }

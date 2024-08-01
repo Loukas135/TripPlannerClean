@@ -37,6 +37,17 @@ namespace TripPlanner.Infrastructure.Repositories
 				.FirstOrDefaultAsync(r => r.Id == id);
 			return room;
         }
+        public async Task DeleteRoomReservations(int id)
+        {
+            var room = await dbContext.Rooms.Include(r => r.Reservations)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if(room==null || room.Reservations == null)
+            {
+                return;
+            }
+            dbContext.Reservations.RemoveRange(room.Reservations);
+            await dbContext.SaveChangesAsync();
+        }
 
         public async Task SaveChanges()
         {
@@ -60,6 +71,16 @@ namespace TripPlanner.Infrastructure.Repositories
             using var stream = new FileStream(fullName, FileMode.Create);
 			await roomImage.CopyToAsync(stream);
             return fullName;
+        }
+
+        public async Task FullyDeleteRoom(int id)
+        {
+            var room = await dbContext.Rooms.FirstOrDefaultAsync(r => r.Id == id);
+            if(room==null) { return;}
+            await DeleteRoomReservations(id);
+            await Delete(room);
+
+
         }
     }
 }
