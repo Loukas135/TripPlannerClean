@@ -13,7 +13,8 @@ namespace TripPlanner.Application.Trips.Commands.DeleteTrip
 {
 	public class DeleteTripCommandHandler(ILogger<DeleteTripCommandHandler> logger,
 		IServiceRepository serviceRepository,
-		ITripRepository tripRepository) : IRequestHandler<DeleteTripCommand, Unit>
+		ITripRepository tripRepository,
+		IReservationRespository reservationRespository) : IRequestHandler<DeleteTripCommand, Unit>
 	{
 		public async Task<Unit> Handle(DeleteTripCommand request, CancellationToken cancellationToken)
 		{

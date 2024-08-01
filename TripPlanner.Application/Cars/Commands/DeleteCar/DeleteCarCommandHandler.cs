@@ -14,7 +14,8 @@ namespace TripPlanner.Application.Cars.Commands.DeleteCar
 {
 	public class DeleteCarCommandHandler(ILogger<DeleteCarCommandHandler> logger,
 		ICarRepository carRepository,
-		IServiceRepository serviceRepository) : IRequestHandler<DeleteCarCommand, Unit>
+		IServiceRepository serviceRepository,
+		IReservationRespository reservationRespository) : IRequestHandler<DeleteCarCommand, Unit>
 	{
 		public async Task<Unit> Handle(DeleteCarCommand request, CancellationToken cancellationToken)
 		{
@@ -28,7 +29,12 @@ namespace TripPlanner.Application.Cars.Commands.DeleteCar
 			}
 
 			var car = service.Cars?.FirstOrDefault(c => c.Id == request.CarId);
-			await carRepository.Delete(car!);
+            var carReservations = await reservationRespository.GetBySubServiceId(request.CarId);
+            foreach (var reservation in carReservations)
+            {
+                await reservationRespository.DeleteReservation(reservation);
+            }
+            await carRepository.Delete(car!);
 
 			return Unit.Value;
 		}

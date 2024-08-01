@@ -14,7 +14,8 @@ namespace TripPlanner.Application.Rooms.Commands.DeleteRoom
 {
 	public class DeleteRoomCommandHandler(ILogger<DeleteRoomCommandHandler> logger,
 		IRoomRepository roomRepository,
-		IServiceRepository serviceRepository) : IRequestHandler<DeleteRoomCommand, Unit>
+		IServiceRepository serviceRepository,
+		IReservationRespository reservationRespository) : IRequestHandler<DeleteRoomCommand, Unit>
 	{
 		public async Task<Unit> Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
 		{
@@ -32,7 +33,11 @@ namespace TripPlanner.Application.Rooms.Commands.DeleteRoom
 			{
 				throw new NotFoundException(nameof(Room), request.RoomId.ToString());
 			}
-
+			var roomReservations =await reservationRespository.GetBySubServiceId(request.RoomId);
+			foreach(var reservation in roomReservations)
+			{
+				await reservationRespository.DeleteReservation(reservation);
+			}
 			await roomRepository.Delete(room);
 
 			return Unit.Value;

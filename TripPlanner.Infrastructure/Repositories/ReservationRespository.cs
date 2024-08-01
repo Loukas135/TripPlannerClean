@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +82,18 @@ namespace TripPlanner.Infrastructure.Repositories
 		{
 			var reservation = await dbContext.Reservations.FirstOrDefaultAsync(r => r.Id == id);
 			return reservation;
+		}
+		public async Task<IEnumerable<Reservation>>GetBySubServiceId(int subServiceId)
+		{
+			var reservations = await dbContext.Reservations.Where(r => (r.RoomId == subServiceId ||
+			r.CarId == subServiceId ||
+			r.TripId == subServiceId)).ToListAsync();
+			return reservations;
+		}
+		public async Task DeleteReservation(Reservation entity)
+		{
+			dbContext.Reservations.Remove(entity);
+			await dbContext.SaveChangesAsync();
 		}
 	}
 }
