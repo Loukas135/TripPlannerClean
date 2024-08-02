@@ -127,33 +127,12 @@ namespace TripPlanner.Infrastructure.Repositories
 			.Include(s => s.Rooms == null ? null : s.Rooms)
 			.Include(s => s.Trips == null ? null : s.Trips)
 			.Include(s => s.Cars == null ? null : s.Cars)
+			.Include(s=> s.Reservations == null ? null : s.Reservations)
 			.FirstOrDefaultAsync(s => s.Id == id);
-			switch (service.ServiceTypeId) {
-				case 1:
-					{
-                        foreach (var room in service.Rooms)
-                        {
-                            await roomRepository.FullyDeleteRoom(room.Id);
-                        }
-						break;
-                    }
-				case 2:
-					{
-                        foreach (var car in service.Cars)
-                        {
-                            await carRepository.FullyDeleteCar(car.Id);
-                        }
-						break;
-                    }
-				case 3:
-					{
-                        foreach (var trip in service.Trips)
-                        {
-                            await tripRepository.FullyDeleteTrip(trip.Id);
-                        }
-						break;
-                    }
-			}
+			dbContext.RemoveRange(service.Reservations);
+			dbContext.RemoveRange(service.Rooms);
+			dbContext.RemoveRange(service.Cars);
+			dbContext.RemoveRange(service.Trips);
 			dbContext.Remove(service);
 			await dbContext.SaveChangesAsync();	
         }
