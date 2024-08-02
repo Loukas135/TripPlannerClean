@@ -21,25 +21,28 @@ namespace TripPlanner.Application.Rooms.Commands.CommandBehavior
 		{
 			int serviceId = 0;
 
-			if(request is CreateRoomCommand createCommand) serviceId = createCommand.ServiceId;
-
-			else if(request is DeleteRoomCommand deleteCommand) serviceId = deleteCommand.ServiceId;
-
-			if(serviceId != 0)
+			if (!userContext.GetCurrentUser().Roles.Contains("Administrator"))
 			{
-				var user = userContext.GetCurrentUser();
-				var service = await serviceRepository.GetById(serviceId);
-                if (service.ServiceTypeId != 1)
-                {
-					throw new ServiceTypeException("Hotel");
-                }
+				if (request is CreateRoomCommand createCommand) serviceId = createCommand.ServiceId;
 
-                if (service.OwnerId == user.Id)
+				else if (request is DeleteRoomCommand deleteCommand) serviceId = deleteCommand.ServiceId;
+
+				if (serviceId != 0)
 				{
-					return await next();
-				}
+					var user = userContext.GetCurrentUser();
+					var service = await serviceRepository.GetById(serviceId);
+					if (service.ServiceTypeId != 1)
+					{
+						throw new ServiceTypeException("Hotel");
+					}
 
-				throw new OwnershipException("You are not allowed to edit in this service");
+					if (service.OwnerId == user.Id)
+					{
+						return await next();
+					}
+
+					throw new OwnershipException("You are not allowed to edit in this service");
+				}
 			}
 			return await next();
 		}

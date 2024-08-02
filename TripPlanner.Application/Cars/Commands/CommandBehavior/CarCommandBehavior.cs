@@ -18,25 +18,27 @@ namespace TripPlanner.Application.Cars.Commands.CommandBehavior
 		public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
 		{
 			int serviceId = 0;
-
-			if (request is CreateCarCommand createCommand) serviceId = createCommand.ServiceId;
-
-			else if (request is CreateCarCommand deleteCommand) serviceId = deleteCommand.ServiceId;
-
-			if (serviceId != 0)
+			if (!userContext.GetCurrentUser().Roles.Contains("Administrator"))
 			{
-				var user = userContext.GetCurrentUser();
-				var service = await serviceRepository.GetById(serviceId);
-				if(service.ServiceTypeId != 2)
-				{
-					throw new ServiceTypeException("CarRental");
-				}
-				if (service.OwnerId == user.Id)
-				{
-					return await next();
-				}
+				if (request is CreateCarCommand createCommand) serviceId = createCommand.ServiceId;
 
-				throw new OwnershipException("You are not allowed to edit in this service");
+				else if (request is CreateCarCommand deleteCommand) serviceId = deleteCommand.ServiceId;
+
+				if (serviceId != 0)
+				{
+					var user = userContext.GetCurrentUser();
+					var service = await serviceRepository.GetById(serviceId);
+					if (service.ServiceTypeId != 2)
+					{
+						throw new ServiceTypeException("CarRental");
+					}
+					if (service.OwnerId == user.Id)
+					{
+						return await next();
+					}
+
+					throw new OwnershipException("You are not allowed to edit in this service");
+				}
 			}
 			return await next();
 		}

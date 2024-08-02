@@ -61,5 +61,3 @@ namespace TripPlanner.API.Controllers
 
 	}
 }
-
-

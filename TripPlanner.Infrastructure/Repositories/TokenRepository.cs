@@ -49,6 +49,7 @@ namespace TripPlanner.Infrastructure.Repositories
                 expires: DateTime.Now.AddMinutes(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
                 signingCredentials: credintials
                 );
+
             var finalToken= new JwtSecurityTokenHandler().WriteToken(token);
             return new AuthResponse
             {
