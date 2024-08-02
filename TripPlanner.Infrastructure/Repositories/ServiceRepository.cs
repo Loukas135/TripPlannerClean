@@ -136,5 +136,36 @@ namespace TripPlanner.Infrastructure.Repositories
 			dbContext.Remove(service);
 			await dbContext.SaveChangesAsync();	
         }
+		public async Task<IEnumerable<Reservation>> PaidReservations(int id,int year,int month)
+		{
+			var service = await dbContext.Services.Include(s => s.Reservations == null ? null
+			: s.Reservations).FirstOrDefaultAsync(s => s.Id == id);
+			if (service == null)
+			{
+				return null;
+			}
+			var reservations = service.Reservations.Where(r => r.Status == "Paid")
+				.Where(r => r.From.Year == year && r.From.Month == month)
+				.ToList();
+			return reservations;
+
+		}
+		public async Task<int>PaidReservationsSum(int id,int year,int month)
+		{
+            var service = await dbContext.Services.Include(s => s.Reservations == null ? null
+            : s.Reservations).FirstOrDefaultAsync(s => s.Id == id);
+            if (service == null)
+            {
+                return 0;
+            }
+			var reservations = service.Reservations.Where(r => r.Status == "Paid")
+				.Where(r => r.From.Year == year && r.From.Month == month).ToList();
+			int sum = 0;
+			foreach (var reservation in reservations)
+			{
+				sum += reservation.Cost;
+			}
+			return sum;
+        }
 	}
 }

@@ -57,7 +57,17 @@ namespace TripPlanner.API.Controllers
 			await mediator.Send(request);
 			return Ok();
 		}
-
-
+		[HttpGet]
+		[Route("/api/[controller]/services/{serviceId}")]
+		public async Task<ActionResult> GetReservationsInServiceInDate([FromRoute]int serviceId,
+			[FromQuery]int year, [FromQuery] int month)
+		{
+			var response = new GetReservationsByDateQuery(serviceId, year, month);
+			if (response == null)
+			{
+				return NoContent();
+			}
+			return Ok(response);
+		}
 	}
 }

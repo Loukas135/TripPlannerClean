@@ -1,4 +1,5 @@
-﻿using TripPlanner.Domain.Entities.Service_Entities;
+﻿using TripPlanner.Domain.Entities;
+using TripPlanner.Domain.Entities.Service_Entities;
 
 namespace TripPlanner.Domain.Repositories
 {
@@ -11,7 +12,8 @@ namespace TripPlanner.Domain.Repositories
 		public Task<Service?> GetByIdWithRating(int id);
 		public Task<float?> CalculateOverallRating(int id);
 		public Task<IEnumerable<Service>> GetServicesOfType(int governorateId,int serviceTypeId);
-
+		public Task<IEnumerable<Reservation>> PaidReservations(int id,int year,int month);
+		public Task<int> PaidReservationsSum(int id, int year, int month);
         public Task Delete(Service entity);
 		public Task FullyDeleteService(int id);
 

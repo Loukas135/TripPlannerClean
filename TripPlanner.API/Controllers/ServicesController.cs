@@ -9,7 +9,9 @@ using TripPlanner.Application.Services.Dtos;
 using TripPlanner.Application.Services.Queries.GetAllServices;
 using TripPlanner.Application.Services.Queries.GetServiceById;
 using TripPlanner.Application.Services.Queries.GetServiceByType;
+using TripPlanner.Application.Services.Queries.GetServiceEarnings;
 using TripPlanner.Application.Services.Queries.GetServiceFromUserReservation;
+using TripPlanner.Application.Services.Queries.GetServicesEarningsInGov;
 using TripPlanner.Application.Services.Queries.GetUserServices;
 using TripPlanner.Domain.Entities;
 
@@ -95,7 +97,30 @@ namespace TripPlanner.API.Controllers
             var result = await mediator.Send(request);
             return Ok(result);
         }
-
+		[HttpGet]
+		[Route("/api/[controller]/{serviceId}")]
+		public async Task<ActionResult> GetServiceEarnings([FromRoute]int serviceId,
+			[FromQuery] int year,int month)
+		{
+			var response = await mediator.Send(new GetServiceEarningsQuery(serviceId, year, month));
+			if (response == null)
+			{
+				return BadRequest("Something went wrong the response is null");
+			}
+			return Ok(response);
+		}
+        [HttpGet]
+		[Route("earnings")]
+        public async Task<ActionResult> GetGovServiceEarnings([FromRoute] int governorateId,
+        [FromQuery] int year, int month)
+        {
+            var response = await mediator.Send(new GetServicesEarningsInGovQuery(governorateId, year, month));
+            if (response == null)
+            {
+                return BadRequest("Something went wrong the response is null");
+            }
+            return Ok(response);
+        }
     }
 }
 
