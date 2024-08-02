@@ -34,7 +34,15 @@ namespace TripPlanner.API.Controllers
             var roles = await mediator.Send(query);
             return Ok(roles);
         }
-
+        [HttpGet]
+        [Route("NonAdminRoles")]
+        public async Task <ActionResult> GetRolesNotAdmin()
+        {
+            var query = new GetRolesQuery();
+            var roles = await mediator.Send(query);
+            var neededRoles = roles.Where(r => r.Name != "Administrator");
+            return Ok(neededRoles);
+        }
         [HttpGet]
         [Route("Governorates")]
         public async Task<ActionResult> GetAllGovernorates()
