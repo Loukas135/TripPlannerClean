@@ -113,8 +113,8 @@ namespace TripPlanner.Infrastructure.Repositories
 			var records = from ur in dbcontext.UserRoles
 						  join u in dbcontext.Users
 						  on ur.UserId equals u.Id
-						  where u.CreatedAt.Month >= month
-						  where u.CreatedAt.Year >= DateTime.Today.Year
+						  where u.CreatedAt.Month == month
+						  where u.CreatedAt.Year == DateTime.Today.Year
 					where ur.RoleId == roleId
 					  select ur;
 

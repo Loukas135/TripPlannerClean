@@ -27,7 +27,8 @@ namespace TripPlanner.API.Controllers
         public async Task<IActionResult> RegisterServiceOwner(RegisterServiceOwnerCommand request)
         {
             var ownerId = await mediator.Send(request);
-            return Ok(ownerId);
+            var result = new { newOwnerId = ownerId };
+            return this.StatusCode(201,result);
         }
 
         [HttpPost]
