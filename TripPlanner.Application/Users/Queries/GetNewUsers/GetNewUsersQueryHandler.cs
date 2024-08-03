@@ -24,7 +24,7 @@ namespace TripPlanner.Application.Users.Queries.GetNewUsers
                 users.Add(new NumberOfUsersDto
                 {
                     TypeName = role.Name,
-                    NumberOfType = await accountRepository.NewUsersAfterMonth(request.Month, role.Id)
+                    NumberOfType = await accountRepository.NewUsersAfterMonth(request.Month, role.Id,request.Year)
                 });
 
             }

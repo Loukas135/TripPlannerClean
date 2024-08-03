@@ -122,10 +122,10 @@ namespace TripPlanner.API.Controllers
         }
 
         [HttpGet]
-        [Route("report/NumOfUsers/{month}")]
-        public async Task<ActionResult> GetNumberOfUsersPerRole(int month)
+        [Route("report/NumOfUsers/{month}/{year}")]
+        public async Task<ActionResult> GetNumberOfUsersPerRole(int month,int year)
         {
-            var request = new GetNewUsersQuery(month);
+            var request = new GetNewUsersQuery(month,year);
             var result = await mediator.Send(request);
             return Ok(result);
         }
