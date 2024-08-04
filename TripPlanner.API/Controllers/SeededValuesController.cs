@@ -23,7 +23,8 @@ namespace TripPlanner.API.Controllers
         {
             var query = new GetAllServiceTypesQuery();
             var serviceTypes = await mediator.Send(query);
-            return Ok(serviceTypes);
+            var result = new { serviceTypes = serviceTypes };
+            return Ok(result);
         }
 
         [HttpGet]
