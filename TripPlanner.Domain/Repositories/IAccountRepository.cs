@@ -19,7 +19,7 @@ namespace TripPlanner.Domain.Repositories
         public Task<string> SaveUserProfileAsync(IFormFile userImage);
         public Task<int> NumberOfUsersInRole(string roleId);
         public Task<int> NewUsersAfterMonth(int month, string roleId,int year);
-        
+        public Task<bool> UpdateUserImage(string userId, IFormFile newImage);
         //public Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken);
     }
 }

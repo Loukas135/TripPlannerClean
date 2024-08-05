@@ -85,10 +85,40 @@ namespace TripPlanner.Infrastructure.Repositories
 			var imageName = $"{Guid.NewGuid().ToString()}{extension}";
 			var fullName = Path.Combine(path, imageName);
 			using var stream = new FileStream(fullName, FileMode.Create);
-			await stream.CopyToAsync(stream);
+			await userImage.CopyToAsync(stream);
 			return fullName;
 		}
-
+        public bool DeleteImage(string imageName)
+		{
+			if (imageName == null)
+			{
+				return false;
+			}
+			if (!File.Exists(imageName))
+			{
+				return false;
+			}
+			File.Delete(imageName);
+			return true;
+		}
+		public async Task<bool> UpdateUserImage(string userId,IFormFile newImage)
+		{
+            if (userId== null || newImage== null)
+            {
+				return false;
+            }
+			var user = await userManager.FindByIdAsync(userId);
+			var success=DeleteImage(user.ProfileImagePath);
+			if (!success)
+			{
+				return false;
+			}
+			var newImagePath = await SaveUserProfileAsync(newImage);
+			user.ProfileImagePath = newImagePath;
+			await userManager.UpdateAsync(user);
+			await dbcontext.SaveChangesAsync();
+			return true;
+        }
 		public async Task<bool> Verify(string email, string verficationToken)
 		{
 			var user = await userManager.FindByEmailAsync(email);
@@ -121,6 +151,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			var num = await records.CountAsync();
 			return num;
 		}
+
         /*
         public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)
         {
