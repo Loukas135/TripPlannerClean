@@ -9,7 +9,6 @@ using TripPlanner.Application.Users.Commands.Register;
 using TripPlanner.Application.Users.Commands.RegisterAdmin;
 using TripPlanner.Application.Users.Commands.RegisterUser;
 using TripPlanner.Application.Users.Commands.TokenCheck;
-using TripPlanner.Application.Users.Commands.UpdateImage;
 using TripPlanner.Application.Users.Commands.Verify;
 using TripPlanner.Application.Users.Queries;
 using TripPlanner.Application.Users.Queries.GetAllUsersPerType;
@@ -129,14 +128,6 @@ namespace TripPlanner.API.Controllers
             var request = new GetNewUsersQuery(month,year);
             var result = await mediator.Send(request);
             return Ok(result);
-        }
-        [HttpPut]
-        [Route("Images/UpdateUserImage")]
-        [Authorize]
-        public async Task<ActionResult> UpdateUserImage([FromForm] UpdateUserImageCommand request)
-        {
-            await mediator.Send(request);
-            return NoContent();
         }
     }
 }
