@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using MimeKit.Text;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +19,7 @@ using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
+using MailKit.Net.Smtp;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
@@ -58,7 +61,8 @@ namespace TripPlanner.Infrastructure.Repositories
 
 		public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
 		{
-			await userManager.GenerateEmailConfirmationTokenAsync(user);
+			var verificationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+				user.VerificationToken = verificationToken;
 			var check = await userManager.CreateAsync(user, password);
 
 			if (check.Succeeded)
@@ -67,10 +71,28 @@ namespace TripPlanner.Infrastructure.Repositories
 				user.Wallet = 0;
 				await dbcontext.SaveChangesAsync();
 			}
+			await SendEmailForVerification(user.Email, verificationToken);
 			return check.Errors;
 		}
+        private async Task SendEmailForVerification(string userEmail, string code)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(MailboxAddress.Parse("eldon.reilly25@ethereal.email"));
+            emailMessage.To.Add(MailboxAddress.Parse(userEmail));
+            emailMessage.Subject = "Code for Verification";
+            emailMessage.Body = new TextPart(TextFormat.Html)
+            {
+                Text = "This is the code to verify your account " + code
+            };
+            using var smtp = new SmtpClient();
+            await smtp.ConnectAsync("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Authenticate("eldon.reilly25@ethereal.email", "1xyrdZx7msYpj4KPgJ");
+            smtp.Send(emailMessage);
+            await smtp.DisconnectAsync(true);
+            return;
+        }
 
-		public async Task<string> SaveUserProfileAsync(IFormFile userImage)
+        public async Task<string> SaveUserProfileAsync(IFormFile userImage)
 		{
 			if (userImage == null)
 				return null;
