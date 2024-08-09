@@ -90,10 +90,14 @@ namespace TripPlanner.Infrastructure.Repositories
             emailMessage.To.Add(MailboxAddress.Parse(userEmail));
             emailMessage.Subject = "Code for Verification";
 			string fullUrl = verifyUrl + "/" + code;
+			string account = "Account";
+			string verify = "Verify";
             emailMessage.Body = new TextPart(TextFormat.Html)
             {
-                Text = "To Verify Your Account Press this Link <a href=\"fullUrl\"> Click here </a>"
-            };
+                Text = $"To Verify Your Account Press this Link <a href ={fullUrl}> Click here </a>"
+				//"To Verify Your Account Press this Link <a href=\"fullUrl\"> Click here </a>"
+				//To Verify Your Account Press this Link < a href = { fullUrl }> Click here </ a >
+			};
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
             smtp.Authenticate("eldon.reilly25@ethereal.email", "1xyrdZx7msYpj4KPgJ");
