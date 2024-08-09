@@ -21,6 +21,7 @@ using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 using MailKit.Net.Smtp;
 using TripPlanner.Domain.Exceptions;
+using Azure.Core;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
@@ -60,7 +61,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			return check.Errors;
 		}
 
-		public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
+		public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password,string verifyUrl)
 		{
 			if(await userManager.FindByEmailAsync(user.Email) != null)
 			{
@@ -79,18 +80,19 @@ namespace TripPlanner.Infrastructure.Repositories
 				user.Wallet = 0;
 				await dbcontext.SaveChangesAsync();
 			}
-			await SendEmailForVerification(user.Email, verificationToken);
+			await SendEmailForVerification(user.Email, verificationToken,verifyUrl);
 			return check.Errors;
 		}
-        private async Task SendEmailForVerification(string userEmail, string code)
+        private async Task SendEmailForVerification(string userEmail, string code,string verifyUrl)
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(MailboxAddress.Parse("eldon.reilly25@ethereal.email"));
             emailMessage.To.Add(MailboxAddress.Parse(userEmail));
             emailMessage.Subject = "Code for Verification";
+			string fullUrl = verifyUrl + "/" + code;
             emailMessage.Body = new TextPart(TextFormat.Html)
             {
-                Text = "This is the code to verify your account " + code
+                Text = "To Verify Your Account Press this Link <a href=\"fullUrl\"> Click here </a>"
             };
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
@@ -149,10 +151,10 @@ namespace TripPlanner.Infrastructure.Repositories
 			await dbcontext.SaveChangesAsync();
 			return true;
         }
-		public async Task<bool> Verify(string email, string verficationToken)
+		public async Task<bool> Verify(string verficationToken)
 		{
-			var user = await userManager.FindByEmailAsync(email);
-			if (user.VerificationToken == verficationToken)
+			var user = await dbcontext.Users.FirstOrDefaultAsync(u=>u.VerificationToken== verficationToken);
+			if (user!=null)
 			{
 				user.VerifiedAt = DateTime.Now;
 				user.EmailConfirmed = true;

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TripPlanner.Application.Users.Commands.RegisterUser
 {
@@ -13,6 +14,8 @@ namespace TripPlanner.Application.Users.Commands.RegisterUser
 		public string Email { get; set; } = default!;
 		[PasswordPropertyText]
 		public string Password { get; set; } = default!;
+		[AllowNull]
+		public string? BaseUrl { get; set; }
 		public IFormFile? UserProfile { get; set; }
 	}
 }

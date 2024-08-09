@@ -50,7 +50,7 @@ namespace TripPlanner.Infrastructure.Seeders.Users
             foreach (var user in users)
             {
                 var Userr=mapper.Map<User>(user);
-                await accountRepository.RegisterUser(Userr, user.Password);
+                await accountRepository.Register(Userr, user.Password,"User");
             }
             UserSeedingRequest adminCredentials = new()
             {

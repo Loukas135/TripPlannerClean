@@ -14,7 +14,7 @@ namespace TripPlanner.Application.Users.Commands.Verify
 	{
 		public Task<bool> Handle(VerifyCommand request, CancellationToken cancellationToken)
 		{
-			return accountRepository.Verify(request.Email, request.VerificationToken);
+			return accountRepository.Verify(request.VerificationToken);
 		}
 	}
 	

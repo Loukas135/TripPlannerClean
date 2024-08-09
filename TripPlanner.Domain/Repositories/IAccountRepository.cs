@@ -12,9 +12,9 @@ namespace TripPlanner.Domain.Repositories
     public interface IAccountRepository
     {
         public Task<string> Register(User user, string password, string role);
-        public Task<IEnumerable<IdentityError>> RegisterUser(User user, string password);
+        public Task<IEnumerable<IdentityError>> RegisterUser(User user, string password,string verifyUrl);
         public Task<IEnumerable<IdentityError>> RegisterAdmin(User user, string password);
-        public Task<bool> Verify(string email, string verficationToken);
+        public Task<bool> Verify(string verficationToken);
         public Task<bool> FillWallet(string email, int amount);
         public Task<string> SaveUserProfileAsync(IFormFile userImage);
         public Task<int> NumberOfUsersInRole(string roleId);

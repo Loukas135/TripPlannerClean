@@ -10,7 +10,6 @@ namespace TripPlanner.Application.Users.Commands.Verify
 {
 	public class VerifyCommand : IRequest<bool>
 	{
-		public string Email { get; set; } = default!;
 		public string VerificationToken { get; set; } = default!;
 	}
 }
