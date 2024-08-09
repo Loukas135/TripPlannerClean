@@ -78,6 +78,7 @@ namespace TripPlanner.API.Controllers
 			var reservations = await mediator.Send(new GetServiceReservationsQuery(governorateId, serviceId));
 			return Ok(reservations);
 		}
+
 		[HttpGet]
 		[Route("/api/[controller]/userServices")]
 		[Authorize(Roles = "HotelOwner,CarRental,TourismOffice")]
@@ -109,6 +110,7 @@ namespace TripPlanner.API.Controllers
 			}
 			return Ok(response);
 		}
+
         [HttpGet]
 		[Route("earnings")]
         public async Task<ActionResult> GetGovServiceEarnings([FromRoute] int governorateId,

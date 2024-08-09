@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 using TripPlanner.Domain.Exceptions;

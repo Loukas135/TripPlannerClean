@@ -20,6 +20,7 @@ using TripPlanner.Domain.Entities.Service_Entities.Tourism_Office;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 using MailKit.Net.Smtp;
+using TripPlanner.Domain.Exceptions;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
@@ -61,8 +62,15 @@ namespace TripPlanner.Infrastructure.Repositories
 
 		public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
 		{
+			if(await userManager.FindByEmailAsync(user.Email) != null)
+			{
+				throw new UserAlreadyExistsException(user.Email);
+			}
+
 			var verificationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
-				user.VerificationToken = verificationToken;
+
+			user.VerificationToken = verificationToken;
+
 			var check = await userManager.CreateAsync(user, password);
 
 			if (check.Succeeded)

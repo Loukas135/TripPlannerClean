@@ -45,6 +45,11 @@ namespace TripPlanner.API.Middlewares
 				logger.LogWarning(ste.Message);
 				context.Response.StatusCode = 400;
 			}
+			catch(UserAlreadyExistsException ex)
+			{
+				logger.LogWarning(ex.Message);
+				context.Response.StatusCode = 400;
+			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);
