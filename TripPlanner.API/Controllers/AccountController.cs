@@ -61,7 +61,7 @@ namespace TripPlanner.API.Controllers
         [Route("Register")]
         public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterUser([FromForm] RegisterUserCommand command)
         {
-            var baseVerifyUrl = Request.Scheme + "://" + Request.Host + "/api" + "/Account" + "/Verify";
+            var baseVerifyUrl = Request.Scheme + "://" + Request.Host + "/api" + "/Account" + "/Verify" + "?token=";
             command.BaseUrl = baseVerifyUrl;
             var result = await mediator.Send(command);
             if (result.Any())
@@ -90,9 +90,9 @@ namespace TripPlanner.API.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        [Route("Verify/{token}")]
-        public async Task<ActionResult<IEnumerable<IdentityError>>> Verify([FromRoute]string token)
+        [HttpGet]
+        [Route("Verify")]
+        public async Task<ActionResult<IEnumerable<IdentityError>>> Verify([FromQuery]string token)
         {
 			var result = await mediator.Send(new VerifyCommand(token));
 			if (result)

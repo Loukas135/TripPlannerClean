@@ -69,8 +69,9 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 
 			var verificationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
-
-			user.VerificationToken = verificationToken;
+			var newToken = verificationToken.Replace('/', 'A');
+			newToken = newToken.Replace('+', 'p');
+			user.VerificationToken = newToken;
 
 			var check = await userManager.CreateAsync(user, password);
 
@@ -80,7 +81,7 @@ namespace TripPlanner.Infrastructure.Repositories
 				user.Wallet = 0;
 				await dbcontext.SaveChangesAsync();
 			}
-			await SendEmailForVerification(user.Email, verificationToken,verifyUrl);
+			await SendEmailForVerification(user.Email, newToken,verifyUrl);
 			return check.Errors;
 		}
         private async Task SendEmailForVerification(string userEmail, string code,string verifyUrl)
@@ -89,7 +90,7 @@ namespace TripPlanner.Infrastructure.Repositories
             emailMessage.From.Add(MailboxAddress.Parse("eldon.reilly25@ethereal.email"));
             emailMessage.To.Add(MailboxAddress.Parse(userEmail));
             emailMessage.Subject = "Code for Verification";
-			string fullUrl = verifyUrl + "/" + code;
+			string fullUrl = verifyUrl + code;
 			string account = "Account";
 			string verify = "Verify";
             emailMessage.Body = new TextPart(TextFormat.Html)
@@ -157,11 +158,12 @@ namespace TripPlanner.Infrastructure.Repositories
         }
 		public async Task<bool> Verify(string verficationToken)
 		{
-			var user = await dbcontext.Users.FirstOrDefaultAsync(u=>u.VerificationToken== verficationToken);
+			var user = await dbcontext.Users.FirstOrDefaultAsync(u=>u.VerificationToken == verficationToken);
 			if (user!=null)
 			{
 				user.VerifiedAt = DateTime.Now;
 				user.EmailConfirmed = true;
+				await userManager.UpdateAsync(user);
 				await dbcontext.SaveChangesAsync();
 				return true;
 			}
