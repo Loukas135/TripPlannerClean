@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TripPlanner.Application.Rooms.Commands.CreateRoom
-{
+{//sdfsdf
 	public class CreateRoomCommand() : IRequest<int>
 	{
 		public string Title { get; set; } = default!;
