@@ -27,7 +27,7 @@ namespace TripPlanner.API.Controllers
 
 		[HttpGet]
 		[Route("{tripId}")]
-		public async Task<ActionResult<TripDto>> GetTripByIdFromService(int serId, int tripId)
+		public async Task<ActionResult<TripDto>> GetTripByIdFromService([FromRoute]int serId, int tripId)
 		{
 			var trip = await mediator.Send(new GetTripByIdQuery(serId, tripId));
 			return Ok(trip);
