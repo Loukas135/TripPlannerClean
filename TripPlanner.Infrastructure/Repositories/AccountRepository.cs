@@ -69,6 +69,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 
 			var verificationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+		
 			var newToken = verificationToken.Replace('/', 'A');
 			newToken = newToken.Replace('+', 'p');
 			user.VerificationToken = newToken;

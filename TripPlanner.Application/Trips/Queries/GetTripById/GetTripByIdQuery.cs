@@ -10,7 +10,7 @@ namespace TripPlanner.Application.Trips.Queries.GetTripById
 {
 	public class GetTripByIdQuery(int serId, int tripId) : IRequest<TripDto>
 	{
-		public int ServiceId { get; set; }
-		public int TripId { get; set; }
+		public int ServiceId { get; set; } = serId;
+		public int TripId { get; set; } = tripId;
 	}
 }
