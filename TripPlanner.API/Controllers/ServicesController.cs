@@ -23,13 +23,12 @@ namespace TripPlanner.API.Controllers
 	{
 		//private static List<string> AllowedRoles = ["User","HotelOwner", "CarRental", "TourismOffice", "Restaurant"];
 		[HttpPost]
-		[Route("servicetypes/{serviceTypeId}/add")]
+		[Route("add")]
 		[Authorize(Roles = "Administrator,HotelOwner,CarRental,TourismOffice")]
-		public async Task<IActionResult> AddService([FromRoute]int governorateId, [FromRoute]int serviceTypeId, [FromForm] CreateServiceCommand command)
+		public async Task<IActionResult> AddService([FromRoute]int governorateId, [FromForm] CreateServiceCommand command)
 		{
 			
 			command.GovernorateId = governorateId;
-			command.ServiceTypeId = serviceTypeId;
 			int serviceId = await mediator.Send(command);
 			return CreatedAtAction(nameof(GetServiceById), new { governorateId, serviceId }, null);
 			//I shouldn't forget to add rate to services table

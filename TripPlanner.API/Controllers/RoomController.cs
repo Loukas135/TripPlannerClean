@@ -19,11 +19,10 @@ namespace TripPlanner.API.Controllers
 	public class RoomController(IMediator mediator) : ControllerBase
 	{
 		[HttpPost]
-		[Route("{rcId}")]
-		public async Task<IActionResult> AddRoomForService(int serId, int rcId,[FromForm] CreateRoomCommand command)
+		
+		public async Task<IActionResult> AddRoomForService(int serId,[FromForm] CreateRoomCommand command)
 		{
 			command.ServiceId = serId;
-			command.RoomCategoryId = rcId;
 			int roomId = await mediator.Send(command);
 			return CreatedAtAction(nameof(GetRoomFromService), new { serId, roomId }, null);
 		}

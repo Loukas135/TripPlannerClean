@@ -18,12 +18,10 @@ namespace TripPlanner.API.Controllers
 	public class CarsController(IMediator mediator) : ControllerBase
 	{
 		[HttpPost]
-		[Route("{ccId}")]
-		public async Task<IActionResult> AddCarForService([FromRoute]int serId, [FromRoute]int ccId, [FromForm]CreateCarCommand command)
+		public async Task<IActionResult> AddCarForService([FromRoute]int serId,  [FromForm]CreateCarCommand command)
 		{
 		
 			command.ServiceId = serId;
-			command.CarCategoryId = ccId;
 			int id = await mediator.Send(command);
 			return CreatedAtAction(nameof(GetCarByIdForService), new { serId, carId=id }, null);
 		}
