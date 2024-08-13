@@ -7,6 +7,7 @@ using TripPlanner.Application.Services.Commands.CreateService;
 using TripPlanner.Application.Services.Commands.DeleteService;
 using TripPlanner.Application.Services.Dtos;
 using TripPlanner.Application.Services.Queries.GetAllServices;
+using TripPlanner.Application.Services.Queries.GetSericeWith1Id;
 using TripPlanner.Application.Services.Queries.GetServiceById;
 using TripPlanner.Application.Services.Queries.GetServiceByType;
 using TripPlanner.Application.Services.Queries.GetServiceEarnings;
@@ -122,6 +123,17 @@ namespace TripPlanner.API.Controllers
             }
             return Ok(response);
         }
+		[HttpGet]
+		[Route("/api/{serviceId}/get")]
+		public async Task<ActionResult> GetServiceWithItsId([FromRoute]int serviceId)
+		{
+			var response = await mediator.Send(new GetServiceWith1IdQuery(serviceId));
+			if (response == null)
+			{
+				return NotFound();
+			}
+			return Ok(response);
+		}
     }
 }
 
