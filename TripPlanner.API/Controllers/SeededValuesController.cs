@@ -5,6 +5,7 @@ using System.Net;
 using System.Text.Json.Nodes;
 using TripPlanner.Application.CarTypes.Queries.GetAllCarTypes;
 using TripPlanner.Application.Governorates.Queries;
+using TripPlanner.Application.Reservations.Statuses;
 using TripPlanner.Application.Roles.Queries;
 using TripPlanner.Application.Rooms.RoomCatergories.Queries.GetAllRoomCategories;
 using TripPlanner.Application.ServiceTypes.Queries;
@@ -70,6 +71,14 @@ namespace TripPlanner.API.Controllers
 			var query = new GetAllRoomCategoriesQuery();
 			var rooms = await mediator.Send(query);
 			return Ok(rooms);
+		}
+
+		[HttpGet]
+		[Route("ReservationStatuses")]
+		public async Task<IActionResult> GetReservationStatuses()
+		{
+			var statuses = await mediator.Send(new GetReservationStatusesQuery());
+			return Ok(statuses);
 		}
 	}
 }

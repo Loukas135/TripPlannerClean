@@ -10,6 +10,7 @@ using TripPlanner.Infrastructure.Persistence;
 using TripPlanner.Infrastructure.Repositories;
 using TripPlanner.Infrastructure.Seeders.CarCategories;
 using TripPlanner.Infrastructure.Seeders.Governorates;
+using TripPlanner.Infrastructure.Seeders.ReservationsStatus;
 using TripPlanner.Infrastructure.Seeders.RolesSeeder;
 using TripPlanner.Infrastructure.Seeders.RoomCategories;
 using TripPlanner.Infrastructure.Seeders.ServiceTypeSeeder;
@@ -36,6 +37,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			services.AddScoped<IRolesSeeder, RolesSeeder>();
 			services.AddScoped(typeof(ISeededValuesRepository<>), typeof(SeededValuesRepository<>));
 			services.AddScoped<IUserSeeder, UserSeeder>();
+			services.AddScoped<IStatusSeeder, StatusSeeder>();
 			//-----------------------------------------------------------
 			services.AddScoped<IServiceRepository, ServiceRepository>();
 			services.AddScoped<IGovernoratesRepository, GovernoratesRepository>();

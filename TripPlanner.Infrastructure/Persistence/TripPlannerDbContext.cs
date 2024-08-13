@@ -23,6 +23,7 @@ namespace TripPlanner.Infrastructure.Persistence
 		internal DbSet<Rate> Ratings { get; set; }
 		internal DbSet<Reservation> Reservations { get; set; }
 		internal DbSet<ServiceImage> ServiceImages { get; set; }
+		internal DbSet<Status> Statuses { get; set; }
 		/*internal DbSet<CarImage> CarImages { get; set; }
 		internal DbSet<RoomImage> RoomImages { get; set; }
 		internal DbSet<TripImage> TripImages { get; set; }*/

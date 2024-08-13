@@ -108,5 +108,10 @@ namespace TripPlanner.Infrastructure.Repositories
 				.Where(r => r.UserId == userId).ToListAsync();
 			return reservations;
 		}
+
+		public async Task<IEnumerable<Status>> GetStatuses()
+		{
+			return await dbContext.Statuses.ToListAsync();
+		}
 	}
 }
