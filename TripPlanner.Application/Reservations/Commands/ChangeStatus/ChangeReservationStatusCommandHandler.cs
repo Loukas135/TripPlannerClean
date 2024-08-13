@@ -21,11 +21,11 @@ namespace TripPlanner.Application.Reservations.Commands.ChangeStatus
             }
             if (request.isAccepted == true)
             {
-                reservation.Status = "accepted";
+                reservation.Status = "Accepted";
             }
             else
             {
-                reservation.Status = "rejected";
+                reservation.Status = "Rejected";
             }
             await reservationRespository.UpdateReservation(reservation);
             

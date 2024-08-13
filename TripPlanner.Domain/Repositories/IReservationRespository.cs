@@ -21,5 +21,9 @@ namespace TripPlanner.Domain.Repositories
 		public Task<IEnumerable<Reservation>> GetBySubServiceId(int subServiceId);
 		public Task DeleteReservation(Reservation entity);
 
+		public Task<IEnumerable<Reservation>> GetUserReservations(string userId);
+
+		public Task<IEnumerable<Reservation>> GetByStatus(string status, string userId);
+
     }
 }

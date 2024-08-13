@@ -95,5 +95,18 @@ namespace TripPlanner.Infrastructure.Repositories
 			dbContext.Reservations.Remove(entity);
 			await dbContext.SaveChangesAsync();
 		}
+
+		public async Task<IEnumerable<Reservation>> GetUserReservations(string userId)
+		{
+			var reservations = await dbContext.Reservations.Where(r => r.UserId == userId).ToListAsync();
+			return reservations;
+		}
+
+		public async Task<IEnumerable<Reservation>> GetByStatus(string status, string userId)
+		{
+			var reservations = await dbContext.Reservations.Where(r => r.Status == status)
+				.Where(r => r.UserId == userId).ToListAsync();
+			return reservations;
+		}
 	}
 }

@@ -7,6 +7,8 @@ using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetAll;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetByDate;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetInCurrentMonth;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetInServiceType;
+using TripPlanner.Application.Reservations.Queries.GetReservationsByStatus;
+using TripPlanner.Application.Reservations.Queries.GetUserReservations;
 
 //this controller exsists to help the admin filter reservations by: current month/all in gov/service/....
 namespace TripPlanner.API.Controllers
@@ -68,6 +70,22 @@ namespace TripPlanner.API.Controllers
 				return NoContent();
 			}
 			return Ok(response);
+		}
+
+		[HttpGet]
+		[Route("/api/[controller]/reservations/currentUser")]
+		public async Task<ActionResult> GetReservationsForCurrentUser()
+		{
+			var reservations = await mediator.Send(new GetUserReservationsQuery());
+			return Ok(reservations);
+		}
+
+		[HttpGet]
+		[Route("/api/[controller]/reservations/{status}")]
+		public async Task<ActionResult> GetReservationsByStatus([FromRoute]string status)
+		{
+			var reservations = await mediator.Send(new GetReservationsByStatusQuery(status));
+			return Ok(reservations);
 		}
 	}
 }

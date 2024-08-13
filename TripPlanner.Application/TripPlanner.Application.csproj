@@ -24,8 +24,4 @@
     <ProjectReference Include="..\TripPlanner.Domain\TripPlanner.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Reservations\Queries\GetUserReservations\" />
-  </ItemGroup>
-
 </Project>
