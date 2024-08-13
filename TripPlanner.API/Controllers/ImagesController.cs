@@ -23,14 +23,14 @@ namespace TripPlanner.API.Controllers
             }
             return Ok(result);
         }
-        [HttpGet]
+        [HttpPost]
         [Route("images")]
         public async Task<ActionResult>GetImageAsIs([FromBody]string path)
         {
             var image = System.IO.File.OpenRead(path);
             return File(image, "image/png");
         }
-        [HttpGet]
+        [HttpPost]
         [Route("images/asBytes")]
         public async Task<ActionResult>GetImageAsBytes([FromBody]string path)
         {

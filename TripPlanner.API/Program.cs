@@ -10,6 +10,7 @@ using TripPlanner.Infrastructure.Seeders.RolesSeeder;
 using TripPlanner.Infrastructure.Seeders.RoomCategories;
 using TripPlanner.Infrastructure.Seeders.ServiceTypeSeeder;
 using TripPlanner.Infrastructure.Seeders.Users;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +60,12 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 	app.UseSwaggerUI();
 //}
 app.UseHttpsRedirection();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Images")),
+    RequestPath = "/Images"
+});
 app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
 
 app.UseCors("AllowAll");
