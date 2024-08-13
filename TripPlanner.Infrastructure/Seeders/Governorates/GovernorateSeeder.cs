@@ -79,8 +79,8 @@ namespace TripPlanner.Infrastructure.Seeders.Governorates
                 },
                 new()
                 {
-                    Name = "Qamshli",
-                    Description = "Qamshli is one of the Syrian governorate"
+                    Name = "Homs",
+                    Description = "Homs is one of the Syrian governorate"
                 },
                 new()
                 {
