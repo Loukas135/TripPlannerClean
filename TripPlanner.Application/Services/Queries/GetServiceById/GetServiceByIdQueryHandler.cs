@@ -16,6 +16,7 @@ namespace TripPlanner.Application.Services.Queries.GetServiceById
 {
 	public class GetServiceByIdQueryHandler(ILogger<GetServiceByIdQueryHandler> logger,
 		IGovernoratesRepository governoratesRepository,
+		IServiceRepository serviceRepository,
 		IMapper mapper) : IRequestHandler<GetServiceByIdQuery, ServiceDto?>
 	{
 		public async Task<ServiceDto?> Handle(GetServiceByIdQuery request, CancellationToken cancellationToken)
@@ -29,8 +30,8 @@ namespace TripPlanner.Application.Services.Queries.GetServiceById
 			var service = governorate.Services.FirstOrDefault(s => s.Id == request.ServiceId);
 			if (service == null)
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
-
-			var result = mapper.Map<ServiceDto>(service);
+			var serviceWithImage = await serviceRepository.GetByIdWithImages(service.Id);
+			var result = mapper.Map<ServiceDto>(serviceWithImage);
 			return result;
 		}
 	}

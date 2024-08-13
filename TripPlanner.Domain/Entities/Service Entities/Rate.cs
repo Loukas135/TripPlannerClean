@@ -10,6 +10,6 @@ namespace TripPlanner.Domain.Entities.Service_Entities
         public string UserId { get; set; } = default!;
         
         [Range(0,5)]
-        public int? Rating { get; set; }
+        public float? Rating { get; set; }
     }
 }

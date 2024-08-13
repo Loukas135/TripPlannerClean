@@ -31,7 +31,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 		public List<Trip>? Trips { get; set; }
 		public List<Reservation>? Reservations { get; set; }
 		public List<Rate>? Ratings { get; set; } = [];
-		public int OverallRate { get; set; } = 0;
+		public float OverallRate { get; set; } = 0;
 		public User Owner { get; set; } = default!;
 		public string OwnerId { get; set; } = default!;
 		public bool HasWiFi { get; set; } = false;
