@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Domain;
 using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
@@ -112,6 +113,25 @@ namespace TripPlanner.Infrastructure.Repositories
 		public async Task<IEnumerable<Status>> GetStatuses()
 		{
 			return await dbContext.Statuses.ToListAsync();
+		}
+
+		public async Task<IEnumerable<AllGovsEarnings>> GetAllGovsEarnings(int month, int year)
+		{
+			var reservation = from g in dbContext.Governorates
+							  join s in dbContext.Services
+								  on g.Id equals s.GovernorateId into serviceGroup
+							  from sg in serviceGroup.DefaultIfEmpty()
+							  join r in dbContext.Reservations
+								  on sg.Id equals r.ServiceId into reservationGroup
+							  from rg in reservationGroup.DefaultIfEmpty()
+							  where rg == null || (rg.Status == "Accepted" && rg.From.Year == year && rg.From.Month == month)
+							  group rg by g.Name into gGroup
+							  select new AllGovsEarnings
+							  {
+								  Name = gGroup.Key,
+								  TotalEarnings = gGroup.Sum(reservation => reservation == null ? 0 : reservation.Cost)
+							  };
+			return await reservation.ToListAsync();
 		}
 	}
 }

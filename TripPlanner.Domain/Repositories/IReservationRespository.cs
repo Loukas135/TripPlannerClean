@@ -23,5 +23,6 @@ namespace TripPlanner.Domain.Repositories
 		public Task<IEnumerable<Reservation>> GetUserReservations(string userId);
 		public Task<IEnumerable<Reservation>> GetByStatus(string status, string userId);
 		public Task<IEnumerable<Status>> GetStatuses();
+		public Task<IEnumerable<AllGovsEarnings>> GetAllGovsEarnings(int month, int year);
     }
 }

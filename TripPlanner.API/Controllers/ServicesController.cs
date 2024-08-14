@@ -6,6 +6,7 @@ using TripPlanner.Application.Reservations.Queries.GetServiceReservations;
 using TripPlanner.Application.Services.Commands.CreateService;
 using TripPlanner.Application.Services.Commands.DeleteService;
 using TripPlanner.Application.Services.Dtos;
+using TripPlanner.Application.Services.Queries.GetAllGovEarnings;
 using TripPlanner.Application.Services.Queries.GetAllServices;
 using TripPlanner.Application.Services.Queries.GetSericeWith1Id;
 using TripPlanner.Application.Services.Queries.GetServiceById;
@@ -14,6 +15,7 @@ using TripPlanner.Application.Services.Queries.GetServiceEarnings;
 using TripPlanner.Application.Services.Queries.GetServiceFromUserReservation;
 using TripPlanner.Application.Services.Queries.GetServicesEarningsInGov;
 using TripPlanner.Application.Services.Queries.GetUserServices;
+using TripPlanner.Domain;
 using TripPlanner.Domain.Entities;
 
 namespace TripPlanner.API.Controllers
@@ -126,9 +128,10 @@ namespace TripPlanner.API.Controllers
 		[HttpGet]
 		[Route("/api/earnings/allGovEarnings")]
 		[Authorize(Roles ="Administrator")]
-		public async Task<ActionResult> GetAllGovEarnings([FromQuery] int month,int year)
+		public async Task<ActionResult<IEnumerable<AllGovsEarnings>>> GetAllGovEarnings([FromQuery] int month,int year)
 		{
-			return Ok();
+			var earnings = await mediator.Send(new GetAllGovEarningsQuery(month, year));
+			return Ok(earnings);
 		}
 		[HttpGet]
 		[Route("/api/{serviceId}/get")]
