@@ -30,6 +30,6 @@ namespace TripPlanner.Application.Services.Dtos
 		public bool HasWiFi { get; set; } = false;
 		public bool HasPool { get; set; } = false;
 		public bool HasRestaurant { get; set; } = false;
-        public List<ServiceImage>? ServiceImages { get; set; }
+        public string? ImagePath { get; set; }
     }
 }

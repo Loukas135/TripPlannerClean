@@ -38,6 +38,6 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 		public bool HasPool {  get; set; } = false;
 		public bool HasRestaurant {  get; set; } = false;
 
-		public List<ServiceImage> ServiceImages { get; set; } = new List<ServiceImage>();
+		public string? ImagePath { get; set; }
 	}
 }

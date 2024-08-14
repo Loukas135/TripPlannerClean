@@ -60,7 +60,8 @@ namespace TripPlanner.Infrastructure.Repositories
                 return null;
 
             var contentPath = environment.ContentRootPath;
-            var path = Path.Combine(contentPath, "Images/Rooms");
+            var specialPath = "Images/Rooms";
+            var path = Path.Combine(contentPath, specialPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -68,9 +69,11 @@ namespace TripPlanner.Infrastructure.Repositories
             var extension = Path.GetExtension(roomImage.FileName);
             var fileName = $"{Guid.NewGuid().ToString()}{extension}";
             var fullName = Path.Combine(path, fileName);
+            var returnName = Path.Combine(specialPath, fileName);
             using var stream = new FileStream(fullName, FileMode.Create);
 			await roomImage.CopyToAsync(stream);
-            return fullName;
+            var pathName = fullName.Substring(0);
+            return returnName;
         }
 
         public async Task FullyDeleteRoom(int id)

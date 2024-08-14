@@ -11,6 +11,7 @@ namespace TripPlanner.Domain.Repositories
 {
     public interface IAccountRepository
     {
+        public Task<User> GetUserAsync(string id);
         public Task<string> Register(User user, string password, string role);
         public Task<IEnumerable<IdentityError>> RegisterUser(User user, string password,string verifyUrl);
         public Task<IEnumerable<IdentityError>> RegisterAdmin(User user, string password);

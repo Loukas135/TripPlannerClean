@@ -22,7 +22,6 @@ namespace TripPlanner.Infrastructure.Persistence
 		internal DbSet<Trip> Trips { get; set; }
 		internal DbSet<Rate> Ratings { get; set; }
 		internal DbSet<Reservation> Reservations { get; set; }
-		internal DbSet<ServiceImage> ServiceImages { get; set; }
 		internal DbSet<Status> Statuses { get; set; }
 		/*internal DbSet<CarImage> CarImages { get; set; }
 		internal DbSet<RoomImage> RoomImages { get; set; }
@@ -64,10 +63,6 @@ namespace TripPlanner.Infrastructure.Persistence
 				.WithOne()
 				.HasForeignKey(r => r.ServiceId);
 
-			modelBuilder.Entity<Service>()
-				.HasMany(s => s.ServiceImages)
-				.WithOne()
-				.HasForeignKey(si => si.ServiceId);
 
 			//Each Room, Car or Trip has many reservations
 			modelBuilder.Entity<Room>()

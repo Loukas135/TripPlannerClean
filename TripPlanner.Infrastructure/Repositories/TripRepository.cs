@@ -42,7 +42,8 @@ namespace TripPlanner.Infrastructure.Repositories
                 return null;
 
             var contentPath = hostEnvironment.ContentRootPath;
-            var path = Path.Combine(contentPath, "Images/Trips");
+            var specialPath = "Images/Trips";
+            var path = Path.Combine(contentPath, specialPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -50,9 +51,10 @@ namespace TripPlanner.Infrastructure.Repositories
             var extension = Path.GetExtension(tripImage.FileName);
             var fileName = $"{Guid.NewGuid().ToString()}{extension}";
             var fullName = Path.Combine(path, fileName);
+            var returnName = Path.Combine(specialPath, fileName);
             using var stream = new FileStream(fullName, FileMode.Create);
             await tripImage.CopyToAsync(stream);
-            return fullName;
+            return returnName;
     }
         public async Task DeleteTripReservations(int id)
         {

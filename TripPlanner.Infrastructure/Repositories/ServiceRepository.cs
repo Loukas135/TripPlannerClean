@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,8 @@ namespace TripPlanner.Infrastructure.Repositories
 {
 	public class ServiceRepository(TripPlannerDbContext dbContext,IRoomRepository roomRepository,
 		ICarRepository carRepository,
-		ITripRepository tripRepository) : IServiceRepository
+		ITripRepository tripRepository,
+		IHostEnvironment environment) : IServiceRepository
 	{
 		public async Task<int> Add(Service entity)
 		{
@@ -50,7 +53,6 @@ namespace TripPlanner.Infrastructure.Repositories
 			.Include(s => s.Rooms == null ? null : s.Rooms)
 			.Include(s => s.Trips == null ? null : s.Trips)
 			.Include(s => s.Cars == null ? null : s.Cars)
-			.Include(s => s.ServiceImages == null ? null : s.ServiceImages)
             .FirstOrDefaultAsync(x => x.Id == id);
             return service;
         }
@@ -177,5 +179,26 @@ namespace TripPlanner.Infrastructure.Repositories
 			}
 			return sum;
         }
-	}
+        public async Task<string> SaveServiceImageAsync(IFormFile serviceImage)
+        {
+            if (serviceImage == null)
+                return null;
+
+            var contentPath = environment.ContentRootPath;
+			string specialPath = "Images/Services";
+            var path = Path.Combine(contentPath, specialPath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var extension = Path.GetExtension(serviceImage.FileName);
+            var fileName = $"{Guid.NewGuid().ToString()}{extension}";
+            var fullName = Path.Combine(path, fileName);
+			var returnName = Path.Combine(specialPath, fileName);
+            using var stream = new FileStream(fullName, FileMode.Create);
+            await serviceImage.CopyToAsync(stream);
+            //var pathName = fullName.Substring(0);
+            return returnName;
+        }
+    }
 }

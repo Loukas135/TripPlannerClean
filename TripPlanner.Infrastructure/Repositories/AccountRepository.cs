@@ -27,6 +27,10 @@ namespace TripPlanner.Infrastructure.Repositories
 {
 	public class AccountRepository(UserManager<User> userManager, TripPlannerDbContext dbcontext, IHostEnvironment hostEnvironment) : IAccountRepository
 	{
+		public async Task<User> GetUserAsync(string id)
+		{
+			return await userManager.FindByIdAsync(id);
+		}
 		public async Task<bool> FillWallet(string email, int amount)
 		{
 			var user = await userManager.FindByEmailAsync(email);
@@ -114,7 +118,8 @@ namespace TripPlanner.Infrastructure.Repositories
 				return null;
 
 			var contentPath = hostEnvironment.ContentRootPath;
-			var path = Path.Combine(contentPath, "Images/Users");
+			var specialPath = "Images/Users";
+			var path = Path.Combine(contentPath, specialPath);
 			if (!Directory.Exists(path))
 			{
 				Directory.CreateDirectory(path);
@@ -122,9 +127,10 @@ namespace TripPlanner.Infrastructure.Repositories
 			var extension = Path.GetExtension(userImage.FileName);
 			var imageName = $"{Guid.NewGuid().ToString()}{extension}";
 			var fullName = Path.Combine(path, imageName);
+			var returnName = Path.Combine(specialPath, imageName);
 			using var stream = new FileStream(fullName, FileMode.Create);
 			await userImage.CopyToAsync(stream);
-			return fullName;
+			return returnName;
 		}
         public bool DeleteImage(string imageName)
 		{

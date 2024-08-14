@@ -1,4 +1,5 @@
-﻿using TripPlanner.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.Service_Entities;
 
 namespace TripPlanner.Domain.Repositories
@@ -9,7 +10,7 @@ namespace TripPlanner.Domain.Repositories
 		public Task<IEnumerable<Service>> Get();
 		public Task<Service?> GetById(int id);
 		public Task<Service?> GetByIdWithImages(int id);
-
+		public Task<string> SaveServiceImageAsync(IFormFile serviceImage);
         public Task<Service?> GetByUserId(string ownerId);
 		public Task<Service?> GetByIdWithRating(int id);
 		public Task<float?> CalculateOverallRating(int id);

@@ -51,7 +51,8 @@ namespace TripPlanner.Infrastructure.Repositories
             if (carImage == null)
                 return null;
             var contentPath = environment.ContentRootPath;
-            var path = Path.Combine(contentPath, "Images/Cars");
+            var specialPath = "Images/Cars";
+            var path = Path.Combine(contentPath,specialPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -59,9 +60,10 @@ namespace TripPlanner.Infrastructure.Repositories
             var extension = Path.GetExtension(carImage.FileName);
             var fileName = $"{Guid.NewGuid().ToString()}{extension}";
             var fullName = Path.Combine(path, fileName);
+            var returnName = Path.Combine(specialPath, fileName);
             using var stream = new FileStream(fullName, FileMode.Create);
             await carImage.CopyToAsync(stream);
-            return fullName;
+            return returnName;
         }
 
         public async Task FullyDeleteCar(int id)

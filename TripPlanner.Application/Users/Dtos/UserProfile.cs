@@ -20,6 +20,7 @@ namespace TripPlanner.Application.Users.Dtos
             CreateMap<RegisterUserCommand, User>();
             CreateMap<RegisterAdminCommand, User>().ReverseMap();
             CreateMap<UserSeedingRequest, User>().ReverseMap();
+            CreateMap<User, FullCurrentUserDto>().ReverseMap();
         }
     }
 }

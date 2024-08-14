@@ -55,7 +55,7 @@ namespace TripPlanner.Infrastructure.Extensions
 			//-----------------------------------------------------------
 			services.AddScoped<IRatingRepository, RatingRepository>();
 			services.AddScoped<IReservationRespository, ReservationRespository>();
-			services.AddScoped<IServiceImageRepository, ServiceImageRepository>();
+			
 		}
 	}
 }

@@ -124,6 +124,13 @@ namespace TripPlanner.API.Controllers
             return Ok(response);
         }
 		[HttpGet]
+		[Route("/api/earnings/allGovEarnings")]
+		[Authorize(Roles ="Administrator")]
+		public async Task<ActionResult> GetAllGovEarnings([FromQuery] int month,int year)
+		{
+			return Ok();
+		}
+		[HttpGet]
 		[Route("/api/{serviceId}/get")]
 		public async Task<ActionResult> GetServiceWithItsId([FromRoute]int serviceId)
 		{
