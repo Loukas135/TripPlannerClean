@@ -199,44 +199,59 @@ namespace TripPlanner.Infrastructure.Repositories
 			var num = await records.CountAsync();
 			return num;
 		}
-		public async Task<bool> DeleteAccount(string userId,string password)
+		public async Task<bool> CheckPassword(string userId,string password)
 		{
 			var user = await GetUserAsync(userId);
-			var sucess = await userManager.CheckPasswordAsync(user, password);
-			if (sucess)
+			if (user == null || password==null)
 			{
-				var reservations = dbcontext.Reservations.Where(r => r.UserId == userId);
-				var all_Deleted = true;
-				foreach(var reservation in reservations)
-				{
-					var current_state = await reservationRespository.DeleteReservationAsync(reservation.Id);
-					all_Deleted = all_Deleted && current_state;
-				}
-				if (user.ProfileImagePath != null)
-				{
-					var path = Path.Combine(hostEnvironment.ContentRootPath, user.ProfileImagePath);
-					File.Delete(path);
-                }
-				await userManager.DeleteAsync(user);
-				await dbcontext.SaveChangesAsync();
-				return true;
+				return false;
 			}
-			return false;
+			var sucess = await userManager.CheckPasswordAsync(user, password);
+			return sucess;
 		}
-        /*
-        public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)
+
+        public async Task UpdateUser(User user)
         {
-            var user = await userManager.FindByEmailAsync(email);
-            var check = await userManager.ConfirmEmailAsync(user, verficationToken);
-            if (check.Succeeded)
-            {
-                user.VerifiedAt = DateTime.Now;
-                user.EmailConfirmed = true;
-                await dbcontext.SaveChangesAsync();
-            }
-            return check.Errors;
+			await userManager.UpdateAsync(user);
+			await dbcontext.SaveChangesAsync();
         }
-        */
+		public async Task DeleteUserRatings(User user)
+		{
+			dbcontext.Ratings.RemoveRange(user.Ratings);
+			await dbcontext.SaveChangesAsync();
+		}
+
+        public async Task DeleteAccount(string userId)
+        {
+			var user = await userManager.FindByIdAsync(userId);
+			if (user == null)
+			{
+				return;
+			}
+			if (user.ProfileImagePath != null)
+			{
+				var path = Path.Combine(hostEnvironment.ContentRootPath, user.ProfileImagePath);
+				File.Delete(path);
+
+            }
+			
+			await userManager.DeleteAsync(user);
+			await dbcontext.SaveChangesAsync();
+        }
+        /*
+public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)
+{
+var user = await userManager.FindByEmailAsync(email);
+var check = await userManager.ConfirmEmailAsync(user, verficationToken);
+if (check.Succeeded)
+{
+user.VerifiedAt = DateTime.Now;
+user.EmailConfirmed = true;
+await dbcontext.SaveChangesAsync();
+}
+return check.Errors;
+}
+*/
 
     }
 }
