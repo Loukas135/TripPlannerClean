@@ -75,6 +75,11 @@ namespace TripPlanner.Infrastructure.Repositories
             {
                 return;
             }
+            if (trip.ImagePath != null)
+            {
+                var path = Path.Combine(hostEnvironment.ContentRootPath, trip.ImagePath);
+                File.Delete(path);
+            }
             await DeleteTripReservations(id);
            await  Delete(trip);
 

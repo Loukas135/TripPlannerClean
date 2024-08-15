@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Domain.Entities.Service_Entities.Car_Rental;
+using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
 
@@ -72,6 +73,11 @@ namespace TripPlanner.Infrastructure.Repositories
             if (car == null)
             {
                 return;
+            }
+            if (car.ImagePath != null)
+            {
+                var path = Path.Combine(environment.ContentRootPath, car.ImagePath);
+                File.Delete(path);
             }
             await DeleteCarReservations(id);
             await Delete(car);

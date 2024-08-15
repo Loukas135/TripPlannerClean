@@ -72,7 +72,7 @@ namespace TripPlanner.Infrastructure.Repositories
             var returnName = Path.Combine(specialPath, fileName);
             using var stream = new FileStream(fullName, FileMode.Create);
 			await roomImage.CopyToAsync(stream);
-            var pathName = fullName.Substring(0);
+           // var pathName = fullName.Substring(0);
             return returnName;
         }
 
@@ -81,6 +81,11 @@ namespace TripPlanner.Infrastructure.Repositories
             var room = await dbContext.Rooms.FirstOrDefaultAsync(r => r.Id == id);
             if(room==null) { return;}
             await DeleteRoomReservations(id);
+            if (room.ImagePath != null)
+            {
+                var path = Path.Combine(environment.ContentRootPath, room.ImagePath);
+                File.Delete(path);
+            }
             await Delete(room);
 
 

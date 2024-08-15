@@ -135,16 +135,60 @@ namespace TripPlanner.Infrastructure.Repositories
 		}
 		public async Task FullyDeleteService(int id)
 		{
+			
 			var service = await dbContext.Services
 			.Include(s => s.Rooms == null ? null : s.Rooms)
 			.Include(s => s.Trips == null ? null : s.Trips)
 			.Include(s => s.Cars == null ? null : s.Cars)
 			.Include(s=> s.Reservations == null ? null : s.Reservations)
 			.FirstOrDefaultAsync(s => s.Id == id);
-			dbContext.RemoveRange(service.Reservations);
-			dbContext.RemoveRange(service.Rooms);
-			dbContext.RemoveRange(service.Cars);
-			dbContext.RemoveRange(service.Trips);
+			if (service.ImagePath != null)
+			{
+				var path=Path.Combine(environment.ContentRootPath,service.ImagePath);
+				File.Delete(path);
+			}
+			if (service.Rooms != null)
+			{
+                foreach (var room in service.Rooms)
+                {
+					if (room.ImagePath == null)
+					{
+						continue;
+					}
+                    var path = Path.Combine(environment.ContentRootPath, room.ImagePath);
+                    File.Delete(path);
+                    
+                }
+                dbContext.RemoveRange(service.Rooms);
+            }
+			if (service.Trips != null)
+			{
+                foreach (var trip in service.Trips)
+                {
+					if (trip.ImagePath == null)
+					{
+						continue;
+					}
+                    var path = Path.Combine(environment.ContentRootPath, trip.ImagePath);
+                    File.Delete(path);
+                }
+                dbContext.RemoveRange(service.Trips);
+            }
+			if (service.Cars != null)
+			{
+                foreach (var car in service.Cars)
+                {
+					if(car.ImagePath == null)
+					{
+						continue;
+					}
+                    var path = Path.Combine(environment.ContentRootPath, car.ImagePath);
+                    File.Delete(path);
+                }
+                dbContext.RemoveRange(service.Cars);
+            }
+            
+            dbContext.RemoveRange(service.Reservations);
 			dbContext.Remove(service);
 			await dbContext.SaveChangesAsync();	
         }
