@@ -12,7 +12,7 @@ namespace TripPlanner.Application.Users.Commands.DeleteAccount
     {
         public async Task Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
-            var userId = userContext.GetCurrentUser().Id.ToString();
+            var userId = userContext.GetCurrentUser().Id;
             var sucess = await accountRepository.DeleteAccount(userId, request.Password);
             if (!sucess)
             {

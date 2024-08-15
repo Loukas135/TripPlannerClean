@@ -205,7 +205,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			var sucess = await userManager.CheckPasswordAsync(user, password);
 			if (sucess)
 			{
-				var reservations =dbcontext.Reservations.Where(r => r.UserId == userId);
+				var reservations = dbcontext.Reservations.Where(r => r.UserId == userId);
 				var all_Deleted = true;
 				foreach(var reservation in reservations)
 				{

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using TripPlanner.Application.Reservations.Commands.ChangeStatus;
+using TripPlanner.Application.Reservations.Commands.Delete;
 using TripPlanner.Application.Reservations.Dtos;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetAll;
 using TripPlanner.Application.Reservations.Queries.GetGovReservations.GetByDate;
@@ -86,6 +87,14 @@ namespace TripPlanner.API.Controllers
 		{
 			var reservations = await mediator.Send(new GetReservationsByStatusQuery(status));
 			return Ok(reservations);
+		}
+
+		[HttpDelete]
+		[Route("api/reservations/cancel/{reservationId}")]
+		public async Task<ActionResult> CancelReservation(int reservationId)
+		{
+			await mediator.Send(new DeleteReservationCommand(reservationId));
+			return NoContent();
 		}
 	}
 }

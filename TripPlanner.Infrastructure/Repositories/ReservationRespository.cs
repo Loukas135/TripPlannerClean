@@ -144,7 +144,7 @@ namespace TripPlanner.Infrastructure.Repositories
 			{
 				return false;
 			}
-            var user = await userManager.FindByIdAsync(reservation.UserId);
+			var user = await userManager.FindByIdAsync(reservation.UserId);
 			if (reservation.Status == "Paid")
 			{
 				user.Wallet += reservation.Cost;

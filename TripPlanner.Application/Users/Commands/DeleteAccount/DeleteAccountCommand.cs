@@ -9,6 +9,6 @@ namespace TripPlanner.Application.Users.Commands.DeleteAccount
 {
     public class DeleteAccountCommand:IRequest
     {
-        public string Password { get; set; }
+        public string Password { get; set; } = default!;
     }
 }
