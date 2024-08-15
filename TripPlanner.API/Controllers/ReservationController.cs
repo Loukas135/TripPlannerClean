@@ -90,7 +90,7 @@ namespace TripPlanner.API.Controllers
 		}
 
 		[HttpDelete]
-		[Route("api/reservations/cancel/{reservationId}")]
+		[Route("/api/[controller]/cancel/{reservationId}")]
 		public async Task<ActionResult> CancelReservation(int reservationId)
 		{
 			await mediator.Send(new DeleteReservationCommand(reservationId));
