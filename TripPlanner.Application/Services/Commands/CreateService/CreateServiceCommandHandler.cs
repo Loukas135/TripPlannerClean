@@ -27,6 +27,8 @@ namespace TripPlanner.Application.Services.Commands.CreateService
 
 			var service = mapper.Map<Service>(request);
 			service.OwnerId = request.OwnerId;
+			var imagePath = await serviceRepository.SaveServiceImageAsync(request.ServiceMainImage);
+			service.ImagePath = imagePath;
 			//service.Rate = request.Rate;
 			if (request.ServiceTypeId != 1)
 			{
