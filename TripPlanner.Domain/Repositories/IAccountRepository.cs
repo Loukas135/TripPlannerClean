@@ -22,5 +22,6 @@ namespace TripPlanner.Domain.Repositories
         public Task<int> NewUsersAfterMonth(int month, string roleId,int year);
         public Task<bool> UpdateUserImage(string userId, IFormFile newImage);
         //public Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken);
+        public Task<bool> DeleteAccount(string userId, string password);
     }
 }

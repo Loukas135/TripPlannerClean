@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TripPlanner.Application.Services.Queries.GetServiceFromUserReservation;
+using TripPlanner.Application.Users.Commands.DeleteAccount;
 using TripPlanner.Application.Users.Commands.FillWallet;
 using TripPlanner.Application.Users.Commands.LoginUser;
 using TripPlanner.Application.Users.Commands.Register;
@@ -136,6 +137,14 @@ namespace TripPlanner.API.Controllers
         [Route("Images/UpdateUserImage")]
         [Authorize]
         public async Task<ActionResult> UpdateUserImage([FromForm] UpdateUserImageCommand request)
+        {
+            await mediator.Send(request);
+            return NoContent();
+        }
+        [HttpDelete]
+        [Route("deleteAccount")]
+        [Authorize]
+        public async Task<ActionResult> DeleteUserAccount([FromBody] DeleteAccountCommand request)
         {
             await mediator.Send(request);
             return NoContent();

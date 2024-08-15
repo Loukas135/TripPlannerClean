@@ -25,7 +25,10 @@ using Azure.Core;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class AccountRepository(UserManager<User> userManager, TripPlannerDbContext dbcontext, IHostEnvironment hostEnvironment) : IAccountRepository
+	public class AccountRepository(UserManager<User> userManager,
+		TripPlannerDbContext dbcontext, 
+		IHostEnvironment hostEnvironment,
+		IReservationRespository reservationRespository) : IAccountRepository
 	{
 		public async Task<User> GetUserAsync(string id)
 		{
@@ -196,7 +199,30 @@ namespace TripPlanner.Infrastructure.Repositories
 			var num = await records.CountAsync();
 			return num;
 		}
-
+		public async Task<bool> DeleteAccount(string userId,string password)
+		{
+			var user = await GetUserAsync(userId);
+			var sucess = await userManager.CheckPasswordAsync(user, password);
+			if (sucess)
+			{
+				var reservations =dbcontext.Reservations.Where(r => r.UserId == userId);
+				var all_Deleted = true;
+				foreach(var reservation in reservations)
+				{
+					var current_state = await reservationRespository.DeleteReservationAsync(reservation.Id);
+					all_Deleted = all_Deleted && current_state;
+				}
+				if (user.ProfileImagePath != null)
+				{
+					var path = Path.Combine(hostEnvironment.ContentRootPath, user.ProfileImagePath);
+					File.Delete(path);
+                }
+				await userManager.DeleteAsync(user);
+				await dbcontext.SaveChangesAsync();
+				return true;
+			}
+			return false;
+		}
         /*
         public async Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken)
         {

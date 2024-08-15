@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,11 @@ using TripPlanner.Infrastructure.Persistence;
 
 namespace TripPlanner.Infrastructure.Repositories
 {
-	public class ReservationRespository(TripPlannerDbContext dbContext) : IReservationRespository
+	public class ReservationRespository(TripPlannerDbContext dbContext,
+		UserManager<User>userManager
+		) : IReservationRespository
 	{
+		
 		public async Task<int> Add(Reservation entity)
 		{
 			dbContext.Reservations.Add(entity);
@@ -132,6 +136,23 @@ namespace TripPlanner.Infrastructure.Repositories
 								  TotalEarnings = gGroup.Sum(reservation => reservation == null ? 0 : reservation.Cost)
 							  };
 			return await reservation.ToListAsync();
+		}
+		public async Task<bool> DeleteReservationAsync(int id)
+		{
+			var reservation = await GetById(id);
+			if (reservation == null)
+			{
+				return false;
+			}
+            var user = await userManager.FindByIdAsync(reservation.UserId);
+			if (reservation.Status == "Paid")
+			{
+				user.Wallet += reservation.Cost;
+			}
+			await userManager.UpdateAsync(user);
+			dbContext.Reservations.Remove(reservation);
+			await dbContext.SaveChangesAsync();
+			return true;
 		}
 	}
 }
