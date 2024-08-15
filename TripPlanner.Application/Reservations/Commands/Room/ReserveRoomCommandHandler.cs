@@ -47,9 +47,9 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 			reservation.Cost = nights * (int)room.PricePerNight;
 			reservation.From = request.From;
 			reservation.To = request.To;
-            reservation.ElectronicPayment = (request.Payment == "Electronic");
+            reservation.ElectronicPayment = request.ElectronicPayment;
 
-			if (request.Payment == "Electronic")
+			if (request.ElectronicPayment)
 			{
 				if (user!.Wallet >= (int)reservation.Cost)
 				{
