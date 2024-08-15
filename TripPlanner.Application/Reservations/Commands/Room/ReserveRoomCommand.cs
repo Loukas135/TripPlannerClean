@@ -18,6 +18,6 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 		public DateTime From { get; set; } = default!;
         [DataType(DataType.Date)]
         public DateTime To { get; set; } = default!;
-		public string Payment { get; set; } = default!;
+		public bool ElectronicPayment { get; set; } = default!;
 	}
 }
