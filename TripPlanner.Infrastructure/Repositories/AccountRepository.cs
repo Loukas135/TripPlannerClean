@@ -155,11 +155,10 @@ namespace TripPlanner.Infrastructure.Repositories
 				return false;
             }
 			var user = await userManager.FindByIdAsync(userId);
-			var success=DeleteImage(user.ProfileImagePath);
-			if (!success)
+			if (user.ProfileImagePath != null)
 			{
-				return false;
-			}
+                var success = DeleteImage(user.ProfileImagePath);
+            }
 			var newImagePath = await SaveUserProfileAsync(newImage);
 			user.ProfileImagePath = newImagePath;
 			await userManager.UpdateAsync(user);

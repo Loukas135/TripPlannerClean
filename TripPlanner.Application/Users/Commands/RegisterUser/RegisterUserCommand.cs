@@ -16,6 +16,5 @@ namespace TripPlanner.Application.Users.Commands.RegisterUser
 		public string Password { get; set; } = default!;
 		[AllowNull]
 		public string? BaseUrl { get; set; }
-		public IFormFile? UserProfile { get; set; }
 	}
 }

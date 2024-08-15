@@ -60,7 +60,7 @@ namespace TripPlanner.API.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterUser([FromForm] RegisterUserCommand command)
+        public async Task<ActionResult<IEnumerable<IdentityError>>> RegisterUser([FromBody] RegisterUserCommand command)
         {
             var baseVerifyUrl = Request.Scheme + "://" + Request.Host + "/api" + "/Account" + "/Verify" + "?token=";
             command.BaseUrl = baseVerifyUrl;
