@@ -17,6 +17,6 @@ namespace TripPlanner.Application.Cars.Commands.CreateCar
 
 		public int CarCategoryId { get; set; } = default!;
 		public int ServiceId { get; set; } = default!;
-		public IFormFile? ImagePath { get; set; }
+		public IFormFile? CarImage { get; set; }
 	}
 }

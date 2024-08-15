@@ -27,9 +27,9 @@ namespace TripPlanner.Application.Cars.Commands.CreateCar
 			{
 				throw new NotFoundException(nameof(Service), request.ServiceId.ToString());
 			}
-
+			var imagePath = await carRepository.SaveCarImageAsync(request.CarImage);
 			var car = mapper.Map<Car>(request);
-
+			car.ImagePath = imagePath;
 			return await carRepository.Add(car);
 		}
 	}
