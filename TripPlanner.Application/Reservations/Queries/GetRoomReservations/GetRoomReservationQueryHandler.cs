@@ -14,6 +14,7 @@ using TripPlanner.Domain.Exceptions;
 namespace TripPlanner.Application.Reservations.Queries.GetRoomReservations
 {
 	public class GetRoomReservationQueryHandler(IServiceRepository serviceRepository,
+        IAccountRepository accountRepository,
 		IMapper mapper) : IRequestHandler<GetRoomReservationQuery, IEnumerable<RoomReservationDto>>
 	{
 		public async Task<IEnumerable<RoomReservationDto>> Handle(GetRoomReservationQuery request, CancellationToken cancellationToken)
@@ -25,8 +26,25 @@ namespace TripPlanner.Application.Reservations.Queries.GetRoomReservations
 			}
 			var reservations = service.Reservations?.ToList();
 
-			var results = mapper.Map<IEnumerable<RoomReservationDto>>(reservations);
-			return results;
+            IList<RoomReservationDto> results = [];
+            foreach (var reservation in reservations)
+            {
+                var user = await accountRepository.GetUserAsync(reservation.UserId);
+                var result = new RoomReservationDto
+                {
+                    Id = reservation.Id,
+                    ServiceId = reservation.ServiceId,
+                    RoomId = (int)reservation.RoomId!,
+                    Cost = reservation.Cost,
+                    Status = reservation.Status,
+                    ElectronicPayment = reservation.ElectronicPayment,
+                    UserName = user.UserName!,
+                    From = reservation.From,
+                    To = reservation.To,
+                };
+                results.Add(result);
+            }
+            return results;
 		}
 	}
 }

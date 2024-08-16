@@ -15,6 +15,7 @@ using TripPlanner.Domain.Repositories;
 namespace TripPlanner.Application.Reservations.Queries.GetCarReservations
 {
 	public class GetCarReservationsQueryHandler(IServiceRepository serviceRepository,
+		IAccountRepository accountRepository,
 		IMapper mapper) : IRequestHandler<GetCarReservationsQuery, IEnumerable<CarReservationDto?>>
 	{
 		public async Task<IEnumerable<CarReservationDto?>> Handle(GetCarReservationsQuery request, CancellationToken cancellationToken)
@@ -26,8 +27,24 @@ namespace TripPlanner.Application.Reservations.Queries.GetCarReservations
 			}
 
 			var reservations = service.Reservations?.ToList();
-
-			var results = mapper.Map<IEnumerable<CarReservationDto>>(reservations);
+			IList<CarReservationDto> results = [];
+			foreach(var reservation in reservations)
+			{
+				var user = await accountRepository.GetUserAsync(reservation.UserId);
+				var result = new CarReservationDto
+				{
+					Id = reservation.Id,
+					ServiceId=reservation.ServiceId,
+					CarId = (int)reservation.CarId!,
+					Cost = reservation.Cost,
+					Status = reservation.Status,
+					ElectronicPayment = reservation.ElectronicPayment,
+					UserName = user.UserName!,
+					From = reservation.From,
+					To = reservation.To,
+				};
+				results.Add(result);
+			}
 			return results;
 		}
 	}

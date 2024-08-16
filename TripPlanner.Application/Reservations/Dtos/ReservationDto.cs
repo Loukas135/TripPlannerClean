@@ -16,8 +16,8 @@ namespace TripPlanner.Application.Reservations.Dtos
 		[DataType(DataType.Date)]
 		public DateTime To { get; set; } = default!;
 		public int ServiceId { get; set; }
-		public string Payment { get; set; } = default!;
-		public string UserId { get; set; } = default!;
+        public bool ElectronicPayment { get; set; } = default!;
+        public string UserName { get; set; } = default!;
 		public string Status { get; set; } = default!;
 	}
 }
