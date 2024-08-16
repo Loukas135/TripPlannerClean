@@ -29,73 +29,87 @@ namespace TripPlanner.Infrastructure.Seeders.Governorates
                 new()
                 {
                     Name = "Damascus",
-                    Description = "Damascus is the capital of Syria"
+                    Description = "Damascus is the capital of Syria",
+                    ImagePath = "Images/Governorates/Damascus.jpg"
                 },
                 new()
                 {
                     Name = "Latakia",
-                    Description = "Latakia is one of the Syrian governorate"
+                    Description = "Latakia is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Latakia.jpg"
                 },
                 new()
                 {
                     Name = "Tartous",
-                    Description = "Tartous is one of the Syrian governorate"
+                    Description = "Tartous is one of the Syrian governorate",
+                    ImagePath = "Imgaes/Governorates/Tartous.jpg"
                 },
                 new()
                 {
                     Name = "Aleppo",
-                    Description = "Aleppo is one of the Syrian governorate"
+                    Description = "Aleppo is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Aleppo.jpg"
                 },
                 new()
                 {
                     Name = "Daraa",
-                    Description = "Daraa is one of the Syrian governorate"
+                    Description = "Daraa is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Daraa.jpg"
                 },
                 new()
                 {
                     Name = "Qunaitira",
-                    Description = "Qunaitira is one of the Syrian governorate"
+                    Description = "Qunaitira is one of the Syrian governorate",
+                   ImagePath = "Images/Governorates/Qunaitira.jpg"
                 },
                 new()
                 {
                     Name = "Sweida",
-                    Description = "Sweida is one of the Syrian governorate"
+                    Description = "Sweida is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Sweida.jpg"
                 },
                 new()
                 {
 
                     Name = "Idleb",
-                    Description = "Idleb is one of the Syrian governorate"
+                    Description = "Idleb is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Idleb.jpg"
                 },
                 new()
                 {
                     Name = "Deir Al Zor",
-                    Description = "Deir Al Zor is one of the Syrian governorate"
+                    Description = "Deir Al Zor is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Deir_Al_Zor.jpg"
                 },
                 new()
                 {
                     Name = "Al Hasaka",
-                    Description = "Al Hasaka is one of the Syrian governorate"
+                    Description = "Al Hasaka is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Al_Hasaka.jpg"
                 },
                 new()
                 {
                     Name = "Homs",
-                    Description = "Homs is one of the Syrian governorate"
+                    Description = "Homs is one of the Syrian governorate",
+                    ImagePath = "Images/Governorates/Homs.jpg"
                 },
                 new()
                 {
                     Name = "Al Raqqa",
-                    Description = "Al Raqqa is one of the Syrian governorate"
+                    Description = "Al Raqqa is one of the Syrian governorate",
+                     ImagePath = "Images/Governorates/Al_Raqqa.jpg"
                 },
                 new()
                 {
                     Name = "Hama",
-                    Description = "Hama is one of the Syrian governorate"
+                    Description = "Hama is one of the Syrian governorate",
+                     ImagePath = "Images/Governorates/Hama.jpg"
                 },
                 new()
                 {
                     Name = "Liwaa Iskandaron",
-                    Description = "Liwaa Iskandaron is one of the Syrian governorate"
+                    Description = "Liwaa Iskandaron is one of the Syrian governorate",
+                     ImagePath = "Images/Governorates/Liwaa_Iskandaron.jpg"
                 },
             ];
             return governorates;

@@ -10,5 +10,6 @@ namespace TripPlanner.Application.Governorates.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImagePath { get; set; }
     }
 }

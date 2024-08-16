@@ -10,5 +10,6 @@ namespace TripPlanner.Application.ServiceTypes.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImagePath { get; set; }
     }
 }

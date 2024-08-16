@@ -23,16 +23,19 @@ namespace TripPlanner.Infrastructure.Seeders.ServiceTypeSeeder
 			List<ServiceType> serviceTypes = [
 				new()
 				{
-					Name = "Hotel"
-				},
+					Name = "Hotel",
+					ImagePath= "Images/ServiceTypes/Hotel.jpg"
+                },
 				new()
 				{
-					Name = "CarRental"
-				},
+					Name = "CarRental",
+                    ImagePath= "Images/ServiceTypes/CarRental.jpg"
+                },
 				new()
 				{
-					Name = "TourismOffice"
-				}
+					Name = "TourismOffice",
+                    ImagePath = "Images/ServiceTypes/TourismOffice.jpg"
+                }
 			];
 			return serviceTypes;
 		}

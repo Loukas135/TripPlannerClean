@@ -10,6 +10,7 @@ namespace TripPlanner.Domain.Entities.Service_Entities
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = default!;
+		public string ImagePath { get; set; } = default!;
 		public List<Service>? Services { get; set; }
 	}
 }
