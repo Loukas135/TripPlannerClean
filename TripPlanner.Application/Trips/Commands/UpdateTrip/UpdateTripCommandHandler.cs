@@ -25,7 +25,7 @@ namespace TripPlanner.Application.Trips.Commands.UpdateTrip
 			}
 
 			mapper.Map(request, trip);
-			await tripRepository.SaveChanges();
+			await tripRepository.UpdateTrip(request.TripImage!,trip);
 		}
 	}
 }

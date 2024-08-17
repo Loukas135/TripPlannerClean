@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TripPlanner.Domain.Entities.Service_Entities;
+using TripPlanner.Domain.Entities.Service_Entities.Car_Rental;
 using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 using TripPlanner.Domain.Repositories;
 using TripPlanner.Infrastructure.Persistence;
@@ -90,5 +91,18 @@ namespace TripPlanner.Infrastructure.Repositories
 
 
         }
-    }
+		public async Task UpdateRoom(IFormFile newImage, Room room)
+		{
+			var content = environment.ContentRootPath;
+			if (room.ImagePath != null)
+			{
+				var deletePath = Path.Combine(content, room.ImagePath);
+				File.Delete(deletePath);
+			}
+			var path = await SaveRoomImageAsync(newImage);
+			room.ImagePath = path;
+			dbContext.Rooms.Update(room);
+            await dbContext.SaveChangesAsync();
+		}
+	}
 }

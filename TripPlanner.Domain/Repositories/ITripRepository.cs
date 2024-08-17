@@ -17,5 +17,6 @@ namespace TripPlanner.Domain.Repositories
 		public Task DeleteTripReservations(int id);
 		public Task FullyDeleteTrip(int id);
         public Task<string> SaveTripImageAsync(IFormFile tripImage);
+		public Task UpdateTrip(IFormFile newImage, Trip trip);
 	}
 }

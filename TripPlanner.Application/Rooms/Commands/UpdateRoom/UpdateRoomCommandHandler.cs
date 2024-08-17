@@ -25,7 +25,7 @@ namespace TripPlanner.Application.Rooms.Commands.UpdateRoom
 			}
 
 			mapper.Map(request, room);
-			await roomRepository.SaveChanges();
+			await roomRepository.UpdateRoom(request.RoomImage,room);
 		}
 	}
 }

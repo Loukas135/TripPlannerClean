@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TripPlanner.Domain.Entities.Service_Entities;
 using TripPlanner.Domain.Entities.Service_Entities.Car_Rental;
 using TripPlanner.Domain.Entities.Service_Entities.Hotel;
 using TripPlanner.Domain.Repositories;
@@ -82,5 +83,18 @@ namespace TripPlanner.Infrastructure.Repositories
             await DeleteCarReservations(id);
             await Delete(car);
         }
-    }
+
+		public async Task UpdateCar(IFormFile newImage, Car car)
+		{
+            var content = environment.ContentRootPath;
+            if (car.ImagePath != null) {
+				var deletePath = Path.Combine(content, car.ImagePath);
+				File.Delete(deletePath);
+			}
+			var path = await SaveCarImageAsync(newImage);
+			car.ImagePath = path;
+			dbContext.Cars.Update(car);
+            await dbContext.SaveChangesAsync();
+		}
+	}
 }

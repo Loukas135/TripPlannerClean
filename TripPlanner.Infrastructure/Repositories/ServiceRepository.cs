@@ -244,5 +244,10 @@ namespace TripPlanner.Infrastructure.Repositories
             //var pathName = fullName.Substring(0);
             return returnName;
         }
+		public async Task UpdateService(IFormFile newImage,Service service) {
+			var path = await SaveServiceImageAsync(newImage);
+			service.ImagePath=path;
+			dbContext.Services.Update(service);
+		}
     }
 }

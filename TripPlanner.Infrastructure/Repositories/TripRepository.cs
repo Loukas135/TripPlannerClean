@@ -84,5 +84,18 @@ namespace TripPlanner.Infrastructure.Repositories
            await  Delete(trip);
 
         }
-    }
+		public async Task UpdateTrip(IFormFile newImage, Trip trip)
+		{
+			var content = hostEnvironment.ContentRootPath;
+			if (trip.ImagePath != null)
+			{
+				var deletePath = Path.Combine(content, trip.ImagePath);
+				File.Delete(deletePath);
+			}
+			var path = await SaveTripImageAsync(newImage);
+			trip.ImagePath = path;
+			dbContext.Trips.Update(trip);
+			await dbContext.SaveChangesAsync();
+		}
+	}
 }

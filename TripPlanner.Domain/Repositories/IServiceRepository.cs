@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using TripPlanner.Domain.Entities;
 using TripPlanner.Domain.Entities.Service_Entities;
+using TripPlanner.Domain.Entities.Service_Entities.Car_Rental;
 
 namespace TripPlanner.Domain.Repositories
 {
@@ -25,6 +26,8 @@ namespace TripPlanner.Domain.Repositories
 		public Task<Service> GetServiceWithReservations(int id);
 		public Task<IEnumerable<Service>> GetServicesWithReservationsByGov(int id);
 		public Task<IEnumerable<Service>> GetServiceFromUserReservation(string userid);
+		public Task UpdateService(IFormFile newImage, Service service);
 
-    }
+
+	}
 }

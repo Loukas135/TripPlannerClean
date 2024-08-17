@@ -25,7 +25,7 @@ namespace TripPlanner.Application.Cars.Commands.UpdateCar
 			}
 
 			mapper.Map(request, car);
-			await carRepository.SaveChanges();
+			await carRepository.UpdateCar(request.ImagePath,car);
 		}
 	}
 }
