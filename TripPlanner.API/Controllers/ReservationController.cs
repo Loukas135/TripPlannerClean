@@ -54,10 +54,10 @@ namespace TripPlanner.API.Controllers
 
 		[HttpPut]
 		[Route("/api/[controller]/{reservationId}")]
-		public async Task<ActionResult> ChangeReservationStatus([FromRoute]int reservationId, [FromQuery]bool isAccepted)
+		public async Task<ActionResult> ChangeReservationStatus([FromRoute]int reservationId, [FromBody]ChangeReservationStatusCommand command)
 		{
-			var request = new ChangeReservationStatusCommand(reservationId, isAccepted);
-			await mediator.Send(request);
+			command.reservationId=reservationId;
+			await mediator.Send(command);
 			return Ok();
 		}
 		[HttpGet]

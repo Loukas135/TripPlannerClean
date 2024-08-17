@@ -51,9 +51,9 @@ namespace TripPlanner.Application.Reservations.Commands.Room
 
 			if (request.ElectronicPayment)
 			{
-				if (user!.Wallet >= (int)reservation.Cost)
+				if (user!.Wallet >= reservation.Cost)
 				{
-					user!.Wallet -= (int)reservation.Cost;
+					user!.Wallet -= reservation.Cost;
 					await userManager.UpdateAsync(user);
 				}else
 				{
